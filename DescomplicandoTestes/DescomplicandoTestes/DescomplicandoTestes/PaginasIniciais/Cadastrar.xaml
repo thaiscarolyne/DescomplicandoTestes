@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.PaginasIniciais.Cadastrar">
+
+    <NavigationPage.TitleView>
+        
+        <StackLayout Margin="-40, 0, 0, 0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="CADASTRAR" TextColor="White" FontFamily="{StaticResource BoldGillSans}" FontSize="Large"/>
+        </StackLayout>  
+        
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="#E2C1FE">
+
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+
+                <RelativeLayout>
+
+                    <BoxView 
+                        CornerRadius="50, 50, 0, 0" BackgroundColor="White" 
+                        x:Name="Box"
+                        HeightRequest="180"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.2, Property=Height}"
+                    />
+
+                    <Entry 
+                        Placeholder="Nome completo"                 
+                        TextColor="#939393" FontFamily="{StaticResource BoldGillSans}"
+                        HorizontalTextAlignment="Center" VerticalOptions="End"
+                        HeightRequest="45"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"                
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
+                    />
+
+                    <Entry 
+                        Placeholder="Matrícula"                 
+                        TextColor="#939393" FontFamily="{StaticResource BoldGillSans}"
+                        HorizontalTextAlignment="Center" VerticalOptions="End"
+                        HeightRequest="45"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"                
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=70}"
+                    />
+
+                    <Entry 
+                        Placeholder="Senha"  IsPassword="True"               
+                        TextColor="#939393" FontFamily="{StaticResource BoldGillSans}"
+                        HorizontalTextAlignment="Center" VerticalOptions="End"
+                        HeightRequest="45"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=120}"
+                    />
+
+                    <Button 
+                        HeightRequest="45" VerticalOptions="Center"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width, Constant=10}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=Box,Constant=-5}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=170}"
+                        Text="CADASTRAR" TextColor="White" FontFamily="{StaticResource BoldGillSans}" FontSize="Large" BackgroundColor="HotPink" 
+                        BorderRadius="15" BorderWidth="2" BorderColor="White"
+                    />
+                    
+                </RelativeLayout>
+
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>
