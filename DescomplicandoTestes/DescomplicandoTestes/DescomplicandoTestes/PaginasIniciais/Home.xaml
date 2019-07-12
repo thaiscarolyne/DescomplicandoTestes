@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.PaginasIniciais.Home">
+
+    <NavigationPage.TitleView>
+        <StackLayout Margin="-40, 0, 0, 0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label x:Name="label" Text="HOME" TextColor="White" FontFamily="{StaticResource BoldGillSans}" FontSize="Large" HorizontalTextAlignment="Start"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#E2C1FE" Spacing="0">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+            
+            <StackLayout x:Name="LayoutHomeBotoes" VerticalOptions="CenterAndExpand">                    
+                
+                <RelativeLayout>                    
+                    <Button                         
+                        x:Name="BotaoAlunos"                    
+                        HeightRequest="70" 
+                        BackgroundColor="HotPink" 
+                        BorderRadius="50" BorderWidth="2" BorderColor="White"        
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                    />
+                    <Image 
+                        Source="alunos.png"
+                        HeightRequest="65"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-68}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAlunos,Constant=2.5}"
+                    />
+                    <Label 
+                        x:Name="LabelAlunos"
+                        Text="ALUNOS" TextColor="White"                     
+                        FontFamily="{StaticResource BoldGillSans}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAlunos,Constant=16}"
+                    />
+                </RelativeLayout>
+
+                <RelativeLayout> 
+                    
+                    <Button 
+                        x:Name="BotaoDisciplinas"           
+                        BackgroundColor="#DA70D6" 
+                        HeightRequest="70"
+                        BorderRadius="50" BorderWidth="2" BorderColor="White"   
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                    />
+                    <Image 
+                        Source="disciplinas.png"
+                        HeightRequest="65"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-67}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoDisciplinas,Constant=2.5}"
+                    />
+                    <Label 
+                        x:Name="LabelDisciplinas"
+                        Text="DISCIPLINAS" TextColor="White"                       
+                        FontFamily="{StaticResource BoldGillSans}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoDisciplinas,Constant=16}"
+                    />
+                </RelativeLayout>
+                
+                <RelativeLayout>
+                    <Button 
+                        x:Name="BotaoTurmas"
+                        HeightRequest="70"                    
+                        BackgroundColor="#FFA07A" 
+                        BorderRadius="50" BorderWidth="2" BorderColor="White"        
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                    />
+                    <Image 
+                        Source="turmas.png"
+                        HeightRequest="65"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-67}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoTurmas,Constant=2.5}"
+                    />
+                    <Label 
+                        x:Name="LabelTurmas"
+                        Text="TURMAS" TextColor="White"                    
+                        FontFamily="{StaticResource BoldGillSans}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoTurmas,Constant=16}"
+                    />
+                </RelativeLayout>
+
+                <RelativeLayout>
+                    <Button 
+                        x:Name="BotaoProvas"
+                        HeightRequest="70"                    
+                        BackgroundColor="#3CB371" 
+                        BorderRadius="50" BorderWidth="2" BorderColor="White"        
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                    />
+                    <Image 
+                        Source="provas.png"
+                        HeightRequest="65"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-67}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoProvas,Constant=2.5}"
+                    />
+                    <Label 
+                        x:Name="LabelProvas"
+                        Text="PROVAS" TextColor="White"                      
+                        FontFamily="{StaticResource BoldGillSans}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoProvas,Constant=16}"
+                    />
+                </RelativeLayout>
+
+            </StackLayout>
+            
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

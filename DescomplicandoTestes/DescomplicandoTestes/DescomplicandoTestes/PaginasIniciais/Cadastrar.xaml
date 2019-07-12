@@ -11,21 +11,23 @@
         
     </NavigationPage.TitleView>
 
-    <ContentPage.Content>
-        <ScrollView>
-            <StackLayout BackgroundColor="#E2C1FE">
+    <ContentPage.Content>        
 
-                <Image Source="Cabecalho.png" Aspect="Fill" />
+        <StackLayout BackgroundColor="#E2C1FE" Spacing="0">
 
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill"/>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="0, -80, 0, 0">
                 <RelativeLayout>
 
-                    <BoxView 
+                    <BoxView                         
                         CornerRadius="50, 50, 0, 0" BackgroundColor="White" 
                         x:Name="Box"
-                        HeightRequest="180"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                
+                        HeightRequest="220"                        
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"  
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.2, Property=Height}"
                     />
 
                     <Entry 
@@ -45,7 +47,7 @@
                         HeightRequest="45"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"                
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=70}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=75}"
                     />
 
                     <Entry 
@@ -55,24 +57,24 @@
                         HeightRequest="45"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=120}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=130}"
                     />
 
                     <Button 
                         HeightRequest="45" VerticalOptions="Center"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width, Constant=10}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=Box,Constant=-5}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=170}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=190}"
                         Text="CADASTRAR" TextColor="White" FontFamily="{StaticResource BoldGillSans}" FontSize="Large" BackgroundColor="HotPink" 
                         BorderRadius="15" BorderWidth="2" BorderColor="White"
+                        Clicked="MudarPaginaHome"
                     />
-                    
-                </RelativeLayout>
 
+                </RelativeLayout>
 
             </StackLayout>
 
-        </ScrollView>
+        </StackLayout>       
 
     </ContentPage.Content>
 </ContentPage>

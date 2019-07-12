@@ -21,5 +21,10 @@ namespace DescomplicandoTestes.PaginasIniciais
         {
             Navigation.PushAsync(new Cadastrar());
         }
-	}
+
+        private void MudarPaginaHome(object sender, EventArgs args)
+        {
+            Navigation.PushAsync(new Home());
+        }
+    }
 }
