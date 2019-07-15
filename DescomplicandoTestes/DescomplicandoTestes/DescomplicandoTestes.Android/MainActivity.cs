@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace DescomplicandoTestes.Droid
 {
-    [Activity(Label = "Descomplicando Testes", Icon = "@drawable/test", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Descomplicando Testes", Icon = "@drawable/test512x512", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

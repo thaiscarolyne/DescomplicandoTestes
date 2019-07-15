@@ -4,9 +4,8 @@
     <color android:color="#E2C1FE"/>
   </item>
   <item>
-
     <bitmap
-      android:src="@drawable/test"
+      android:src="@drawable/test128x128"
       android:tileMode="disabled"
       android:gravity="center"
       />
