@@ -23,10 +23,10 @@ namespace DescomplicandoTestes.PaginasIniciais
             {
                 LayoutHomeBotoes.Spacing = 20;
 
-                LabelAlunos.FontSize = 22;
-                LabelDisciplinas.FontSize = 19;
-                LabelTurmas.FontSize = 22;
-                LabelProvas.FontSize = 22;
+                LabelAlunos.FontSize = 25;
+                LabelDisciplinas.FontSize = 21;
+                LabelTurmas.FontSize = 25;
+                LabelProvas.FontSize = 25;
             }
 
             if (height > 550 && height < 650)

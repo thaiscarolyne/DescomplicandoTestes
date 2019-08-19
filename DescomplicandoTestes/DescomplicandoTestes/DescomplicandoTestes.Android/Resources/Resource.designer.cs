@@ -3030,7 +3030,7 @@ namespace DescomplicandoTestes.Droid
 			public const int test128x128 = 2130837808;
 			
 			// aapt resource value: 0x7f020131
-			public const int test150x150 = 2130837809;
+			public const int test256x256 = 2130837809;
 			
 			// aapt resource value: 0x7f020132
 			public const int test512x512 = 2130837810;

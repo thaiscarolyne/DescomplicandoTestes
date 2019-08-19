@@ -63,7 +63,7 @@
                         Text="DISCIPLINAS" TextColor="White"                       
                         FontFamily="{StaticResource BoldGillSans}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoDisciplinas,Constant=16}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoDisciplinas,Constant=18}"
                     />
                 </RelativeLayout>
                 
