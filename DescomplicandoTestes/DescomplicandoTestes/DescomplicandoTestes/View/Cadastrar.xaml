@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.Cadastrar">
+
+    <NavigationPage.TitleView>
+        
+        <StackLayout Margin="-40, 0, 0, 0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="CADASTRAR"  Style="{StaticResource Cabecalho}"/>
+        </StackLayout>  
+        
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill"/>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="0, -80, 0, 0">
+                <RelativeLayout>
+
+                    <BoxView 
+                        x:Name="Box"
+                        HeightRequest="220" 
+                    />
+
+                    <Entry 
+                        Placeholder="Nome completo" 
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
+                    />
+
+                    <Entry 
+                        Placeholder="Matrícula" 
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=75}"
+                    />
+
+                    <Entry 
+                        Placeholder="Senha"  IsPassword="True"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=130}"
+                    />
+
+                    <Button
+                        x:Name="BotaoCadastrar"
+                        Style="{StaticResource BotaoPequeno}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=190}"
+                        Text="CADASTRAR" BackgroundColor="HotPink" 
+                        Command="{Binding MudarPaginaHome}"
+                    />
+
+                </RelativeLayout>
+
+            </StackLayout>
+
+        </StackLayout>       
+
+    </ContentPage.Content>
+</ContentPage>

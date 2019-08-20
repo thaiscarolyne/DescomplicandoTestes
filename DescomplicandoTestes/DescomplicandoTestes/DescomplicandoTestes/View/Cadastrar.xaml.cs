@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DescomplicandoTestes.PaginasIniciais
+namespace DescomplicandoTestes.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Cadastrar : ContentPage
@@ -15,11 +15,8 @@ namespace DescomplicandoTestes.PaginasIniciais
 		public Cadastrar ()
 		{
 			InitializeComponent ();
-		}
 
-        private void MudarPaginaHome(object sender, EventArgs args)
-        {
-            Navigation.PushAsync(new Home());
-        }
+            BindingContext = new ViewModel.LoginCadastrarViewModel();
+		}
     }
 }

@@ -16,14 +16,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="PaginasIniciais\Cadastrar.xaml">
+    <EmbeddedResource Update="View\Cadastrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="PaginasIniciais\Home.xaml">
+    <EmbeddedResource Update="View\Home.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="PaginasIniciais\Login.xaml">
+    <EmbeddedResource Update="View\Login.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Banco\" />
   </ItemGroup>
 </Project>

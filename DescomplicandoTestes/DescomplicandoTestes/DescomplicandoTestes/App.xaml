@@ -3,13 +3,77 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DescomplicandoTestes.App">
     <Application.Resources>
-        <ResourceDictionary>
-            <OnPlatform x:TypeArguments="x:String" x:Key="GillSans">
-                <On Platform="Android" Value="gill-sans-bold.ttf#Gill Sans"/>
-            </OnPlatform>
-            <OnPlatform x:TypeArguments="x:String" x:Key="BoldGillSans">
-                <On Platform="Android" Value="gill-sans-ultra-bold.ttf#Bold Gill Sans"/>
-            </OnPlatform>
+        <ResourceDictionary>   
+            
+            <!-- LABEL -->
+
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="gill-sans-ultra-bold.ttf#Bold Gill Sans"/>
+            </Style>
+
+            <Style TargetType="Label" x:Key="Cabecalho">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+
+            <!-- ENTRY -->
+
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily" Value="gill-sans-ultra-bold.ttf#Bold Gill Sans"/>
+                <Setter Property="TextColor" Value="#939393"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"/>
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"/>
+            </Style>
+
+            <!-- BUTTON -->
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="gill-sans-ultra-bold.ttf#Bold Gill Sans"/>
+            </Style>
+
+            <Style TargetType="Button" x:Key="BotaoPequeno">
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.85, Property=Width}"/>
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.075, Property=Width}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="BorderRadius" Value="15"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="BorderColor" Value="White"/>
+            </Style>
+
+            <Style TargetType="Button" x:Key="BotaoGrande">
+                <Setter Property="HeightRequest" Value="70"/>
+                <Setter Property="BorderRadius" Value="50"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="BorderColor" Value="White"/>
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"/>
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"/>
+            </Style>
+
+            <!-- STACK LAYOUT -->
+
+            <Style TargetType="StackLayout" x:Key="Fundo">
+                <Setter Property="BackgroundColor" Value="#E2C1FE"/>
+                <Setter Property="Spacing" Value="0"/>
+            </Style>
+
+            <!-- BOX VIEW -->
+
+            <Style TargetType="BoxView">
+                <Setter Property="CornerRadius" Value="50, 50, 0, 0"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"/>
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"/>
+            </Style>
+            
+            
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

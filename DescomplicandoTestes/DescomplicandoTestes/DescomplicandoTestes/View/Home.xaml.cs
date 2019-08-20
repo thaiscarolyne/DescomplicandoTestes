@@ -7,7 +7,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DescomplicandoTestes.PaginasIniciais
+namespace DescomplicandoTestes.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Home : ContentPage
@@ -15,6 +15,8 @@ namespace DescomplicandoTestes.PaginasIniciais
 		public Home ()
 		{
 			InitializeComponent ();
+
+            BindingContext = new ViewModel.HomeViewModel();
             
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
             var height = (double)(mainDisplayInfo.Height / mainDisplayInfo.Density);
@@ -50,5 +52,7 @@ namespace DescomplicandoTestes.PaginasIniciais
             }
 
         }
+
+        
     }
 }

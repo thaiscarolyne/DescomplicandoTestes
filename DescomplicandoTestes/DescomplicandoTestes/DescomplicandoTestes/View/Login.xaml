@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.Login">
+
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="LOGIN" Style="{StaticResource Cabecalho}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <RelativeLayout>
+
+                    <BoxView 
+                        x:Name="Box"                       
+                        HeightRequest="130"                        
+                    />
+
+                    <Entry 
+                        Placeholder="Matrícula"                       
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
+                    />
+
+                    <Entry 
+                        Placeholder="Senha"  IsPassword="True"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=70}"
+                    />
+
+                    <Button 
+                        x:Name="BotaoLogin"
+                        Style="{StaticResource BotaoPequeno}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=120}"
+                        Text="LOGIN" BackgroundColor="HotPink" 
+                        Command="{Binding MudarPaginaHome}"
+                    />
+
+                </RelativeLayout>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="StartAndExpand">
+
+                <Label HorizontalOptions="CenterAndExpand"
+                    Text="Não é cadastrado? Cadastre-se!" TextColor="#939393" FontSize="Small"
+                />
+
+                <RelativeLayout>
+                    <Button 
+                        Style="{StaticResource BotaoPequeno}"
+                        Text="CADASTRAR" BackgroundColor="HotPink" 
+                        Command="{Binding MudarPaginaCadastrar}"
+                    />
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+
+
+    </ContentPage.Content>
+</ContentPage>
