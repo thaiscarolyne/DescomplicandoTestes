@@ -20,12 +20,12 @@ namespace DescomplicandoTestes.ViewModel
             MudarPaginaCadastrar = new Command(MudarPaginaCadastrarAction);
         }
 
-        private void MudarPaginaHomeAction(object sender)
+        private void MudarPaginaHomeAction()
         {
             App.Current.MainPage = new NavigationPage(new Home()) {BarBackgroundColor = Color.HotPink};
         }
 
-        private void MudarPaginaCadastrarAction(object sender)
+        private void MudarPaginaCadastrarAction()
         {
             App.Current.MainPage.Navigation.PushAsync(new Cadastrar());
         }

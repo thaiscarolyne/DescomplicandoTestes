@@ -6,7 +6,7 @@
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Spacing="-40">
             <Label Text="HOME"  Style="{StaticResource Cabecalho}"/>
-            <ImageButton Source="logout.png" HorizontalOptions="End" BackgroundColor="Pink" CornerRadius="5" BorderWidth="1" BorderColor="White" HeightRequest="40" Margin="0, 0, 20, 0" Clicked="Logout"/>
+            <ImageButton Source="logout.png" HorizontalOptions="End" BackgroundColor="Pink" CornerRadius="5" BorderWidth="1" BorderColor="White" HeightRequest="40" Margin="0, 0, 20, 0"  Command="{Binding Logout}"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -24,7 +24,7 @@
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoAlunos" 
                         BackgroundColor="HotPink" 
-                        Clicked="Teste"
+                        Command="{Binding Teste}"
                     />
                     <Image
                         Source="alunos.png"
@@ -34,7 +34,7 @@
                         >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
-                                Tapped="Teste"
+                                Command="{Binding Teste}"
                                 />
                         </Image.GestureRecognizers>
                     </Image>
@@ -46,7 +46,7 @@
                         >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer
-                                Tapped="Teste"
+                                 Command="{Binding Teste}"
                                 />
                         </Label.GestureRecognizers>
                     </Label>

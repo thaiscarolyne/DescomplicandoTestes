@@ -8,12 +8,18 @@ namespace DescomplicandoTestes.ViewModel
 {
     public class HomeViewModel
     {
+        public Command Logout { get; set; }
+
+        public Command Teste { get; set; }
+
         public HomeViewModel()
         {
+            Logout = new Command(LogoutAction);
 
+            Teste = new Command(TesteAction);
         }
 
-        private async void Logout(object sender, EventArgs args)
+        private async void LogoutAction()
         {
             var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente sair do sistema?", "SIM", "NÃO");
 
@@ -23,7 +29,7 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-        private void Teste(object sender, EventArgs args)
+        private void TesteAction()
         {
             App.Current.MainPage.DisplayAlert("Clique", "Clicou", "OK");
         }
