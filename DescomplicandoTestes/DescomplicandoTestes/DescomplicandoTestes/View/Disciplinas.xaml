@@ -23,7 +23,7 @@
                     <Button       
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoCadastrarDisciplina" 
-                        BackgroundColor="#A076E8" 
+                        BackgroundColor="{StaticResource CorDisciplina}" 
                         Command="{Binding Teste}"
                     />
                     <Image

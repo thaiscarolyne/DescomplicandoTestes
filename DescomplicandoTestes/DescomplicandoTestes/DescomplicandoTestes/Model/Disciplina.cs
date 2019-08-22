@@ -13,13 +13,13 @@ namespace DescomplicandoTestes.Model
         /// <summary>
         /// Construtor da classe Disciplina
         /// </summary>
-        /// <param name="Disciplina">Nome da disciplina</param>
-        /// <param name="Sig">Sigla da disciplina</param>
-        public Disciplina(string Disciplina, string Sig)
+        /// <param name="nomedisciplina">Nome da disciplina</param>
+        /// <param name="sigla">Sigla da disciplina</param>
+        public Disciplina(string nomedisciplina, string sigla)
         {
-            Nome_Disciplina = Disciplina;
+            Nome_Disciplina = nomedisciplina;
 
-            Sigla = Sig;
+            Sigla = sigla;
         }
     }
 }

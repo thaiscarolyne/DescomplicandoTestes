@@ -5,6 +5,12 @@
     <Application.Resources>
         <ResourceDictionary>   
             
+            <!-- CORES -->
+
+            <Color x:Key="CorDisciplina">#A076E8</Color>
+            <Color x:Key="CorConteudo">#C047FB</Color>
+
+
             <!-- LABEL -->
 
             <Style TargetType="Label">

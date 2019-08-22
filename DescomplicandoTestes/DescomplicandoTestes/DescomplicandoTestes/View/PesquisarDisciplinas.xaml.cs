@@ -18,5 +18,10 @@ namespace DescomplicandoTestes.View
 
             BindingContext = new ViewModel.PesquisarDisciplinasViewModel();
         }
-	}
+
+        private void MudarPaginaVisualizarDisciplina(object sender, ItemTappedEventArgs args)
+        {
+            App.Current.MainPage.Navigation.PushAsync(new VisualizarDisciplina());
+        }
+    }
 }

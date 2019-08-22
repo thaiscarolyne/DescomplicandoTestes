@@ -60,44 +60,47 @@
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
                     />
 
-                    <ListView x:Name="ListViewDisciplinas"
+                    <ListView
+                        
+                            ItemTapped="MudarPaginaVisualizarDisciplina"
                             ItemsSource="{Binding ListaDisciplinas}"                                   
                             SeparatorVisibility="None"
                             RowHeight="100"
-                            SelectionMode="None"         
+                            SelectionMode="None"
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaDisciplinas,Constant=20}"  
-                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"
-                                 
-                     >
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"                                 
+                     >                        
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell>
+                                <ViewCell>                                    
                                     <RelativeLayout HorizontalOptions="FillAndExpand">
                                         <BoxView 
                                                 x:Name="Box" 
                                                 CornerRadius ="20, 20, 20, 20"
                                                 HeightRequest="80"  
-                                                BackgroundColor="#A076E8"
-                                            />
+                                                BackgroundColor="{StaticResource CorDisciplina}"                                             
+                                        >                                      
+                                        </BoxView>
                                         <StackLayout 
                                             HorizontalOptions="FillAndExpand" 
                                             HeightRequest="70"
                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                                            
                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
-                                            Padding="0,5,0,0"
+                                            Padding="5,5,5,5"
                                         >
-                                            <Label 
-                                                Text="{Binding Nome_Disciplina}"
-                                                LineBreakMode="NoWrap" 
-                                                HorizontalTextAlignment="Center"                                               
-                                             />
+                                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                                <Label 
+                                                    Text="{Binding Nome_Disciplina}"
+                                                    LineBreakMode="NoWrap"                                              
+                                                />
+                                            </StackLayout>                                            
 
                                             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
                                                 <ImageButton Source="editar.png"/>
                                                 <ImageButton Source="excluir.png"/>
-                                            </StackLayout>
-                                            
+                                            </StackLayout>  
+
                                         </StackLayout>
                                         
                                     </RelativeLayout>

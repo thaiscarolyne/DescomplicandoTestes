@@ -57,7 +57,7 @@
                     <Button 
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoDisciplinas"           
-                        BackgroundColor="#A076E8" 
+                        BackgroundColor="{StaticResource CorDisciplina}" 
                         Command="{Binding MudarPaginaDisciplinas}"
                     />
                     <Image 

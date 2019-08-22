@@ -60,8 +60,8 @@
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
                     />
 
-                    <ListView x:Name="ListViewDisciplinas"
-                            ItemsSource="{Binding ListaDisciplinas}"                                   
+                    <ListView
+                            ItemsSource="{Binding ListaConteudos}"                                   
                             SeparatorVisibility="None"
                             RowHeight="100"
                             SelectionMode="None"         
@@ -78,7 +78,7 @@
                                                 x:Name="Box" 
                                                 CornerRadius ="20, 20, 20, 20"
                                                 HeightRequest="80"  
-                                                BackgroundColor="#A076E8"
+                                                BackgroundColor="{StaticResource CorConteudo}"
                                             />
                                         <StackLayout 
                                             HorizontalOptions="FillAndExpand" 
@@ -88,7 +88,7 @@
                                             Padding="0,5,0,0"
                                         >
                                             <Label 
-                                                Text="{Binding Nome_Disciplina}"
+                                                Text="{Binding Nome_Conteudo}"
                                                 LineBreakMode="NoWrap" 
                                                 HorizontalTextAlignment="Center"                                               
                                              />
