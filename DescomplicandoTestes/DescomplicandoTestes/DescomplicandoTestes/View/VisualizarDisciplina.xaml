@@ -16,13 +16,37 @@
                 <Image Source="Cabecalho.png" Aspect="Fill" />
             </StackLayout>
 
-            <StackLayout VerticalOptions="Start">
+            <StackLayout VerticalOptions="Start">                
 
                 <RelativeLayout >
+                    <Button
+                        x:Name="BotaoAdicionar"
+                        Style="{StaticResource BotaoPequeno}"
+                        BackgroundColor="{StaticResource CorAdicionar}"                           
+                        BorderRadius="12"
+                    />
+
+                    <ImageButton 
+                        HeightRequest="41"
+                        Source="adicionar.png"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=BotaoAdicionar,Constant=3}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAdicionar,Constant=2}"
+                    />
+
+                    <Label
+                        x:Name="LabelAdicionarConteudo"
+                        Text="Adicionar conteúdo"    
+                        FontSize="20"
+                        TextColor="White"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=3, Property=X, ElementName=BotaoAdicionar}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAdicionar,Constant=10}"
+                    />
+
                     <BoxView 
                            x:Name="Box" 
                            CornerRadius ="20, 20, 20, 20"
                            HeightRequest="60"  
+                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAdicionar,Constant=60}"
                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
                         />
@@ -66,14 +90,14 @@
                             RowHeight="100"
                             SelectionMode="None"         
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
-                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaConteudos,Constant=20}"  
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaConteudos,Constant=10}"  
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"
                                  
                      >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <RelativeLayout HorizontalOptions="FillAndExpand">
+                                    <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                                         <BoxView 
                                                 x:Name="Box" 
                                                 CornerRadius ="20, 20, 20, 20"
