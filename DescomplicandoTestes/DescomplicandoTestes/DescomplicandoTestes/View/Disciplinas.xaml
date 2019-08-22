@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.Disciplinas">
+
+    <NavigationPage.TitleView>
+        <StackLayout Margin="-40, 0, 0, 0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Label Text="DISCIPLINAS"  Style="{StaticResource Cabecalho}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout Margin="0, -60, 0, 0 " x:Name="LayoutDisciplinasBotoes" VerticalOptions="CenterAndExpand">
+
+                <RelativeLayout>
+                    <Button       
+                        Style="{StaticResource BotaoGrande}"
+                        x:Name="BotaoCadastrarDisciplina" 
+                        BackgroundColor="#A076E8" 
+                        Command="{Binding Teste}"
+                    />
+                    <Image
+                        Source="notebook.png"
+                        HeightRequest="65"
+                        Aspect="Fill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-62}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoCadastrarDisciplina,Constant=2}"
+                        >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Teste}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                        x:Name="LabelCadastrarDisciplina"
+                        Text="Cadastrar disciplina" TextColor="White"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.13, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoCadastrarDisciplina,Constant=20}"
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding Teste}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </RelativeLayout>
+
+                <RelativeLayout>
+
+                    <Button 
+                        Style="{StaticResource BotaoGrande}"
+                        x:Name="BotaoPesquisarDisciplinas"           
+                        BackgroundColor="#3E928C" 
+                        Command="{Binding PesquisarDisciplinas}"
+                    />
+                    <Image 
+                        Source="pesquisarDisciplinas.png"
+                        HeightRequest="65"
+                        Aspect="Fill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-62.3}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoPesquisarDisciplinas,Constant=2}"
+                    >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding PesquisarDisciplinas}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                        x:Name="LabelPesquisarDisciplinas"
+                        Text="Pesquisar disciplinas" TextColor="White"  
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.13, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoPesquisarDisciplinas,Constant=21}"
+                    >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding PesquisarDisciplinas}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

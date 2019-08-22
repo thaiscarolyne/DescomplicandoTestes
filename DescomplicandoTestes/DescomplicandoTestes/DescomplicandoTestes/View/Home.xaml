@@ -57,20 +57,33 @@
                     <Button 
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoDisciplinas"           
-                        BackgroundColor="#DA70D6" 
+                        BackgroundColor="#A076E8" 
+                        Command="{Binding MudarPaginaDisciplinas}"
                     />
                     <Image 
                         Source="disciplinas.png"
                         HeightRequest="65"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-67}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoDisciplinas,Constant=2.5}"
-                    />
+                    >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding MudarPaginaDisciplinas}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Label 
                         x:Name="LabelDisciplinas"
                         Text="DISCIPLINAS" TextColor="White"  
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoDisciplinas,Constant=18}"
-                    />
+                    >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding MudarPaginaDisciplinas}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </RelativeLayout>
                 
                 <RelativeLayout>

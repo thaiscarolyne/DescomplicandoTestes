@@ -12,11 +12,15 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command Teste { get; set; }
 
+        public Command MudarPaginaDisciplinas { get; set; }
+
         public HomeViewModel()
         {
             Logout = new Command(LogoutAction);
 
             Teste = new Command(TesteAction);
+
+            MudarPaginaDisciplinas = new Command(MudarPaginaDisciplinasAction);
         }
 
         private async void LogoutAction()
@@ -32,6 +36,12 @@ namespace DescomplicandoTestes.ViewModel
         private void TesteAction()
         {
             App.Current.MainPage.DisplayAlert("Clique", "Clicou", "OK");
+        }
+
+
+        private void MudarPaginaDisciplinasAction()
+        {
+            App.Current.MainPage.Navigation.PushAsync(new Disciplinas());
         }
     }
 }
