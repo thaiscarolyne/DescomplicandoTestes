@@ -34,7 +34,8 @@ namespace DescomplicandoTestes.ViewModel
         }
 
         private void TesteAction()
-        {
+        {          
+
             App.Current.MainPage.DisplayAlert("Clique", "Clicou", "OK");
         }
 

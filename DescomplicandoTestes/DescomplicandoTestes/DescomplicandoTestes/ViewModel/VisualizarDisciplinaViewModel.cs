@@ -11,7 +11,7 @@ namespace DescomplicandoTestes.ViewModel
         private List<Conteudo> _ListaConteudos;
         public List<Conteudo> ListaConteudos { get { return _ListaConteudos; } set { _ListaConteudos = value; OnPropertyChanged("ListaConteudos"); } }
 
-        public VisualizarDisciplinaViewModel()
+        public VisualizarDisciplinaViewModel(Disciplina disciplina)
         {
             ListaConteudos = new List<Conteudo>();
 

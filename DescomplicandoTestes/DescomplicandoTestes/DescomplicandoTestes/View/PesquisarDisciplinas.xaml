@@ -60,7 +60,7 @@
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
                     />
 
-                    <ListView
+                    <ListView    
                         
                             ItemTapped="MudarPaginaVisualizarDisciplina"
                             ItemsSource="{Binding ListaDisciplinas}"                                   

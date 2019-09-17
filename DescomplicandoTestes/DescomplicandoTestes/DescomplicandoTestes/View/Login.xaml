@@ -26,12 +26,15 @@
                     />
 
                     <Entry 
-                        Placeholder="Matrícula"                       
+                        Placeholder="CPF" 
+                        Keyboard="Numeric"
+                        Text="{Binding CPF}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
                     />
 
                     <Entry 
                         Placeholder="Senha"  IsPassword="True"
+                        Text="{Binding Senha}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=70}"
                     />
 

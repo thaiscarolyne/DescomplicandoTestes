@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using DescomplicandoTestes.Model;
 
 namespace DescomplicandoTestes.View
 {
@@ -21,7 +22,12 @@ namespace DescomplicandoTestes.View
 
         private void MudarPaginaVisualizarDisciplina(object sender, ItemTappedEventArgs args)
         {
-            App.Current.MainPage.Navigation.PushAsync(new VisualizarDisciplina());
+            ListView lista = (ListView)sender;
+
+            Disciplina disciplina = (Disciplina)args.Item;
+
+            App.Current.MainPage.Navigation.PushAsync(new VisualizarDisciplina(disciplina));
         }
+
     }
 }

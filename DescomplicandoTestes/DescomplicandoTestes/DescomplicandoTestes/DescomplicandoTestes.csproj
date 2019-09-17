@@ -28,6 +28,9 @@
     <EmbeddedResource Update="View\PesquisarDisciplinas.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="View\VisualizarConteudo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\VisualizarDisciplina.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -35,6 +38,5 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Banco\" />
   </ItemGroup>
 </Project>
