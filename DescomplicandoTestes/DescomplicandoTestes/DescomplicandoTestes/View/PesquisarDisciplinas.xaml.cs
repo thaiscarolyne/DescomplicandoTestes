@@ -25,7 +25,7 @@ namespace DescomplicandoTestes.View
         //na navegação entre as páginas, tava chamando o método GET em 
         //algumas transições entre as páginas
         public void VisualizarDisciplina(object sender, ItemTappedEventArgs args)
-        {
+        {      
             App.Current.MainPage.Navigation.PushAsync(new VisualizarDisciplina());
         }
 

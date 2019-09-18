@@ -51,7 +51,7 @@
                         />
 
                     <Entry
-                            Placeholder="Pesquisar conteúdo..."
+                            Placeholder="Pesquisar questão..."
                             FontSize="17"
                             HorizontalTextAlignment="Start"
                             Margin="-10,-12,0,0"
@@ -84,7 +84,7 @@
                     />
 
                     <ListView
-                            ItemsSource="{Binding ListaConteudos}"                                   
+                            ItemsSource="{Binding ListaQuestoes}"                                   
                             SeparatorVisibility="None"
                             RowHeight="100"
                             SelectionMode="None"         
@@ -101,20 +101,21 @@
                                                 x:Name="Box" 
                                                 CornerRadius ="20, 20, 20, 20"
                                                 HeightRequest="80"  
-                                                BackgroundColor="{StaticResource CorConteudo}"
+                                                BackgroundColor="{StaticResource CorQuestao}"
                                             />
                                         <StackLayout 
                                             HorizontalOptions="FillAndExpand" 
                                             HeightRequest="70"
                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                                            
                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
-                                            Padding="0,5,0,0"
+                                            Padding="5,5,5,5"
                                         >
-                                            <Label 
-                                                Text="{Binding Nome_Conteudo}"
-                                                LineBreakMode="NoWrap" 
-                                                HorizontalTextAlignment="Center"                                               
-                                             />
+                                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                                <Label 
+                                                    Text="{Binding Nome_Questao}"
+                                                    LineBreakMode="NoWrap"                                               
+                                                 />
+                                            </StackLayout>
 
                                             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
                                                 <ImageButton Source="editar.png"/>

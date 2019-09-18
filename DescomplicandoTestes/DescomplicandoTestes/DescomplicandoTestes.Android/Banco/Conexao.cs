@@ -13,12 +13,13 @@ using Xamarin.Forms;
 using DescomplicandoTestes.Banco;
 using DescomplicandoTestes.Droid.Banco;
 using MySql.Data.MySqlClient;
+using DescomplicandoTestes.Model;
 
 [assembly: Dependency(typeof(Conexao))]
 namespace DescomplicandoTestes.Droid.Banco
 {
     class Conexao : IConexaoBanco
-    {
+    {       
 
         public MySqlConnection Conectar()
         {
@@ -59,6 +60,99 @@ namespace DescomplicandoTestes.Droid.Banco
             }
             conexaoMySQL.Close();
             return (false);
+        }
+
+
+        public List<Disciplina> BuscarDisciplinas(string CPF)
+        {
+            string nome = "";
+            string sigla = "";
+            List<Disciplina> lista = new List<Disciplina>();
+
+            string query = "SELECT * FROM DISCIPLINA WHERE CPF_Professor = '"+CPF+"'";            
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                MySqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    nome = rdr["Nome_Disciplina"].ToString();
+                    sigla = rdr["Sigla"].ToString();
+
+                    lista.Add(new Disciplina(nome, sigla));
+                }
+
+                conexaoMySQL.Close();
+            }
+
+            return (lista);
+        }
+
+        public List<Conteudo> BuscarConteudos(string CPF, string disciplina)
+        {
+            string nome = "";
+            List<Conteudo> lista = new List<Conteudo>();
+
+            string query = "SELECT * FROM CONTEUDO WHERE CPF_Professor = '" + CPF + "' && Nome_Disciplina = '" + disciplina + "'";
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                MySqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    nome = rdr["Nome_Conteudo"].ToString();
+
+                    lista.Add(new Conteudo(nome));
+                }
+
+                conexaoMySQL.Close();
+            }
+
+            return (lista);
+        }
+
+        public List<Questao> BuscarQuestoes(string CPF, string disciplina, string conteudo)
+        {
+            string nome = "";
+            string dificuldade = "";
+            string imagem = "";
+            string enunciado = "";
+            char resposta;
+
+            List<Questao> lista = new List<Questao>();
+
+            string query = "SELECT * FROM QUESTAO WHERE CPF_Professor = '" + CPF + "' && Nome_Disciplina = '" + disciplina+ "' && Nome_Conteudo = '" + conteudo + "'";
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                MySqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    nome = rdr["Nome_Questao"].ToString();
+                    dificuldade = rdr["Dificuldade"].ToString();
+                    imagem = rdr["Imagem"].ToString();
+                    enunciado = rdr["Enunciado"].ToString();
+                    resposta = ((rdr["Resposta"].ToString()).ToCharArray())[0];
+
+                    lista.Add(new Questao(nome, dificuldade, imagem, enunciado, resposta));
+                }
+
+                conexaoMySQL.Close();
+            }
+
+            return (lista);
         }
     }
 }

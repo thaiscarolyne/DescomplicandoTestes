@@ -110,13 +110,14 @@
                                             HeightRequest="70"
                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                                            
                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
-                                            Padding="0,5,0,0"
+                                            Padding="5,5,5,5"
                                         >
-                                            <Label 
-                                                Text="{Binding Nome_Conteudo}"
-                                                LineBreakMode="NoWrap" 
-                                                HorizontalTextAlignment="Center"                                               
-                                             />
+                                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                                <Label 
+                                                    Text="{Binding Nome_Conteudo}"
+                                                    LineBreakMode="NoWrap"                                               
+                                                 />
+                                            </StackLayout>
 
                                             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
                                                 <ImageButton Source="editar.png"/>

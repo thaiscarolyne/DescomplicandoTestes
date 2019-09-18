@@ -17,7 +17,7 @@ namespace DescomplicandoTestes.ViewModel
         public Command Teste { get; set; }
 
 
-        /*********************************Variáveis*********************************/
+        /**********************************Listas**********************************/
 
         private List<Disciplina> _ListaDisciplinas;
         public List<Disciplina> ListaDisciplinas
@@ -30,7 +30,6 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-
         private List<Conteudo> _ListaConteudos;
         public List<Conteudo> ListaConteudos
         {
@@ -42,16 +41,34 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
+        private List<Questao> _ListaQuestoes;
+        public List<Questao> ListaQuestoes
+        {
+            get { return _ListaQuestoes; }
+            set
+            {
+                _ListaQuestoes = value;
+                OnPropertyChanged("ListaQuestoes");
+            }
+        }
 
+
+        /*********************************Variáveis*********************************/
 
         private Disciplina _DisciplinaSelecionada;
         public Disciplina DisciplinaSelecionada
         {
-            get { return _DisciplinaSelecionada; }
+            get
+            {                
+                return _DisciplinaSelecionada;                
+            }
             set
             {
                 _DisciplinaSelecionada = value;
                 OnPropertyChanged("DisciplinaSelecionada");
+
+                /****************Consulta ao BD****************/
+                ListaConteudos = Conteudo.BuscarConteudos(LoginCadastrarViewModel.professor, DisciplinaSelecionada);
             }
         }
 
@@ -63,55 +80,34 @@ namespace DescomplicandoTestes.ViewModel
             {
                 _ConteudoSelecionado = value;
                 OnPropertyChanged("ConteudoSelecionado");
+
+                /****************Consulta ao BD****************/
+                ListaQuestoes = Questao.BuscarQuestoes(LoginCadastrarViewModel.professor, DisciplinaSelecionada, ConteudoSelecionado);
             }
-        }
-        
+        }       
 
 
         /*********************************Construtor*********************************/
 
         public DisciplinasViewModel()
-        {
+        {            
             Teste = new Command(TesteAction);
-
-            PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);
-
-
-            ListaDisciplinas = new List<Disciplina>();
-
-            ListaDisciplinas.Add(new Disciplina("Banco de dados", "BD"));
-            ListaDisciplinas.Add(new Disciplina("Matemática", "MAT"));
-            ListaDisciplinas.Add(new Disciplina("Engenharia de software", "ENGSOFT"));
-            ListaDisciplinas.Add(new Disciplina("Processamento digital de imagens e teste teste", "PDI"));
-            ListaDisciplinas.Add(new Disciplina("Cálculo Numérico", "CALCNUM"));
-            ListaDisciplinas.Add(new Disciplina("Cálculo Numérico", "CALCNUM"));
-            ListaDisciplinas.Add(new Disciplina("Cálculo Numérico", "CALCNUM"));
-            ListaDisciplinas.Add(new Disciplina("Cálculo Numérico", "CALCNUM"));
-            ListaDisciplinas.Add(new Disciplina("Cálculo Numérico", "CALCNUM"));
-            ListaDisciplinas.Add(new Disciplina("Cálculo Numérico", "CALCNUM"));
-
-
-            ListaConteudos = new List<Conteudo>();
-
-            ListaConteudos.Add(new Conteudo("Trigger"));
-            ListaConteudos.Add(new Conteudo("Álgebra Relacional"));
-            ListaConteudos.Add(new Conteudo("Normalização"));
-            ListaConteudos.Add(new Conteudo("Projeto de banco de dados"));
-            ListaConteudos.Add(new Conteudo("Views"));
-            ListaConteudos.Add(new Conteudo("Modelo físico"));
-            ListaConteudos.Add(new Conteudo("Modelo lógico"));
+            PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);            
         }
 
 
         /*********************************Métodos*********************************/
 
-        private void TesteAction()
+            private void TesteAction()
         {
             App.Current.MainPage.DisplayAlert("Clique", "Clicou", "OK");
         }
 
         private void PesquisarDisciplinasAction()
         {
+            /****************Consulta ao BD****************/
+            ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginCadastrarViewModel.professor);
+
             App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
         }
                      

@@ -9,7 +9,9 @@
 
             <Color x:Key="CorDisciplina">#A076E8</Color>
             <Color x:Key="CorConteudo">#C047FB</Color>
+            <Color x:Key="CorQuestao">#9038c9</Color>
             <Color x:Key="CorAdicionar">#4AE47D</Color>
+            
 
 
             <!-- LABEL -->
