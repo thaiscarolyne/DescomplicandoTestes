@@ -15,6 +15,8 @@ namespace DescomplicandoTestes.View
 		public VisualizarConteudo ()
 		{
 			InitializeComponent ();
-		}
+
+            BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
+        }
 	}
 }

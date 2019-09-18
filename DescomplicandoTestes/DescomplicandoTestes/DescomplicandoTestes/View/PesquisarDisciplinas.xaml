@@ -60,13 +60,12 @@
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
                     />
 
-                    <ListView    
-                        
-                            ItemTapped="MudarPaginaVisualizarDisciplina"
+                    <ListView 
+                            ItemTapped="VisualizarDisciplina"
+                            SelectedItem="{Binding DisciplinaSelecionada, Mode=TwoWay}"
                             ItemsSource="{Binding ListaDisciplinas}"                                   
                             SeparatorVisibility="None"
                             RowHeight="100"
-                            SelectionMode="None"
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaDisciplinas,Constant=10}"  
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"                                 

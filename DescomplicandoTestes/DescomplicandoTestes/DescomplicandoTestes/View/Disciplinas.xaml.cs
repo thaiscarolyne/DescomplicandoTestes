@@ -16,7 +16,7 @@ namespace DescomplicandoTestes.View
 		{
 			InitializeComponent ();
 
-            BindingContext = new ViewModel.DisciplinasViewModel();
+            BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
 
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
             var height = (double)(mainDisplayInfo.Height / mainDisplayInfo.Density);

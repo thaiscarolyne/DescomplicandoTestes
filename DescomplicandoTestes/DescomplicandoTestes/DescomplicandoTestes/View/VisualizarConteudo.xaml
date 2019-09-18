@@ -4,7 +4,7 @@
              x:Class="DescomplicandoTestes.View.VisualizarConteudo">
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Margin="-40,0,0,0">
-            <Label x:Name="TituloNomeConteudo"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="NoWrap"/>
+            <Label Text="{Binding ConteudoSelecionado.Nome_Conteudo}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="NoWrap"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -34,7 +34,7 @@
 
                     <Label
                         x:Name="LabelAdicionarConteudo"
-                        Text="Adicionar conteúdo"    
+                        Text="Adicionar questão"    
                         FontSize="20"
                         TextColor="White"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=3, Property=X, ElementName=BotaoAdicionar}"

@@ -17,17 +17,18 @@ namespace DescomplicandoTestes.View
 		{
 			InitializeComponent ();
 
-            BindingContext = new ViewModel.PesquisarDisciplinasViewModel();
+            BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
         }
 
-        private void MudarPaginaVisualizarDisciplina(object sender, ItemTappedEventArgs args)
+        //Foi preciso colocar essa transição de tela aqui, pois colocando no
+        //método GET da disciplina selecionada, tava dando alguns problemas
+        //na navegação entre as páginas, tava chamando o método GET em 
+        //algumas transições entre as páginas
+        public void VisualizarDisciplina(object sender, ItemTappedEventArgs args)
         {
-            ListView lista = (ListView)sender;
-
-            Disciplina disciplina = (Disciplina)args.Item;
-
-            App.Current.MainPage.Navigation.PushAsync(new VisualizarDisciplina(disciplina));
+            App.Current.MainPage.Navigation.PushAsync(new VisualizarDisciplina());
         }
+
 
     }
 }

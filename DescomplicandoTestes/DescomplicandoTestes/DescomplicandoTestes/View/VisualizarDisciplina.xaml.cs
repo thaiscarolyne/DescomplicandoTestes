@@ -13,13 +13,11 @@ namespace DescomplicandoTestes.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class VisualizarDisciplina : ContentPage
 	{
-		public VisualizarDisciplina (Disciplina disciplina)
+		public VisualizarDisciplina ()
 		{
 			InitializeComponent ();
 
-            BindingContext = new ViewModel.VisualizarDisciplinaViewModel(disciplina);
-
-            TituloNomeDisciplina.Text = disciplina.Nome_Disciplina;
+            BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
 
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
             var height = (double)(mainDisplayInfo.Height / mainDisplayInfo.Density);
@@ -39,5 +37,11 @@ namespace DescomplicandoTestes.View
                 LabelAdicionarConteudo.FontSize = 20;
             }
         }
-	}
+
+
+        public void VisualizarConteudo(object sender, ItemTappedEventArgs args)
+        {
+            App.Current.MainPage.Navigation.PushAsync(new VisualizarConteudo());
+        }
+    }
 }
