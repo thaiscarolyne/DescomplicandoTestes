@@ -76,7 +76,7 @@
                 <RelativeLayout>
 
                     <BoxView 
-                        x:Name="BoxListaConteudos"
+                        x:Name="BoxListaQuestoes"
                         CornerRadius ="20, 20, 20, 20"  
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
@@ -84,12 +84,13 @@
                     />
 
                     <ListView
+                            ItemTapped="VisualizarQuestao"
+                            SelectedItem="{Binding QuestaoSelecionada, Mode=TwoWay}"
                             ItemsSource="{Binding ListaQuestoes}"                                   
                             SeparatorVisibility="None"
-                            RowHeight="100"
-                            SelectionMode="None"         
+                            RowHeight="100"       
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
-                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaConteudos,Constant=10}"  
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaQuestoes,Constant=10}"  
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"
                                  
                      >

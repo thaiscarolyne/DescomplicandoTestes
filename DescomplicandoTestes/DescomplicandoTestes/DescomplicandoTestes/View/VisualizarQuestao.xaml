@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.VisualizarQuestao">
+
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Margin="-40,0,0,0">
+            <Label Text="{Binding QuestaoSelecionada.Nome_Questao}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="NoWrap"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource Fundo}" Spacing="20">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <RelativeLayout >
+
+                <BoxView 
+                    x:Name="Box" 
+                    BackgroundColor="Pink"
+                    CornerRadius ="20, 20, 20, 20"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Y }"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                />
+
+                <ScrollView
+                    x:Name="ScrollEnunciado"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.95, ElementName=Box, Property=Width}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1.5, Property=X, ElementName=Box}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=10}"
+                    >
+                    <Label    
+                        x:Name="LabelEnunciado"
+                        Text="{Binding QuestaoSelecionada.Enunciado}"    
+                        FontSize="15"
+                        HorizontalTextAlignment="Center"
+                    />
+                </ScrollView>
+
+                <Button
+                    x:Name="BotaoVerAnexo"
+                    Style="{StaticResource BotaoPequeno}"
+                    BackgroundColor="{StaticResource CorVerAnexo}"                           
+                    BorderRadius="12"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1.5, Property=X, ElementName=Box}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=Box,Constant=30}"
+                />
+
+
+                <!--
+                
+                <ImageButton 
+                        Source="pesquisar.png"
+                        HeightRequest="65"
+                        BackgroundColor="Transparent"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=-4}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.85, Property=Width}"
+                    />
+                -->
+
+                <BoxView 
+                    x:Name="BoxListaConteudos"
+                    CornerRadius ="20, 20, 20, 20"  
+                    BackgroundColor="AntiqueWhite"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=Box,Constant=100}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
+                />
+
+            </RelativeLayout>
+        
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

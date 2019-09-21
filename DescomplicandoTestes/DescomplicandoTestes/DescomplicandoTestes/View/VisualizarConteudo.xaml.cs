@@ -18,5 +18,10 @@ namespace DescomplicandoTestes.View
 
             BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
         }
-	}
+
+        public void VisualizarQuestao(object sender, ItemTappedEventArgs args)
+        {
+            App.Current.MainPage.Navigation.PushAsync(new VisualizarQuestao());
+        }
+    }
 }

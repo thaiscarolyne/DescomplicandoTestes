@@ -58,10 +58,7 @@ namespace DescomplicandoTestes.ViewModel
         private Disciplina _DisciplinaSelecionada;
         public Disciplina DisciplinaSelecionada
         {
-            get
-            {                
-                return _DisciplinaSelecionada;                
-            }
+            get { return _DisciplinaSelecionada; }
             set
             {
                 _DisciplinaSelecionada = value;
@@ -84,7 +81,24 @@ namespace DescomplicandoTestes.ViewModel
                 /****************Consulta ao BD****************/
                 ListaQuestoes = Questao.BuscarQuestoes(LoginCadastrarViewModel.professor, DisciplinaSelecionada, ConteudoSelecionado);
             }
-        }       
+        }
+
+
+
+        private Questao _QuestaoSelecionada;
+        public Questao QuestaoSelecionada
+        {
+            get { return _QuestaoSelecionada; }
+            set
+            {
+                _QuestaoSelecionada = value;
+                OnPropertyChanged("QuestaoSelecionada");
+
+                /****************Consulta ao BD****************/
+                
+            }
+        }
+
 
 
         /*********************************Construtor*********************************/
@@ -92,13 +106,14 @@ namespace DescomplicandoTestes.ViewModel
         public DisciplinasViewModel()
         {            
             Teste = new Command(TesteAction);
-            PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);            
+            PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);
+            
         }
 
 
         /*********************************Métodos*********************************/
 
-            private void TesteAction()
+        private void TesteAction()
         {
             App.Current.MainPage.DisplayAlert("Clique", "Clicou", "OK");
         }
