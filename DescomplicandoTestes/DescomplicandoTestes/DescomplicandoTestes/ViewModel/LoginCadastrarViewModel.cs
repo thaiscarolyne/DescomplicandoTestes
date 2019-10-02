@@ -15,7 +15,7 @@ namespace DescomplicandoTestes.ViewModel
         public Command MudarPaginaHome { get; set; }
 
         public static Professor professor;
-
+        
         private string _CPF;
         public string CPF
         {
@@ -54,8 +54,7 @@ namespace DescomplicandoTestes.ViewModel
             {
                 App.Current.MainPage.DisplayAlert("ERRO", "Login e/ou senha incorretos!", "OK");
             }
-
-            
+                                  
         }
 
         private void MudarPaginaCadastrarAction()

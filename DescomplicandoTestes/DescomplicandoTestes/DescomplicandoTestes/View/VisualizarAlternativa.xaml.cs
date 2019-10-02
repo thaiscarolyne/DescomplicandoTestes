@@ -10,14 +10,14 @@ using Xamarin.Forms.Xaml;
 namespace DescomplicandoTestes.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class VisualizarQuestao : ContentPage
+	public partial class VisualizarAlternativa : ContentPage
 	{
-		public VisualizarQuestao ()
+		public VisualizarAlternativa ()
 		{
-			InitializeComponent ();
+			InitializeComponent ();            
 
             BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
-            
+
             if (LabelEnunciado.Text.Length <= 100)
             {
                 ScrollEnunciado.HeightRequest = 70;
@@ -36,12 +36,9 @@ namespace DescomplicandoTestes.View
                     Box.HeightRequest = 200;
                 }
             }
-            
-        }
 
-        public void VisualizarAlternativa(object sender, ItemTappedEventArgs args)
-        {
-            App.Current.MainPage.Navigation.PushAsync(new VisualizarAlternativa());
+            TituloPag.Text = "Letra " + TituloPag.Text;
+
         }
-    }
+	}
 }

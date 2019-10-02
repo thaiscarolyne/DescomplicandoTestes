@@ -5,7 +5,7 @@
     
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Margin="-40,0,0,0">
-            <Label Text="{Binding DisciplinaSelecionada.Nome_Disciplina}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="NoWrap"/>
+            <Label Text="{Binding DisciplinaSelecionada.Nome_Disciplina}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
         </StackLayout>
     </NavigationPage.TitleView>
 

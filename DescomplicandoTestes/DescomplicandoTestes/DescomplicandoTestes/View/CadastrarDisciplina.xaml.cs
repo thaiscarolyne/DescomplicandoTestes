@@ -10,13 +10,13 @@ using Xamarin.Forms.Xaml;
 namespace DescomplicandoTestes.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Login : ContentPage
+	public partial class CadastrarDisciplina : ContentPage
 	{
-		public Login ()
+		public CadastrarDisciplina ()
 		{
 			InitializeComponent ();
-            
-            BindingContext = new ViewModel.LoginCadastrarViewModel();
+
+            BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
         }
-    }
+	}
 }

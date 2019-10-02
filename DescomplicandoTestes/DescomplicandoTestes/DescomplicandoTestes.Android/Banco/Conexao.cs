@@ -154,5 +154,52 @@ namespace DescomplicandoTestes.Droid.Banco
 
             return (lista);
         }
+
+        public List<Alternativa> BuscarAlternativas(string CPF, string disciplina, string conteudo, string questao)
+        {
+            char letra;
+            string texto = "";
+
+            List<Alternativa> lista = new List<Alternativa>();
+
+            string query = "SELECT * FROM ALTERNATIVA WHERE CPF_Professor = '" + CPF + "' && Nome_Disciplina = '" + disciplina + "' && Nome_Conteudo = '" + conteudo + "' && Nome_Questao = '" + questao + "'";
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                MySqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    texto = rdr["Texto"].ToString();                    
+                    letra = ((rdr["Letra"].ToString()).ToCharArray())[0];
+
+                    lista.Add(new Alternativa(letra, texto));
+                }
+
+                conexaoMySQL.Close();
+            }
+
+            return (lista);
+        }
+
+        public void CadastrarDisciplina(string CPF, string nomedisciplina, string sigla)
+        {
+
+            string query = "INSERT INTO DISCIPLINA(Nome_Disciplina, CPF_Professor, Sigla) VALUES('" + nomedisciplina + "', '" + CPF + "', '" + sigla + "')";
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                cmd.ExecuteNonQuery();
+
+                conexaoMySQL.Close();
+            }
+        }
     }
 }

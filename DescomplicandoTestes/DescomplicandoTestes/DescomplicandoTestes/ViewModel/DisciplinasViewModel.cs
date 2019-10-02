@@ -5,6 +5,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using DescomplicandoTestes.View;
 using DescomplicandoTestes.Model;
+using System.Globalization;
 
 namespace DescomplicandoTestes.ViewModel
 {
@@ -14,10 +15,13 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command PesquisarDisciplinas { get; set; }
 
-        public Command Teste { get; set; }
+        public Command CadastrarDisciplina { get; set; }
+
+        public Command IrParaCadastroDisciplina { get; set; }
 
 
         /**********************************Listas**********************************/
+        
 
         private List<Disciplina> _ListaDisciplinas;
         public List<Disciplina> ListaDisciplinas
@@ -52,8 +56,20 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
+        private List<Alternativa> _ListaAlternativas;
+        public List<Alternativa> ListaAlternativas
+        {
+            get { return _ListaAlternativas; }
+            set
+            {
+                _ListaAlternativas = value;
+                OnPropertyChanged("ListaAlternativas");
+            }
+        }
 
-        /*********************************Variáveis*********************************/
+
+        /*********************************Variáveis para exibição*********************************/
+
 
         private Disciplina _DisciplinaSelecionada;
         public Disciplina DisciplinaSelecionada
@@ -83,8 +99,6 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-
-
         private Questao _QuestaoSelecionada;
         public Questao QuestaoSelecionada
         {
@@ -95,7 +109,45 @@ namespace DescomplicandoTestes.ViewModel
                 OnPropertyChanged("QuestaoSelecionada");
 
                 /****************Consulta ao BD****************/
+                ListaAlternativas = null;               
+                ListaAlternativas = Alternativa.BuscarAlternativas(LoginCadastrarViewModel.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoSelecionada);
                 
+                foreach (var item in ListaAlternativas)
+                {
+                    if (item.Letra == QuestaoSelecionada.Resposta)
+                    {
+                        item.Cor = Color.FromHex("#72FB9B");
+                    }
+                    else
+                    {
+                        item.Cor = Color.White;
+                    }
+                }
+            }
+        }
+
+        private Alternativa _AlternativaSelecionada;
+        public Alternativa AlternativaSelecionada
+        {
+            get { return _AlternativaSelecionada; }
+            set
+            {
+                _AlternativaSelecionada = value;
+                OnPropertyChanged("AlternativaSelecionada");
+            }
+        }
+
+
+        /*********************************Variáveis para cadastro*********************************/
+
+        private Disciplina _DisciplinaACadastrar = new Disciplina(null, null);
+        public Disciplina DisciplinaACadastrar
+        {
+            get { return _DisciplinaACadastrar; }
+            set
+            {
+                _DisciplinaACadastrar = value;
+                OnPropertyChanged("DisciplinaACadastrar");
             }
         }
 
@@ -104,18 +156,18 @@ namespace DescomplicandoTestes.ViewModel
         /*********************************Construtor*********************************/
 
         public DisciplinasViewModel()
-        {            
-            Teste = new Command(TesteAction);
+        {
+            IrParaCadastroDisciplina = new Command(IrParaCadastroDisciplinaAction);
             PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);
-            
+            CadastrarDisciplina = new Command(CadastrarDisciplinaAction);
         }
 
 
         /*********************************Métodos*********************************/
 
-        private void TesteAction()
+        private void IrParaCadastroDisciplinaAction()
         {
-            App.Current.MainPage.DisplayAlert("Clique", "Clicou", "OK");
+            App.Current.MainPage.Navigation.PushAsync(new CadastrarDisciplina());
         }
 
         private void PesquisarDisciplinasAction()
@@ -125,6 +177,16 @@ namespace DescomplicandoTestes.ViewModel
 
             App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
         }
+
+        private void CadastrarDisciplinaAction()
+        {
+            Disciplina.CadastrarDisciplina(LoginCadastrarViewModel.professor, DisciplinaACadastrar);
+
+            DisciplinaACadastrar = null;
+
+            App.Current.MainPage.DisplayAlert("Cadastro", "Cadastro realizado com sucesso!", "OK");
+        }
+
                      
         /**************************Notificar modificações**************************/
 

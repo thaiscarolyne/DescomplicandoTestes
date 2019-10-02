@@ -4,7 +4,7 @@
              x:Class="DescomplicandoTestes.View.VisualizarConteudo">
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Margin="-40,0,0,0">
-            <Label Text="{Binding ConteudoSelecionado.Nome_Conteudo}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="NoWrap"/>
+            <Label Text="{Binding ConteudoSelecionado.Nome_Conteudo}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -130,6 +130,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+
                 </RelativeLayout>
             </StackLayout>
 

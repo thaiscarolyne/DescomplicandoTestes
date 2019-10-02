@@ -14,6 +14,7 @@ namespace DescomplicandoTestes.Model
 
         public string Sigla { get; set; }
 
+
         /// <summary>
         /// Construtor da classe Disciplina
         /// </summary>
@@ -26,6 +27,7 @@ namespace DescomplicandoTestes.Model
             Sigla = sigla;
         }
 
+
         /// <summary>
         /// Método estático para buscar as disciplinas de um professor
         /// </summary>
@@ -34,6 +36,17 @@ namespace DescomplicandoTestes.Model
         public static List<Disciplina> BuscarDisciplinas(Professor prof)
         {
             return (dep.BuscarDisciplinas(prof.CPF_Professor));
+        }
+
+
+        /// <summary>
+        /// Método para cadastrar uma disciplina no banco de dados
+        /// </summary>
+        /// <param name="prof">Professor logado no sistema</param>
+        /// <param name="disc">Disciplina a ser cadastrada</param>
+        public static void CadastrarDisciplina(Professor prof, Disciplina disc)
+        {
+            dep.CadastrarDisciplina(prof.CPF_Professor, disc.Nome_Disciplina, disc.Sigla);
         }
 
 

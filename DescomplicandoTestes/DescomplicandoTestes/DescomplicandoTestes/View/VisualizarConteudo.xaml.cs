@@ -12,7 +12,7 @@ namespace DescomplicandoTestes.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class VisualizarConteudo : ContentPage
 	{
-		public VisualizarConteudo ()
+        public VisualizarConteudo ()
 		{
 			InitializeComponent ();
 
@@ -21,7 +21,8 @@ namespace DescomplicandoTestes.View
 
         public void VisualizarQuestao(object sender, ItemTappedEventArgs args)
         {
-            App.Current.MainPage.Navigation.PushAsync(new VisualizarQuestao());
+           
+             App.Current.MainPage.Navigation.PushAsync(new VisualizarQuestao());  
         }
     }
 }

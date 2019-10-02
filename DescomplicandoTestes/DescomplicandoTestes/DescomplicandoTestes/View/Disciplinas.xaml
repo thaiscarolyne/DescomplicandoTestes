@@ -24,7 +24,7 @@
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoCadastrarDisciplina" 
                         BackgroundColor="{StaticResource CorDisciplina}" 
-                        Command="{Binding Teste}"
+                        Command="{Binding IrParaCadastroDisciplina}"
                     />
                     <Image
                         Source="notebook.png"
@@ -35,7 +35,7 @@
                         >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding Teste}"
+                                Command="{Binding IrParaCadastroDisciplina}"
                                 />
                         </Image.GestureRecognizers>
                     </Image>
@@ -47,7 +47,7 @@
                         >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer
-                                 Command="{Binding Teste}"
+                                 Command="{Binding IrParaCadastroDisciplina}"
                                 />
                         </Label.GestureRecognizers>
                     </Label>

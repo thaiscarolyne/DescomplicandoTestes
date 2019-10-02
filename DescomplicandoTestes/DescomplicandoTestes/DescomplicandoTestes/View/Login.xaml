@@ -27,6 +27,7 @@
 
                     <Entry 
                         Placeholder="CPF" 
+                        MaxLength="11"
                         Keyboard="Numeric"
                         Text="{Binding CPF}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"

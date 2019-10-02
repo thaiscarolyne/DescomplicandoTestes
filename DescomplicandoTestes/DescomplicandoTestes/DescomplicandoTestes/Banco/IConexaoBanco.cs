@@ -19,5 +19,11 @@ namespace DescomplicandoTestes.Banco
         //Esse método irá buscar quais questões no banco estão relacionadas à esse conteúdo, disciplina e CPF
         List<Questao> BuscarQuestoes(string CPF, string disciplina, string conteudo);
 
+        //Esse método irá buscar quais alternativas no banco estão relacionadas à essa questão, conteúdo, disciplina e CPF
+        List<Alternativa> BuscarAlternativas(string CPF, string disciplina, string conteudo, string questao);
+
+        //Esse método irá cadastrar a disciplina no banco de dados
+        void CadastrarDisciplina(string CPF, string nomedisciplina, string sigla);
+
     }
 }

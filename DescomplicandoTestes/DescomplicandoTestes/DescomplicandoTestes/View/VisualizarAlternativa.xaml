@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.VisualizarAlternativa">
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Margin="-40,0,0,0">
+            <Label x:Name="TituloPag" Text="{Binding AlternativaSelecionada.Letra}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        
+            <StackLayout Style="{StaticResource Fundo}" Spacing="20">
+
+                <StackLayout VerticalOptions="Start">
+                    <Image Source="Cabecalho.png" Aspect="Fill" />
+                </StackLayout>
+
+                <StackLayout VerticalOptions="Start">
+                    <RelativeLayout >
+
+                        <BoxView 
+                            x:Name="Box" 
+                            CornerRadius ="20, 20, 20, 20"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Y}"
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                        />
+
+                        <ScrollView
+                            x:Name="ScrollEnunciado"
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.9, ElementName=Box, Property=Width}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box}"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            Padding="5,5,5,5"
+                        >
+                            <Label    
+                                x:Name="LabelEnunciado"
+                                Text="{Binding QuestaoSelecionada.Enunciado}"    
+                                FontSize="15"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                            />
+                        </ScrollView>
+
+
+                        <Button
+                        x:Name="BotaoVerAnexo"
+                        Style="{StaticResource BotaoPequeno}"
+                        BorderRadius="50"
+                        BackgroundColor="{StaticResource CorVerAnexo}"    
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.5, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.44, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=Box,Constant=30}"
+                    />
+
+
+                        <ImageButton 
+                        Source="verAnexo.png"
+                        HeightRequest="41"
+                        BackgroundColor="Transparent"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoVerAnexo,Constant=2}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.94, Property=Width, Constant=-43}"
+                    />
+
+                        <Label
+                        Text="VER ANEXO"    
+                        FontSize="18"
+                        TextColor="White"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=BotaoVerAnexo,Constant=10}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoVerAnexo,Constant=10}"
+                    />
+
+                    </RelativeLayout>
+
+
+                </StackLayout>
+
+
+                <StackLayout VerticalOptions="FillAndExpand" >
+
+                    <RelativeLayout>
+
+
+                        <BoxView 
+                            x:Name="BoxListaAlternativas"
+                            BackgroundColor="DeepPink"  
+                            Opacity="0.2"
+                            CornerRadius ="20, 20, 20, 20"  
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
+                        />                        
+
+                        <RelativeLayout
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaAlternativas,Constant=10}"  
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"
+                            HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"                            
+                        >
+                            <BoxView 
+                                CornerRadius ="20, 20, 20, 20"
+                                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Height}"  
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.85, Property=Width}"
+                                BackgroundColor="{Binding AlternativaSelecionada.Cor}"
+                                Margin="0,0,0,10"
+                            />
+
+                            <StackLayout  
+                                HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="FillAndExpand"
+                                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Height}"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.78, Property=Width}" 
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                                Padding="10,10,0,15"
+                                Spacing="20"
+                                Orientation="Horizontal"
+                            >
+                                <StackLayout
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="FillAndExpand" 
+                                    MinimumWidthRequest="30"
+                                >
+                                    <Label
+                                        Text="{Binding AlternativaSelecionada.Letra}"
+                                        HeightRequest="60"
+                                        VerticalTextAlignment="Center"
+                                    />
+                                </StackLayout>
+
+
+                                <StackLayout 
+                                    HorizontalOptions="StartAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                >
+                                    <ScrollView Padding="0,18,0,0">
+                                        <Label       
+                                            VerticalTextAlignment="Center"
+                                            Text="{Binding AlternativaSelecionada.Texto}" 
+                                            FontSize="15"                                                 
+                                        />
+                                    </ScrollView>
+                                    
+                                </StackLayout>
+
+                            </StackLayout>
+
+                        </RelativeLayout>                        
+
+                    </RelativeLayout>
+                </StackLayout>
+
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
