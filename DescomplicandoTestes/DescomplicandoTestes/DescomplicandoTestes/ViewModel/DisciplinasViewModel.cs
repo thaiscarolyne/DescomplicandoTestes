@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using DescomplicandoTestes.View;
 using DescomplicandoTestes.Model;
 using System.Globalization;
+using DescomplicandoTestes.ViewModel;
 
 namespace DescomplicandoTestes.ViewModel
 {
@@ -19,9 +20,11 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command IrParaCadastroDisciplina { get; set; }
 
+        public Command FecharModalDiscCadSucesso { get; set; }
+
 
         /**********************************Listas**********************************/
-        
+
 
         private List<Disciplina> _ListaDisciplinas;
         public List<Disciplina> ListaDisciplinas
@@ -70,6 +73,11 @@ namespace DescomplicandoTestes.ViewModel
 
         /*********************************Variáveis para exibição*********************************/
 
+        public LoginCadastrarViewModel LoginVM
+        {
+            get { return ViewModel.ViewModelLocator.LoginCadastrarVM; }
+        }       
+
 
         private Disciplina _DisciplinaSelecionada;
         public Disciplina DisciplinaSelecionada
@@ -81,7 +89,7 @@ namespace DescomplicandoTestes.ViewModel
                 OnPropertyChanged("DisciplinaSelecionada");
 
                 /****************Consulta ao BD****************/
-                ListaConteudos = Conteudo.BuscarConteudos(LoginCadastrarViewModel.professor, DisciplinaSelecionada);
+                ListaConteudos = Conteudo.BuscarConteudos(LoginVM.professor, DisciplinaSelecionada);
             }
         }
 
@@ -95,7 +103,7 @@ namespace DescomplicandoTestes.ViewModel
                 OnPropertyChanged("ConteudoSelecionado");
 
                 /****************Consulta ao BD****************/
-                ListaQuestoes = Questao.BuscarQuestoes(LoginCadastrarViewModel.professor, DisciplinaSelecionada, ConteudoSelecionado);
+                ListaQuestoes = Questao.BuscarQuestoes(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado);
             }
         }
 
@@ -110,7 +118,7 @@ namespace DescomplicandoTestes.ViewModel
 
                 /****************Consulta ao BD****************/
                 ListaAlternativas = null;               
-                ListaAlternativas = Alternativa.BuscarAlternativas(LoginCadastrarViewModel.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoSelecionada);
+                ListaAlternativas = Alternativa.BuscarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoSelecionada);
                 
                 foreach (var item in ListaAlternativas)
                 {
@@ -160,6 +168,7 @@ namespace DescomplicandoTestes.ViewModel
             IrParaCadastroDisciplina = new Command(IrParaCadastroDisciplinaAction);
             PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);
             CadastrarDisciplina = new Command(CadastrarDisciplinaAction);
+            FecharModalDiscCadSucesso = new Command(FecharModalDiscCadSucessoAction);            
         }
 
 
@@ -173,21 +182,28 @@ namespace DescomplicandoTestes.ViewModel
         private void PesquisarDisciplinasAction()
         {
             /****************Consulta ao BD****************/
-            ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginCadastrarViewModel.professor);
+            ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
 
             App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
         }
 
         private void CadastrarDisciplinaAction()
         {
-            Disciplina.CadastrarDisciplina(LoginCadastrarViewModel.professor, DisciplinaACadastrar);
+            Disciplina.CadastrarDisciplina(LoginVM.professor, DisciplinaACadastrar);
 
-            DisciplinaACadastrar = null;
-
-            App.Current.MainPage.DisplayAlert("Cadastro", "Cadastro realizado com sucesso!", "OK");
+            App.Current.MainPage.Navigation.PushModalAsync(new ModalDisciplinaCadastradaSucesso());            
         }
 
-                     
+        private async void FecharModalDiscCadSucessoAction()
+        {
+            await App.Current.MainPage.Navigation.PopAsync();
+
+            await App.Current.MainPage.Navigation.PopModalAsync();
+
+            DisciplinaACadastrar = new Disciplina(null, null);
+        }
+
+
         /**************************Notificar modificações**************************/
 
         public event PropertyChangedEventHandler PropertyChanged;

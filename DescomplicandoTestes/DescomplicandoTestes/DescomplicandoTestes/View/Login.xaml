@@ -29,13 +29,13 @@
                         Placeholder="CPF" 
                         MaxLength="11"
                         Keyboard="Numeric"
-                        Text="{Binding CPF}"
+                        Text="{Binding professor.CPF_Professor, Mode=TwoWay}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
                     />
 
                     <Entry 
                         Placeholder="Senha"  IsPassword="True"
-                        Text="{Binding Senha}"
+                        Text="{Binding professor.Senha, Mode=TwoWay}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=70}"
                     />
 

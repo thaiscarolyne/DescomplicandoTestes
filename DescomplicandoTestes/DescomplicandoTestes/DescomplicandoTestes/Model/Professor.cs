@@ -27,5 +27,10 @@ namespace DescomplicandoTestes.Model
         {
             return (dep.ConsultaProfessor(prof.CPF_Professor, prof.Senha));
         }
+
+        public string CadastrarProfessor(Professor prof)
+        {
+           return (dep.CadastrarProfessor(prof.CPF_Professor, prof.Senha, prof.Nome));
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command MudarPaginaDisciplinas { get; set; }
 
+        LoginCadastrarViewModel LoginVM = ViewModel.ViewModelLocator.LoginCadastrarVM;
+
         public HomeViewModel()
         {
             Logout = new Command(LogoutAction);
@@ -29,6 +31,8 @@ namespace DescomplicandoTestes.ViewModel
 
             if (confirma)
             {
+                LoginVM.professor = new Model.Professor();
+
                 App.Current.MainPage = new NavigationPage(new View.Login()) { BarBackgroundColor = Color.HotPink };
             }
         }

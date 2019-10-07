@@ -15,6 +15,15 @@ namespace DescomplicandoTestes.ViewModel
                 return _disciplinasViewModel;
             }
         }
-        
+
+        private static LoginCadastrarViewModel _loginCadastrarViewModel = new LoginCadastrarViewModel();
+        public static LoginCadastrarViewModel LoginCadastrarVM
+        {
+            get
+            {
+                return _loginCadastrarViewModel;
+            }
+        }
+
     }
 }

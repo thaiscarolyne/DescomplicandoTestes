@@ -30,16 +30,21 @@
                     <Entry 
                         Placeholder="Nome completo" 
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
+                        Text="{Binding professor.Nome, Mode=TwoWay}"
                     />
 
                     <Entry 
-                        Placeholder="Matrícula" 
+                        Placeholder="CPF" 
+                        MaxLength="11"
+                        Keyboard="Numeric"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=75}"
+                        Text="{Binding professor.CPF_Professor, Mode=TwoWay}"
                     />
 
                     <Entry 
                         Placeholder="Senha"  IsPassword="True"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=130}"
+                        Text="{Binding professor.Senha, Mode=TwoWay}"
                     />
 
                     <Button
@@ -47,7 +52,7 @@
                         Style="{StaticResource BotaoPequeno}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=190}"
                         Text="CADASTRAR" BackgroundColor="HotPink" 
-                        Command="{Binding MudarPaginaHome}"
+                        Command="{Binding CadastrarProfessor}"
                     />
 
                 </RelativeLayout>

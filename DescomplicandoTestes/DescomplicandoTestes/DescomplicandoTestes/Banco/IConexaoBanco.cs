@@ -25,5 +25,8 @@ namespace DescomplicandoTestes.Banco
         //Esse método irá cadastrar a disciplina no banco de dados
         void CadastrarDisciplina(string CPF, string nomedisciplina, string sigla);
 
+        //Esse método irá cadastrar o professor no banco de dados
+        string CadastrarProfessor(string CPF, string senha, string nome);
+
     }
 }

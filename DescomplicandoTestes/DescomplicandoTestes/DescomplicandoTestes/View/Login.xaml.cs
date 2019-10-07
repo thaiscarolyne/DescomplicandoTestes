@@ -16,7 +16,7 @@ namespace DescomplicandoTestes.View
 		{
 			InitializeComponent ();
             
-            BindingContext = new ViewModel.LoginCadastrarViewModel();
+            BindingContext = ViewModel.ViewModelLocator.LoginCadastrarVM;
         }
     }
 }

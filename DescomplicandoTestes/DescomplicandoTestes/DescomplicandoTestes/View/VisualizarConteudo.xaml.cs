@@ -17,6 +17,22 @@ namespace DescomplicandoTestes.View
 			InitializeComponent ();
 
             BindingContext = ViewModel.ViewModelLocator.DisciplinasVM;
+
+            Thickness margin = Cabecalho.Margin;
+
+            if (Cabecalho.Text.Length <= 23)
+            {
+                margin.Left = (double)-40;
+            }
+            else
+            {
+                if (Cabecalho.Text.Length <= 25)
+                {
+                    margin.Left = (double)-20;
+                }
+            }
+
+            Cabecalho.Margin = margin;
         }
 
         public void VisualizarQuestao(object sender, ItemTappedEventArgs args)

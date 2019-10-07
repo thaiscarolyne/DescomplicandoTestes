@@ -201,5 +201,41 @@ namespace DescomplicandoTestes.Droid.Banco
                 conexaoMySQL.Close();
             }
         }
+
+        public string CadastrarProfessor(string CPF, string senha, string nome)
+        {
+            string query = "INSERT INTO PROFESSOR(CPF_Professor, Senha, Nome) VALUES ('" + CPF + "', '" + senha + "', '" + nome + "')";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+                }
+
+                return ("Cadastro realizado com sucesso!");
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062)
+                {
+                    return ("Esse CPF já se encontra cadastrado na base de dados!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+
+               
+            }
+
+            
+        }
     }
 }
