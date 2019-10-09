@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DescomplicandoTestes.View.PesquisarDisciplinas">
+             x:Class="DescomplicandoTestes.View.PesquisarDisciplinas"
+             x:Name="PesquisarDisciplinasPage"
+             >
 
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
@@ -98,7 +100,13 @@
 
                                             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
                                                 <ImageButton Source="editar.png"/>
-                                                <ImageButton Source="excluir.png"/>
+                                                <ImageButton Source="excluir.png" 
+                                                             Command="{Binding Source={x:Reference PesquisarDisciplinasPage}, Path=BindingContext.ExcluirDisciplina}"
+                                                             CommandParameter="{Binding .}"
+                                                             >
+                                                            
+                                                        
+                                                </ImageButton>
                                             </StackLayout>  
 
                                         </StackLayout>

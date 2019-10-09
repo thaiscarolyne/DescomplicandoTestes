@@ -78,6 +78,7 @@
                         BorderRadius="12"
                         Grid.Row="0"
                         Grid.Column="0"
+                        Command="{Binding CadastrarNovaDisciplina}"
                     />
                     <Button
                         Text="Adicionar conteúdo"

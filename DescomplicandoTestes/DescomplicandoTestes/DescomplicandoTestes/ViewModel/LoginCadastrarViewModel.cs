@@ -75,16 +75,18 @@ namespace DescomplicandoTestes.ViewModel
                 }
                 else
                 {
-                    string retorno = professor.CadastrarProfessor(professor);
-
-                    await App.Current.MainPage.DisplayAlert("CONFIRMAÇÃO", retorno, "OK");
+                    string retorno = professor.CadastrarProfessor(professor);                    
 
                     if (retorno == "Cadastro realizado com sucesso!")
                     {
+                        await App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
                         App.Current.MainPage = new NavigationPage(new Home()) { BarBackgroundColor = Color.HotPink };
                     }
                     else
                     {
+                        await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
                         professor = new Professor();
                     }
                 }

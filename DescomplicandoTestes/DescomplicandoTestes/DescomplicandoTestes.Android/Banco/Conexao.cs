@@ -185,21 +185,45 @@ namespace DescomplicandoTestes.Droid.Banco
             return (lista);
         }
 
-        public void CadastrarDisciplina(string CPF, string nomedisciplina, string sigla)
+        public string CadastrarDisciplina(string CPF, string nomedisciplina, string sigla)
         {
 
             string query = "INSERT INTO DISCIPLINA(Nome_Disciplina, CPF_Professor, Sigla) VALUES('" + nomedisciplina + "', '" + CPF + "', '" + sigla + "')";
 
-            MySqlConnection conexaoMySQL = Conectar();
-            if (conexaoMySQL != null)
+            try
             {
-                conexaoMySQL.Open();
-                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
-                conexaoMySQL.Close();
+                    conexaoMySQL.Close();
+
+                    return ("Cadastro realizado com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+                
             }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
+                {
+                    return ("Essa disciplina já está cadastrada em sua base de dados!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+
+
+            
         }
 
         public string CadastrarProfessor(string CPF, string senha, string nome)
@@ -217,25 +241,60 @@ namespace DescomplicandoTestes.Droid.Banco
                     cmd.ExecuteNonQuery();
 
                     conexaoMySQL.Close();
+
+                    return ("Cadastro realizado com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
                 }
 
-                return ("Cadastro realizado com sucesso!");
+                
             }
             catch (MySqlException e)
             {
-                if (e.Number == 1062)
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
                 {
                     return ("Esse CPF já se encontra cadastrado na base de dados!");
                 }
                 else
                 {
                     return ("Erro: " + e.Number);
-                }
-
-               
+                }               
             }
 
             
+        }
+
+        public string ExcluirDisciplina(string CPF, string nomedisciplina)
+        {
+            string query = "DELETE FROM DISCIPLINA WHERE Nome_Disciplina='" + nomedisciplina + "' && CPF_Professor='" + CPF + "'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Disciplina excluída com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+
+            }
+            catch (MySqlException e)
+            {                
+                return ("Erro: " + e.Number);
+            }
         }
     }
 }

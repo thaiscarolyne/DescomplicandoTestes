@@ -23,10 +23,13 @@ namespace DescomplicandoTestes.Banco
         List<Alternativa> BuscarAlternativas(string CPF, string disciplina, string conteudo, string questao);
 
         //Esse método irá cadastrar a disciplina no banco de dados
-        void CadastrarDisciplina(string CPF, string nomedisciplina, string sigla);
+        string CadastrarDisciplina(string CPF, string nomedisciplina, string sigla);
 
         //Esse método irá cadastrar o professor no banco de dados
         string CadastrarProfessor(string CPF, string senha, string nome);
+
+        //Esse método irá cadastrar o professor no banco de dados
+        string ExcluirDisciplina(string CPF, string nomedisciplina);
 
     }
 }

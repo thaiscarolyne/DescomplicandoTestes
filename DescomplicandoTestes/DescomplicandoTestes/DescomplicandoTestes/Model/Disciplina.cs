@@ -44,11 +44,22 @@ namespace DescomplicandoTestes.Model
         /// </summary>
         /// <param name="prof">Professor logado no sistema</param>
         /// <param name="disc">Disciplina a ser cadastrada</param>
-        public static void CadastrarDisciplina(Professor prof, Disciplina disc)
+        /// <returns>Retorna a mensagem para o usuário, de confirmação ou erro</returns>
+        public static string CadastrarDisciplina(Professor prof, Disciplina disc)
         {
-            dep.CadastrarDisciplina(prof.CPF_Professor, disc.Nome_Disciplina, disc.Sigla);
+            return (dep.CadastrarDisciplina(prof.CPF_Professor, disc.Nome_Disciplina, disc.Sigla));
         }
 
+        /// <summary>
+        /// Método para excluir uma disciplina do banco de dados
+        /// </summary>
+        /// <param name="prof">Professor logado no sistema</param>
+        /// <param name="disc">Disciplina a ser excluída</param>
+        /// <returns>Retorna a mensagem para o usuário, de confirmação ou erro</returns>
+        public static string ExcluirDisciplina(Professor prof, Disciplina disc)
+        {
+            return (dep.ExcluirDisciplina(prof.CPF_Professor, disc.Nome_Disciplina));
+        }
 
     }
 }

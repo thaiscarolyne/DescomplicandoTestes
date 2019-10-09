@@ -18,9 +18,13 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command CadastrarDisciplina { get; set; }
 
+        public Command CadastrarNovaDisciplina { get; set; }
+
         public Command IrParaCadastroDisciplina { get; set; }
 
         public Command FecharModalDiscCadSucesso { get; set; }
+
+        public Command ExcluirDisciplina { get; set; }
 
 
         /**********************************Listas**********************************/
@@ -168,9 +172,12 @@ namespace DescomplicandoTestes.ViewModel
             IrParaCadastroDisciplina = new Command(IrParaCadastroDisciplinaAction);
             PesquisarDisciplinas = new Command(PesquisarDisciplinasAction);
             CadastrarDisciplina = new Command(CadastrarDisciplinaAction);
-            FecharModalDiscCadSucesso = new Command(FecharModalDiscCadSucessoAction);            
+            CadastrarNovaDisciplina = new Command(CadastrarNovaDisciplinaAction);
+            FecharModalDiscCadSucesso = new Command(FecharModalDiscCadSucessoAction);
+            ExcluirDisciplina = new Command(ExcluirDisciplinaAction);
         }
 
+        
 
         /*********************************Métodos*********************************/
 
@@ -187,11 +194,34 @@ namespace DescomplicandoTestes.ViewModel
             App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
         }
 
-        private void CadastrarDisciplinaAction()
+        private async void CadastrarDisciplinaAction()
         {
-            Disciplina.CadastrarDisciplina(LoginVM.professor, DisciplinaACadastrar);
+            if (DisciplinaACadastrar.Nome_Disciplina == null)
+            {
+                await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome da disciplina!", "OK");
+            }
+            else
+            {
+                string retorno = Disciplina.CadastrarDisciplina(LoginVM.professor, DisciplinaACadastrar);    
 
-            App.Current.MainPage.Navigation.PushModalAsync(new ModalDisciplinaCadastradaSucesso());            
+                if (retorno == "Cadastro realizado com sucesso!")
+                {
+                    await App.Current.MainPage.Navigation.PushModalAsync(new ModalDisciplinaCadastradaSucesso());
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                    DisciplinaACadastrar = new Disciplina(null, null);
+                }
+            }                    
+        }
+
+        private async void CadastrarNovaDisciplinaAction()
+        {
+            DisciplinaACadastrar = new Disciplina(null, null);
+
+            await App.Current.MainPage.Navigation.PopModalAsync();
         }
 
         private async void FecharModalDiscCadSucessoAction()
@@ -201,6 +231,34 @@ namespace DescomplicandoTestes.ViewModel
             await App.Current.MainPage.Navigation.PopModalAsync();
 
             DisciplinaACadastrar = new Disciplina(null, null);
+        }
+
+
+        private async void ExcluirDisciplinaAction(object obj)
+        {
+            var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente excluir essa disciplina?", "SIM", "NÃO");
+                       
+
+            if (confirma)
+            {
+                Disciplina disc = obj as Disciplina;
+
+                string retorno = Disciplina.ExcluirDisciplina(LoginVM.professor, disc);
+
+                if (retorno == "Disciplina excluída com sucesso!")
+                {
+                    App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
+
+                    /****************Consulta ao BD****************/
+                    ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+                }
+                else
+                {
+                    App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                }
+            }
+            
         }
 
 
