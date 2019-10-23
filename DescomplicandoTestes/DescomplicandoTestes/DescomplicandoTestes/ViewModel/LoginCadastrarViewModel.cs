@@ -75,20 +75,27 @@ namespace DescomplicandoTestes.ViewModel
                 }
                 else
                 {
-                    string retorno = professor.CadastrarProfessor(professor);                    
-
-                    if (retorno == "Cadastro realizado com sucesso!")
+                    if (professor.Senha.Length < 3 || professor.Senha.Length > 6)
                     {
-                        await App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
-
-                        App.Current.MainPage = new NavigationPage(new Home()) { BarBackgroundColor = Color.HotPink };
+                        await App.Current.MainPage.DisplayAlert("ERRO", "A senha deve conter no mínimo 3 e no máximo 6 caracteres!", "OK");
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                        string retorno = professor.CadastrarProfessor(professor);
 
-                        professor = new Professor();
-                    }
+                        if (retorno == "Cadastro realizado com sucesso!")
+                        {
+                            await App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
+                            App.Current.MainPage = new NavigationPage(new Home()) { BarBackgroundColor = Color.HotPink };
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                            professor = new Professor();
+                        }
+                    }                    
                 }
                 
             }

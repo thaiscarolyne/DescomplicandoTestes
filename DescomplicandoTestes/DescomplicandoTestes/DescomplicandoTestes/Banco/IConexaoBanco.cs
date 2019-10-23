@@ -31,5 +31,8 @@ namespace DescomplicandoTestes.Banco
         //Esse método irá cadastrar o professor no banco de dados
         string ExcluirDisciplina(string CPF, string nomedisciplina);
 
+        //Esse método irá adicionar um novo conteúdo vinculado à uma disciplina no banco de dados
+        string AdicionarConteudo(string CPF, string nomedisciplina, string nomeconteudo);
+
     }
 }

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.AdicionarConteudo">
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-40,0,0,0">
+            <Label Text="ADICIONAR CONTEÚDO" Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="0, -100, 0, 0">
+                <RelativeLayout>
+
+                    <Label
+                        x:Name="LabelDisciplina" Text="{Binding DisciplinaACadastrar.Nome_Disciplina}" TextColor="{StaticResource CorConteudo}"
+                        FontSize="Large"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-100}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+
+                    <Label
+                        x:Name="LabelDisciplina1" Text="{Binding DisciplinaSelecionada.Nome_Disciplina}" TextColor="{StaticResource CorConteudo}"
+                        FontSize="Large"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-100}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+
+                    <BoxView 
+                        x:Name="Box"                       
+                        HeightRequest="90"                
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelDisciplina,Constant=60}"
+                    />
+
+                    <Entry 
+                        Placeholder="Nome do conteúdo" 
+                        Keyboard="Text"
+                        Text="{Binding ConteudoACadastrar.Nome_Conteudo, Mode=TwoWay}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=30}"
+                    />
+
+
+                    <Button 
+                        x:Name="BotaoAdicionar"
+                        Style="{StaticResource BotaoPequeno}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=90}"
+                        Text="ADICIONAR" BackgroundColor="{StaticResource CorConteudo}"                        
+                        Command="{Binding AdicionarConteudo}"
+                    />                    
+
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

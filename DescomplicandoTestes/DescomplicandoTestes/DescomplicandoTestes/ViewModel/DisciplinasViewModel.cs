@@ -14,18 +14,28 @@ namespace DescomplicandoTestes.ViewModel
     {
         /*********************************Comandos*********************************/
 
-        public Command PesquisarDisciplinas { get; set; }
+        public Command PesquisarDisciplinas { get; set; } //Comando para selecionar as disciplinas do professor no banco de dados
 
-        public Command CadastrarDisciplina { get; set; }
+        public Command CadastrarDisciplina { get; set; } //Comando para cadastrar disciplina no banco de dados
 
-        public Command CadastrarNovaDisciplina { get; set; }
+        public Command CadastrarNovaDisciplina { get; set; } //Comando para voltar para a tela de cadastrar disciplina        
 
-        public Command IrParaCadastroDisciplina { get; set; }
+        public Command IrParaCadastroDisciplina { get; set; } //Comando para ir para tela de cadastro de disciplina
 
-        public Command FecharModalDiscCadSucesso { get; set; }
+        public Command FecharModalDiscCadSucesso { get; set; }  //Comando para fechar o modal que confirma o cadastro da disciplina
 
-        public Command ExcluirDisciplina { get; set; }
+        public Command FecharModalContCadSucesso { get; set; }  //Comando para fechar o modal que confirma o cadastro do conteúdo
 
+        public Command ExcluirDisciplina { get; set; } //Comando para excluir uma disciplina do banco de dados
+
+        public Command IrParaAdicionarConteudoComModal { get; set; } //Comando para ir para tela de adicionar conteúdo a partir do modal de confirmação de cadastro da disciplina
+
+        public Command IrParaAdicionarConteudoSemModal { get; set; } //Comando para ir para tela de adicionar conteúdo a partir da tela de VisualizarDisciplina
+
+        public Command AdicionarConteudo { get; set; } //Comando para adicionar um novo conteúdo no banco de dados
+
+        public Command AdicionarNovoConteudo { get; set; } //Comando para voltar para a tela de adicionar conteúdo
+        
 
         /**********************************Listas**********************************/
 
@@ -164,6 +174,18 @@ namespace DescomplicandoTestes.ViewModel
         }
 
 
+        private Conteudo _ConteudoACadastrar = new Conteudo(null);
+        public Conteudo ConteudoACadastrar
+        {
+            get { return _ConteudoACadastrar; }
+            set
+            {
+                _ConteudoACadastrar = value;
+                OnPropertyChanged("ConteudoACadastrar");
+            }
+        }
+
+
 
         /*********************************Construtor*********************************/
 
@@ -174,92 +196,186 @@ namespace DescomplicandoTestes.ViewModel
             CadastrarDisciplina = new Command(CadastrarDisciplinaAction);
             CadastrarNovaDisciplina = new Command(CadastrarNovaDisciplinaAction);
             FecharModalDiscCadSucesso = new Command(FecharModalDiscCadSucessoAction);
+            FecharModalContCadSucesso = new Command(FecharModalContCadSucessoAction);
             ExcluirDisciplina = new Command(ExcluirDisciplinaAction);
+            IrParaAdicionarConteudoComModal = new Command(IrParaAdicionarConteudoComModalAction);
+            IrParaAdicionarConteudoSemModal = new Command(IrParaAdicionarConteudoSemModalAction);
+            AdicionarConteudo = new Command(AdicionarConteudoAction);
+            AdicionarNovoConteudo = new Command(AdicionarNovoConteudoAction);
         }
 
-        
 
-        /*********************************Métodos*********************************/
 
-        private void IrParaCadastroDisciplinaAction()
-        {
-            App.Current.MainPage.Navigation.PushAsync(new CadastrarDisciplina());
-        }
+        /***********************************************************MÉTODOS***********************************************************/
 
-        private void PesquisarDisciplinasAction()
-        {
-            /****************Consulta ao BD****************/
-            ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
 
-            App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
-        }
+        /*****************************DISCIPLINAS*****************************/
 
-        private async void CadastrarDisciplinaAction()
-        {
-            if (DisciplinaACadastrar.Nome_Disciplina == null)
+            private void IrParaCadastroDisciplinaAction()
             {
-                await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome da disciplina!", "OK");
+                DisciplinaSelecionada = new Disciplina(null, null);
+
+                App.Current.MainPage.Navigation.PushAsync(new CadastrarDisciplina());
             }
-            else
-            {
-                string retorno = Disciplina.CadastrarDisciplina(LoginVM.professor, DisciplinaACadastrar);    
 
-                if (retorno == "Cadastro realizado com sucesso!")
+            private void PesquisarDisciplinasAction()
+            {
+                /****************Consulta ao BD****************/
+                ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+
+                App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
+            }
+
+            private async void CadastrarDisciplinaAction()
+            {
+                if (DisciplinaACadastrar.Nome_Disciplina == null)
                 {
-                    await App.Current.MainPage.Navigation.PushModalAsync(new ModalDisciplinaCadastradaSucesso());
+                    await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome da disciplina!", "OK");
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                    string retorno = Disciplina.CadastrarDisciplina(LoginVM.professor, DisciplinaACadastrar);    
 
-                    DisciplinaACadastrar = new Disciplina(null, null);
-                }
-            }                    
-        }
+                    if (retorno == "Cadastro realizado com sucesso!")
+                    {
+                        await App.Current.MainPage.Navigation.PushModalAsync(new ModalDisciplinaCadastradaSucesso());
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
 
-        private async void CadastrarNovaDisciplinaAction()
-        {
-            DisciplinaACadastrar = new Disciplina(null, null);
+                        DisciplinaACadastrar = new Disciplina(null, null);
+                    }
+                }                    
+            }
 
-            await App.Current.MainPage.Navigation.PopModalAsync();
-        }
-
-        private async void FecharModalDiscCadSucessoAction()
-        {
-            await App.Current.MainPage.Navigation.PopAsync();
-
-            await App.Current.MainPage.Navigation.PopModalAsync();
-
-            DisciplinaACadastrar = new Disciplina(null, null);
-        }
-
-
-        private async void ExcluirDisciplinaAction(object obj)
-        {
-            var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente excluir essa disciplina?", "SIM", "NÃO");
-                       
-
-            if (confirma)
+            private async void CadastrarNovaDisciplinaAction()
             {
-                Disciplina disc = obj as Disciplina;
+                DisciplinaACadastrar = new Disciplina(null, null);
 
-                string retorno = Disciplina.ExcluirDisciplina(LoginVM.professor, disc);
+                await App.Current.MainPage.Navigation.PopModalAsync();
+            }
 
-                if (retorno == "Disciplina excluída com sucesso!")
+
+            private async void FecharModalDiscCadSucessoAction()
+            {
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+
+                DisciplinaACadastrar = new Disciplina(null, null);
+            }
+
+
+            private async void ExcluirDisciplinaAction(object obj)
+            {
+                var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente excluir essa disciplina?", "SIM", "NÃO");
+
+
+                if (confirma)
                 {
-                    App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+                    Disciplina disc = obj as Disciplina;
+
+                    string retorno = Disciplina.ExcluirDisciplina(LoginVM.professor, disc);
+
+                    if (retorno == "Disciplina excluída com sucesso!")
+                    {
+                        App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
 
 
-                    /****************Consulta ao BD****************/
-                    ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+                        /****************Consulta ao BD****************/
+                        ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+                    }
+                    else
+                    {
+                        App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                    }
+                }
+
+            }
+
+
+        /*****************************CONTEÚDOS*****************************/
+
+
+        private async void AdicionarNovoConteudoAction()
+            {
+                ConteudoACadastrar = new Conteudo(null);
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+            }
+
+
+            private async void AdicionarConteudoAction()
+            {
+                if (ConteudoACadastrar.Nome_Conteudo == null)
+                {
+                    await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome do conteúdo!", "OK");
                 }
                 else
                 {
-                    App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                    string retorno;
+
+                    if (DisciplinaSelecionada.Nome_Disciplina == null) //Então, estamos na parte de cadastro
+                    {
+                        retorno = Conteudo.AdicionarConteudo(LoginVM.professor, DisciplinaACadastrar, ConteudoACadastrar);
+                    }
+                    else //Então, estamos na parte de pesquisa
+                    {
+                        retorno = Conteudo.AdicionarConteudo(LoginVM.professor, DisciplinaSelecionada, ConteudoACadastrar);
+                    }
+                
+                    //CONTINUAR DAQUI DEPOIS DE FAZER A PARTE DE CADASTRAR CONTEÚDO NO BANCO DE DADOS
+
+                    if (retorno == "Conteúdo adicionado com sucesso!")
+                    {
+                        await App.Current.MainPage.Navigation.PushModalAsync(new ModalConteudoCadastradoSucesso());
+
+                        AtualizarConteudos();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                        DisciplinaACadastrar = new Disciplina(null, null);
+                    }
                 }
+
             }
-            
-        }
+
+
+            private async void IrParaAdicionarConteudoComModalAction()
+            {
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+
+                await App.Current.MainPage.Navigation.PushAsync(new AdicionarConteudo());
+            }
+
+
+            private void AtualizarConteudos()
+            {
+                ListaConteudos = Conteudo.BuscarConteudos(LoginVM.professor, DisciplinaSelecionada);
+            }       
+
+
+            private async void IrParaAdicionarConteudoSemModalAction()
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new AdicionarConteudo());
+            }        
+
+            private async void FecharModalContCadSucessoAction()
+            {
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+
+                ConteudoACadastrar = new Conteudo(null);
+            }
+
+
+       
 
 
         /**************************Notificar modificações**************************/

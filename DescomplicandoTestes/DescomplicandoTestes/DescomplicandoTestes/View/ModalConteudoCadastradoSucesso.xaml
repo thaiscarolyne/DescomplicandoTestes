@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DescomplicandoTestes.View.ModalDisciplinaCadastradaSucesso">
-    
-
+             x:Class="DescomplicandoTestes.View.ModalConteudoCadastradoSucesso">
     <ContentPage.Content>
         <StackLayout Style="{StaticResource Fundo}" Spacing="20">
 
             <StackLayout VerticalOptions="Start" BackgroundColor="HotPink" HeightRequest="60" Padding="10,20,0,0">
-                <Label Text="CADASTRAR DISCIPLINA"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+                <Label Text="ADICIONAR CONTEÚDO"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
             </StackLayout>
-            
-            
+
+
             <StackLayout VerticalOptions="Start" Margin="0,-20,0,0">
                 <Image Source="Cabecalho.png" Aspect="Fill" />
             </StackLayout>
@@ -43,12 +41,12 @@
                         WidthRequest="60"
                         Aspect="Fill"
                         BackgroundColor="Transparent"
-                        Command="{Binding FecharModalDiscCadSucesso}"
+                        Command="{Binding FecharModalContCadSucesso}"
                         />
                     <Label
                         HorizontalTextAlignment="Center"
                         x:Name="LabelCadastroSucesso"
-                        Text="{Binding DisciplinaACadastrar.Nome_Disciplina}"
+                        Text="{Binding ConteudoACadastrar.Nome_Conteudo}"
                         FontSize="20"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=300}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
@@ -70,29 +68,28 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Button
-                        Text="Nova disciplina"
-                        FontSize="21"
-                        HeightRequest="90"
-                        Style="{StaticResource BotaoPequeno}"
-                        BackgroundColor="{StaticResource CorDisciplina}"                           
-                        BorderRadius="12"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Command="{Binding CadastrarNovaDisciplina}"
-                    />
-                    <Button
-                        Text="Adicionar conteúdo"
+                        Text="Novo conteúdo"
                         FontSize="21"
                         HeightRequest="90"
                         Style="{StaticResource BotaoPequeno}"
                         BackgroundColor="{StaticResource CorConteudo}"                           
                         BorderRadius="12"
                         Grid.Row="0"
+                        Grid.Column="0"
+                         Command="{Binding AdicionarNovoConteudo}"
+                    />
+                    <Button
+                        Text="Adicionar questão"
+                        FontSize="21"
+                        HeightRequest="90"
+                        Style="{StaticResource BotaoPequeno}"
+                        BackgroundColor="{StaticResource CorQuestao}"                           
+                        BorderRadius="12"
+                        Grid.Row="0"
                         Grid.Column="1"
-                        Command="{Binding IrParaAdicionarConteudoComModal}"
                     />
                 </Grid>
-                
+
 
             </StackLayout>
 

@@ -23,10 +23,16 @@ namespace DescomplicandoTestes.Model
         /// </summary>
         /// <param name="prof">Professor logado</param>
         /// <param name="disc">Disciplina selecionada</param>
-        /// <returns></returns>
+        /// <returns>Retorna uma lista de conteúdos</returns>
         public static List<Conteudo> BuscarConteudos(Professor prof, Disciplina disc)
         {
             return (dep.BuscarConteudos(prof.CPF_Professor, disc.Nome_Disciplina));
+        }
+
+
+        public static string AdicionarConteudo(Professor prof, Disciplina disc, Conteudo cont)
+        {
+            return (dep.AdicionarConteudo(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo));
         }
     }
 }

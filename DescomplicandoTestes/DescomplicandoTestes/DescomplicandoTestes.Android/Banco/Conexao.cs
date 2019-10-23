@@ -296,5 +296,44 @@ namespace DescomplicandoTestes.Droid.Banco
                 return ("Erro: " + e.Number);
             }
         }
+
+        public string AdicionarConteudo(string CPF, string nomedisciplina, string nomeconteudo)
+        {            
+            string query = "INSERT INTO CONTEUDO(Nome_Conteudo, CPF_Professor, Nome_Disciplina) VALUES ('" + nomeconteudo + "', '" + CPF + "', '" + nomedisciplina + "')";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Conteúdo adicionado com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
+                {
+                    return ("Esse conteúdo já está cadastrado nessa disciplina!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+
+        }
     }
 }
