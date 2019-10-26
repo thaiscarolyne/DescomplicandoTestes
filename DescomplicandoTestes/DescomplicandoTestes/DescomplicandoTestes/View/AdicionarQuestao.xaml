@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.AdicionarQuestao">
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-40,0,0,0">
+            <Label Text="ADICIONAR QUESTÃO" Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" Margin="0, 0, 0, 0" >
+                <RelativeLayout VerticalOptions="FillAndExpand">
+                    
+                    <Label
+                        x:Name="LabelDisciplina" Text="{Binding DisciplinaACadastrar.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
+                        FontSize="Large"                        
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=40}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+
+                    <Label
+                        x:Name="LabelDisciplina1" Text="{Binding DisciplinaSelecionada.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
+                        FontSize="Large"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelDisciplina}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+
+                    <Label
+                        x:Name="LabelConteudo" Text="{Binding ConteudoACadastrar.Nome_Conteudo}" TextColor="{StaticResource CorConteudo}"
+                        FontSize="Large"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=100}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+
+                    <Label
+                        x:Name="LabelConteudo1" Text="{Binding ConteudoSelecionado.Nome_Conteudo}" TextColor="{StaticResource CorConteudo}"
+                        FontSize="Large"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelConteudo}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+                   
+
+                    <BoxView 
+                        x:Name="Box"                       
+                        HeightRequest="410"                
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelConteudo,Constant=70}"
+                    />
+
+                    <Entry 
+                        x:Name="EntryNomeQuest"
+                        Placeholder="Nome da questão"                         
+                        HorizontalTextAlignment="Start"
+                        Keyboard="Text"
+                        Text="{Binding QuestaoACadastrar.Nome_Questao, Mode=TwoWay}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box, Constant=30}"
+                    />                  
+                    
+
+                    <Editor
+                        Placeholder="Enunciado"
+                        HorizontalOptions="FillAndExpand"
+                        Keyboard="Text"
+                        Text="{Binding QuestaoACadastrar.Enunciado, Mode=TwoWay}"
+                        HeightRequest="150"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=EntryNomeQuest,Constant=60}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeQuest}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeQuest}"
+                     />
+
+
+                    <Picker 
+                        Title="Selecione a dificuldade"  
+                        SelectedItem="{Binding QuestaoACadastrar.Dificuldade, Mode=TwoWay}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=EntryNomeQuest, Constant=230}"             
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeQuest}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeQuest}"                     
+                        >
+                        <Picker.Items>
+                            <x:String>Fácil</x:String>
+                            <x:String>Médio</x:String>
+                            <x:String>Difícil</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+                    <Button 
+                        x:Name="BotaoAnexar"
+                        Style="{StaticResource BotaoPequeno}"   
+                        FontSize="Medium"
+                        BorderRadius="30"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=EntryNomeQuest,Constant=300}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeQuest}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeQuest}"
+                        BackgroundColor="{StaticResource CorQuestao}" 
+                    />
+
+                    <ImageButton
+                        Source="anexar.png"
+                        BackgroundColor="Transparent"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAnexar,Constant=2.5}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeQuest,Constant=231}"
+                    />
+
+                    <Label
+                        Text="ANEXAR IMAGEM" 
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAnexar,Constant=10}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=BotaoAnexar,Constant=15}"
+                        FontSize="18"
+                        TextColor="White"
+                    />
+
+
+                    <Button 
+                        x:Name="BotaoAdicionar"
+                        Style="{StaticResource BotaoPequeno}"                        
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=400}"
+                        Text="PRÓXIMO" BackgroundColor="{StaticResource CorQuestao}"                        
+                        Command="{Binding AdicionarConteudo}"
+                    />
+
+                    
+
+
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

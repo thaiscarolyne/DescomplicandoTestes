@@ -20,7 +20,7 @@
                 <RelativeLayout>
 
                     <Label
-                        x:Name="LabelDisciplina" Text="{Binding DisciplinaACadastrar.Nome_Disciplina}" TextColor="{StaticResource CorConteudo}"
+                        x:Name="LabelDisciplina" Text="{Binding DisciplinaACadastrar.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
                         FontSize="Large"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-100}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
@@ -28,12 +28,13 @@
                     />
 
                     <Label
-                        x:Name="LabelDisciplina1" Text="{Binding DisciplinaSelecionada.Nome_Disciplina}" TextColor="{StaticResource CorConteudo}"
+                        x:Name="LabelDisciplina1" Text="{Binding DisciplinaSelecionada.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
                         FontSize="Large"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-100}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
                     />
+                    
 
                     <BoxView 
                         x:Name="Box"                       

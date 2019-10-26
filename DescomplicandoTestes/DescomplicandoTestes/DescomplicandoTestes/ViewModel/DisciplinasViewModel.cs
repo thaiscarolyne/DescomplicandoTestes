@@ -35,7 +35,10 @@ namespace DescomplicandoTestes.ViewModel
         public Command AdicionarConteudo { get; set; } //Comando para adicionar um novo conteúdo no banco de dados
 
         public Command AdicionarNovoConteudo { get; set; } //Comando para voltar para a tela de adicionar conteúdo
-        
+
+        public Command IrParaAdicionarQuestaoComModal { get; set; } //Comando para ir para tela de adicionar questão a partir do modal de confirmação de cadastro do conteúdo
+
+        public Command IrParaAdicionarQuestaoSemModal { get; set; } //Comando para ir para tela de adicionar questão a partir da tela de VisualizarConteudo
 
         /**********************************Listas**********************************/
 
@@ -93,7 +96,7 @@ namespace DescomplicandoTestes.ViewModel
         }       
 
 
-        private Disciplina _DisciplinaSelecionada;
+        private Disciplina _DisciplinaSelecionada = new Disciplina(null, null);
         public Disciplina DisciplinaSelecionada
         {
             get { return _DisciplinaSelecionada; }
@@ -107,7 +110,7 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-        private Conteudo _ConteudoSelecionado;
+        private Conteudo _ConteudoSelecionado = new Conteudo(null);
         public Conteudo ConteudoSelecionado
         {
             get { return _ConteudoSelecionado; }
@@ -121,7 +124,7 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-        private Questao _QuestaoSelecionada;
+        private Questao _QuestaoSelecionada = new Questao(null, null, null, null, Char.MinValue);
         public Questao QuestaoSelecionada
         {
             get { return _QuestaoSelecionada; }
@@ -186,6 +189,18 @@ namespace DescomplicandoTestes.ViewModel
         }
 
 
+        private Questao _QuestaoACadastrar = new Questao(null,null,null,null,Char.MinValue);
+        public Questao QuestaoACadastrar
+        {
+            get { return _QuestaoACadastrar; }
+            set
+            {
+                _QuestaoACadastrar = value;
+                OnPropertyChanged("QuestaoACadastrar");
+            }
+        }
+
+
 
         /*********************************Construtor*********************************/
 
@@ -202,24 +217,73 @@ namespace DescomplicandoTestes.ViewModel
             IrParaAdicionarConteudoSemModal = new Command(IrParaAdicionarConteudoSemModalAction);
             AdicionarConteudo = new Command(AdicionarConteudoAction);
             AdicionarNovoConteudo = new Command(AdicionarNovoConteudoAction);
+            IrParaAdicionarQuestaoComModal = new Command(IrParaAdicionarQuestaoComModalAction);
+            IrParaAdicionarQuestaoSemModal = new Command(IrParaAdicionarQuestaoSemModalAction);
         }
 
 
 
         /***********************************************************MÉTODOS***********************************************************/
 
+            private void ResetarVariaveisDisciplina()
+            {
+                /*DISCIPLINA*/            
+
+                DisciplinaSelecionada.Nome_Disciplina = null;
+                DisciplinaSelecionada.Sigla = null;
+
+                DisciplinaACadastrar.Nome_Disciplina = null;
+                DisciplinaACadastrar.Sigla = null;   
+            }
+
+            private void ResetarVariaveisConteudo()
+            {
+                /*CONTEÚDO*/
+
+                ConteudoSelecionado.Nome_Conteudo = null;
+
+                ConteudoACadastrar.Nome_Conteudo = null;
+            }
+
+            private void ResetarVariaveisQuestao()
+            {
+                /*QUESTÃO*/
+
+                QuestaoSelecionada.Nome_Questao = null;
+                QuestaoSelecionada.Resposta = Char.MinValue;
+                QuestaoSelecionada.Imagem = null;
+                QuestaoSelecionada.Dificuldade = null;
+                QuestaoSelecionada.Enunciado = null;
+
+                QuestaoACadastrar.Nome_Questao = null;
+                QuestaoACadastrar.Resposta = Char.MinValue;
+                QuestaoACadastrar.Imagem = null;
+                QuestaoACadastrar.Dificuldade = null;
+                QuestaoACadastrar.Enunciado = null;
+            }
+
 
         /*****************************DISCIPLINAS*****************************/
 
             private void IrParaCadastroDisciplinaAction()
             {
-                DisciplinaSelecionada = new Disciplina(null, null);
+                ResetarVariaveisDisciplina();
+
+                ResetarVariaveisConteudo();
+
+                ResetarVariaveisQuestao();
 
                 App.Current.MainPage.Navigation.PushAsync(new CadastrarDisciplina());
             }
 
             private void PesquisarDisciplinasAction()
             {
+                ResetarVariaveisDisciplina();
+
+                ResetarVariaveisConteudo();
+
+                ResetarVariaveisQuestao();
+
                 /****************Consulta ao BD****************/
                 ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
 
@@ -298,9 +362,9 @@ namespace DescomplicandoTestes.ViewModel
         /*****************************CONTEÚDOS*****************************/
 
 
-        private async void AdicionarNovoConteudoAction()
+            private async void AdicionarNovoConteudoAction()
             {
-                ConteudoACadastrar = new Conteudo(null);
+                ResetarVariaveisConteudo();
 
                 await App.Current.MainPage.Navigation.PopModalAsync();
             }
@@ -325,8 +389,6 @@ namespace DescomplicandoTestes.ViewModel
                         retorno = Conteudo.AdicionarConteudo(LoginVM.professor, DisciplinaSelecionada, ConteudoACadastrar);
                     }
                 
-                    //CONTINUAR DAQUI DEPOIS DE FAZER A PARTE DE CADASTRAR CONTEÚDO NO BANCO DE DADOS
-
                     if (retorno == "Conteúdo adicionado com sucesso!")
                     {
                         await App.Current.MainPage.Navigation.PushModalAsync(new ModalConteudoCadastradoSucesso());
@@ -346,6 +408,8 @@ namespace DescomplicandoTestes.ViewModel
 
             private async void IrParaAdicionarConteudoComModalAction()
             {
+                ResetarVariaveisConteudo();
+
                 await App.Current.MainPage.Navigation.PopAsync();
 
                 await App.Current.MainPage.Navigation.PopModalAsync();
@@ -362,6 +426,8 @@ namespace DescomplicandoTestes.ViewModel
 
             private async void IrParaAdicionarConteudoSemModalAction()
             {
+                ResetarVariaveisConteudo();  
+
                 await App.Current.MainPage.Navigation.PushAsync(new AdicionarConteudo());
             }        
 
@@ -375,7 +441,25 @@ namespace DescomplicandoTestes.ViewModel
             }
 
 
-       
+        /*****************************QUESTÕES*****************************/
+
+            private async void IrParaAdicionarQuestaoComModalAction()
+            {
+                ResetarVariaveisQuestao();
+
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+
+                await App.Current.MainPage.Navigation.PushAsync(new AdicionarQuestao());
+            }
+            
+            private async void IrParaAdicionarQuestaoSemModalAction()
+            {
+                ResetarVariaveisQuestao();
+
+                await App.Current.MainPage.Navigation.PushAsync(new AdicionarQuestao());
+            }
 
 
         /**************************Notificar modificações**************************/

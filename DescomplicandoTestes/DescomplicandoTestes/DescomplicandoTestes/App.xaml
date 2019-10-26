@@ -28,6 +28,25 @@
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             </Style>
 
+            
+            <!-- PICKER -->
+            
+            <Style TargetType="Picker">
+                <Setter Property="FontFamily" Value="gill-sans-ultra-bold.ttf#Bold Gill Sans"/>
+                <Setter Property="TextColor" Value="#939393"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+
+
+            <!-- EDITOR -->
+
+            <Style TargetType="Editor">
+                <Setter Property="FontFamily" Value="gill-sans-ultra-bold.ttf#Bold Gill Sans"/>
+                <Setter Property="TextColor" Value="#939393"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+
+            
             <!-- ENTRY -->
 
             <Style TargetType="Entry">

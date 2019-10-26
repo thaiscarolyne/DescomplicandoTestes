@@ -76,7 +76,7 @@
                         BorderRadius="12"
                         Grid.Row="0"
                         Grid.Column="0"
-                         Command="{Binding AdicionarNovoConteudo}"
+                        Command="{Binding AdicionarNovoConteudo}"
                     />
                     <Button
                         Text="Adicionar questão"
@@ -87,6 +87,7 @@
                         BorderRadius="12"
                         Grid.Row="0"
                         Grid.Column="1"
+                        Command="{Binding IrParaAdicionarQuestaoComModal}"
                     />
                 </Grid>
 

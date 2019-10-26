@@ -23,6 +23,7 @@
                         Style="{StaticResource BotaoPequeno}"
                         BackgroundColor="{StaticResource CorAdicionar}"                           
                         BorderRadius="12"
+                        Command="{Binding IrParaAdicionarQuestaoSemModal}"
                     />
 
                     <ImageButton 
@@ -30,7 +31,13 @@
                         Source="adicionar.png"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=BotaoAdicionar,Constant=3}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAdicionar,Constant=2}"
-                    />
+                    >
+                        <ImageButton.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding IrParaAdicionarQuestaoSemModal}"
+                            />
+                        </ImageButton.GestureRecognizers>
+                    </ImageButton>
 
                     <Label
                         x:Name="LabelAdicionarConteudo"
@@ -39,7 +46,13 @@
                         TextColor="White"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=3, Property=X, ElementName=BotaoAdicionar}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoAdicionar,Constant=10}"
-                    />
+                    >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding IrParaAdicionarQuestaoSemModal}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <BoxView 
                            x:Name="Box" 
