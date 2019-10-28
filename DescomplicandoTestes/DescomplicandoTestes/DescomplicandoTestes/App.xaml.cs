@@ -11,6 +11,7 @@ namespace DescomplicandoTestes
         {
             InitializeComponent();
 
+            //MainPage = new NavigationPage(new View.AdicionarQuestao()) { BarBackgroundColor = Color.HotPink };
             MainPage = new NavigationPage(new View.Login()) { BarBackgroundColor =Color.HotPink};
             //MainPage = new NavigationPage(new View.Home()) { BarBackgroundColor = Color.HotPink };
 

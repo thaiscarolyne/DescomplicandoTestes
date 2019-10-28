@@ -34,5 +34,10 @@ namespace DescomplicandoTestes.Banco
         //Esse método irá adicionar um novo conteúdo vinculado à uma disciplina no banco de dados
         string AdicionarConteudo(string CPF, string nomedisciplina, string nomeconteudo);
 
+        //Esse método irá adicionar uma nova questão vinculada à um conteúdo e disciplina
+        string AdicionarQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestao, string enunciado, string dificuldade, char resposta);
+
+        //Esse método irá adicionar alternativas em uma questão 
+        void AdicionarAlternativas(string nomequestao, string CPF, string nomedisciplina, string nomeconteudo, List<Alternativa> alt);
     }
 }

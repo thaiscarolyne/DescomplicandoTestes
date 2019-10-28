@@ -16,6 +16,8 @@ namespace DescomplicandoTestes.Model
 
         public Color Cor { get; set; }
 
+        public bool EhResposta { get; set; }
+
         public Alternativa(char letra, string texto)
         {
             Letra = letra;
@@ -34,6 +36,11 @@ namespace DescomplicandoTestes.Model
         public static List<Alternativa> BuscarAlternativas(Professor prof, Disciplina disc, Conteudo cont, Questao quest)
         {
             return (dep.BuscarAlternativas(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo, quest.Nome_Questao));
+        }
+        
+        public static void AdicionarAlternativas(Professor prof, Disciplina disc, Conteudo cont, Questao quest, List<Alternativa> alt)
+        {
+            dep.AdicionarAlternativas(quest.Nome_Questao, prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo, alt);
         }
 
     }

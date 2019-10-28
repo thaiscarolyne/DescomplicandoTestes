@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.ModalQuestaoCadastradaSucesso">
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource Fundo}" Spacing="20">
+
+            <StackLayout VerticalOptions="Start" BackgroundColor="HotPink" HeightRequest="60" Padding="10,20,0,0">
+                <Label Text="ADICIONAR QUESTÃO"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+            </StackLayout>
+
+
+            <StackLayout VerticalOptions="Start" Margin="0,-20,0,0">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand">
+
+                <RelativeLayout >
+                    <BoxView 
+                        x:Name="Box" 
+                        CornerRadius ="20, 20, 20, 20"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Height}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                    />
+                    <Image
+                        x:Name="ImagemCadastroSucesso"
+                        Source="cadastroSucesso.png"
+                        HorizontalOptions="FillAndExpand"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=60}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.25, Property=Width, Constant=10}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.5, Property=Width}"
+                    />
+                    <ImageButton
+                        Source="cancel.png"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.82, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.07, Property=Height}"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        Aspect="Fill"
+                        BackgroundColor="Transparent"
+                        Command="{Binding FecharModalQuestCadSucesso}"
+                        />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        x:Name="LabelCadastroSucesso"
+                        Text="{Binding QuestaoACadastrar.Nome_Questao}"
+                        FontSize="20"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=300}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"
+                    />
+
+                </RelativeLayout>
+            </StackLayout>
+
+
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+                
+                    <Button
+                        Text="Nova questão"
+                        FontSize="21"
+                        HeightRequest="90"
+                        Style="{StaticResource BotaoPequeno}"
+                        BackgroundColor="{StaticResource CorQuestao}"                           
+                        BorderRadius="12"
+                        Command="{Binding AdicionarNovaQuestao}"
+                    />                                
+
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

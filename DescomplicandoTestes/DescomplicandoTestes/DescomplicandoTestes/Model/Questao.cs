@@ -42,5 +42,18 @@ namespace DescomplicandoTestes.Model
             return (dep.BuscarQuestoes(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo));
         }
 
+        /// <summary>
+        /// Método estático para adicionar uma questão de um conteúdo, disciplina e professor
+        /// </summary>
+        /// <param name="prof">Professor logado no sistema</param>
+        /// <param name="disc">Disciplina</param>
+        /// <param name="cont">Conteudo</param>
+        /// <param name="quest">Questão a cadastrar</param>
+        /// <returns>Retorna uma string de confirmação ou erro</returns>
+        public static string AdicionarQuestao(Professor prof, Disciplina disc, Conteudo cont, Questao quest)
+        {
+            return (dep.AdicionarQuestao(prof.CPF_Professor,disc.Nome_Disciplina, cont.Nome_Conteudo, quest.Nome_Questao, quest.Enunciado, quest.Dificuldade, quest.Resposta));
+        }
+
     }
 }

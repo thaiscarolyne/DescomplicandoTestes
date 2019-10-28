@@ -7,6 +7,7 @@ using DescomplicandoTestes.View;
 using DescomplicandoTestes.Model;
 using System.Globalization;
 using DescomplicandoTestes.ViewModel;
+using System.Linq;
 
 namespace DescomplicandoTestes.ViewModel
 {
@@ -39,6 +40,20 @@ namespace DescomplicandoTestes.ViewModel
         public Command IrParaAdicionarQuestaoComModal { get; set; } //Comando para ir para tela de adicionar questão a partir do modal de confirmação de cadastro do conteúdo
 
         public Command IrParaAdicionarQuestaoSemModal { get; set; } //Comando para ir para tela de adicionar questão a partir da tela de VisualizarConteudo
+
+        public Command IrParaAdicionarAlternativas { get; set; } //Comando para ir para tela de adicionar alternativas a partir da tela AdicionarQuestao
+
+        public Command ExcluirAlternativa { get; set; } //Comando para excluir uma alternativas da lista de alternativas
+
+        public Command AdicionarAlternativaListView { get; set; } //Comando para adicionar uma alternativa no listview
+
+        public Command AlternativaMarcada { get; set; } //Comando que será acionado quando uma alternativa for marcada, para decidir qual ficará marcada ou não
+
+        public Command AdicionarQuestao { get; set; } //Comando para adicionar uma questão e suas alternativas no banco de dados
+
+        public Command AdicionarNovaQuestao { get; set; } //Comando para voltar para a tela de adicionar questão
+
+        public Command FecharModalQuestCadSucesso { get; set; } //Comando para fechar o módulo de cadastro de questão
 
         /**********************************Listas**********************************/
 
@@ -76,7 +91,7 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-        private List<Alternativa> _ListaAlternativas;
+        private List<Alternativa> _ListaAlternativas = new List<Alternativa>();
         public List<Alternativa> ListaAlternativas
         {
             get { return _ListaAlternativas; }
@@ -86,7 +101,7 @@ namespace DescomplicandoTestes.ViewModel
                 OnPropertyChanged("ListaAlternativas");
             }
         }
-
+        
 
         /*********************************Variáveis para exibição*********************************/
 
@@ -189,7 +204,7 @@ namespace DescomplicandoTestes.ViewModel
         }
 
 
-        private Questao _QuestaoACadastrar = new Questao(null,null,null,null,Char.MinValue);
+        private Questao _QuestaoACadastrar = new Questao("","","","",Char.MinValue);
         public Questao QuestaoACadastrar
         {
             get { return _QuestaoACadastrar; }
@@ -219,6 +234,13 @@ namespace DescomplicandoTestes.ViewModel
             AdicionarNovoConteudo = new Command(AdicionarNovoConteudoAction);
             IrParaAdicionarQuestaoComModal = new Command(IrParaAdicionarQuestaoComModalAction);
             IrParaAdicionarQuestaoSemModal = new Command(IrParaAdicionarQuestaoSemModalAction);
+            IrParaAdicionarAlternativas = new Command(IrParaAdicionarAlternativasAction);
+            ExcluirAlternativa = new Command(ExcluirAlternativaAction);
+            AdicionarAlternativaListView = new Command(AdicionarAlternativaListViewAction);
+            AlternativaMarcada = new Command(AlternativaMarcadaAction);
+            AdicionarQuestao = new Command(AdicionarQuestaoAction);
+            AdicionarNovaQuestao = new Command(AdicionarNovaQuestaoAction);
+            FecharModalQuestCadSucesso = new Command(FecharModalQuestCadSucessoAction);
         }
 
 
@@ -254,12 +276,12 @@ namespace DescomplicandoTestes.ViewModel
                 QuestaoSelecionada.Imagem = null;
                 QuestaoSelecionada.Dificuldade = null;
                 QuestaoSelecionada.Enunciado = null;
-
-                QuestaoACadastrar.Nome_Questao = null;
+                
+                QuestaoACadastrar.Nome_Questao = "";
                 QuestaoACadastrar.Resposta = Char.MinValue;
-                QuestaoACadastrar.Imagem = null;
-                QuestaoACadastrar.Dificuldade = null;
-                QuestaoACadastrar.Enunciado = null;
+                QuestaoACadastrar.Imagem = "";
+                QuestaoACadastrar.Dificuldade = "";
+                QuestaoACadastrar.Enunciado = "";
             }
 
 
@@ -459,6 +481,217 @@ namespace DescomplicandoTestes.ViewModel
                 ResetarVariaveisQuestao();
 
                 await App.Current.MainPage.Navigation.PushAsync(new AdicionarQuestao());
+            }
+
+            private async void IrParaAdicionarAlternativasAction()
+            {
+                if (QuestaoACadastrar.Nome_Questao == "" || QuestaoACadastrar.Enunciado == "" || QuestaoACadastrar.Dificuldade == "")
+                {
+                    await App.Current.MainPage.DisplayAlert("ERRO", "Por favor, preencha todos os campos!", "OK");
+                }
+                else
+                {
+                    ListaAlternativas.Clear();
+
+                    ListaAlternativas.Add(new Alternativa('A', ""));
+
+                    await App.Current.MainPage.Navigation.PushAsync(new AdicionarAlternativas());
+                }
+
+                
+            }
+
+            private async void ExcluirAlternativaAction(object obj)
+            {
+                var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente excluir essa alternativa?", "SIM", "NÃO");
+
+
+                if (confirma)
+                {
+                    Alternativa alt = obj as Alternativa;
+
+                    ListaAlternativas.Remove(ListaAlternativas.Where(i => i.Letra == alt.Letra).Single());
+
+                    string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+                    List<Alternativa> ListaAuxiliar = new List<Alternativa>(ListaAlternativas);
+
+                    int pos = 0;
+                    foreach (Alternativa item in ListaAuxiliar)
+                    {
+                        item.Letra = alfabeto[pos];
+                        pos++;
+                    }
+
+                    ListaAlternativas = null;
+
+                    ListaAlternativas = ListaAuxiliar;
+
+                }
+
+            }
+
+            private void AdicionarAlternativaListViewAction()
+            {
+                if (ListaAlternativas.Count == 5)
+                {
+                    App.Current.MainPage.DisplayAlert("Aviso", "O número máximo de alternativas por questão foi atingido!", "OK");
+                }
+                else
+                {                
+
+                    char letra;
+
+                    if (ListaAlternativas.Count == 0)
+                    {
+                        letra = 'A';
+                    }
+                    else
+                    {
+                        letra = Convert.ToChar(ListaAlternativas.Last().Letra + 1);
+                    }
+
+                    ListaAlternativas.Add(new Alternativa(letra, ""));
+
+                    List<Alternativa> ListaAuxiliar = new List<Alternativa>(ListaAlternativas);
+
+                    ListaAlternativas = null;
+
+                    ListaAlternativas = ListaAuxiliar;
+                }               
+
+            }
+
+            
+            private void AlternativaMarcadaAction(object obj)
+            {     
+                Alternativa alt = obj as Alternativa;
+
+                foreach (var item in ListaAlternativas)
+                {
+                    if (item.Letra == alt.Letra)
+                    {
+                        item.EhResposta = true;
+                    }
+                    else
+                    {
+                        item.EhResposta = false;
+                    }
+                }
+
+                List<Alternativa> ListaAuxiliar = new List<Alternativa>(ListaAlternativas);
+
+                ListaAlternativas = null;
+
+                ListaAlternativas = ListaAuxiliar;
+            }
+
+            private async void AdicionarQuestaoAction()
+            {
+                if (ListaAlternativas.Count < 2)
+                {
+                    await App.Current.MainPage.DisplayAlert("Aviso", "O número mínino de alternativas para uma questão são duas!", "OK");
+                }
+                else
+                {
+                    char resposta = Char.MinValue;
+
+                    bool existeAltVazia = false;
+
+                    foreach (var item in ListaAlternativas) 
+                    {
+                        if (item.EhResposta == true)
+                        {
+                            resposta = item.Letra;
+                        }
+
+                        if (item.Texto == "")
+                        {
+                            existeAltVazia = true;
+                        }
+                    }
+
+
+                    if (existeAltVazia) //Quer dizer que alguma alternativa está com o texto vazio ainda
+                    {
+                        await App.Current.MainPage.DisplayAlert("Aviso", "Por favor, preencha o texto de todas as alternativas!", "OK");
+                    }
+                    else
+                    {
+                        if (resposta == Char.MinValue) //Quer dizer que não marcou nenhuma resposta
+                        {
+                            await App.Current.MainPage.DisplayAlert("Aviso", "Por favor, marque uma alternativa como resposta da questão!", "OK");
+                        }
+                        else
+                        {
+                            QuestaoACadastrar.Resposta = resposta;
+
+                            string retorno;
+
+                            if (DisciplinaSelecionada.Nome_Disciplina == null) //Então, estamos na parte de cadastro
+                            {
+                                retorno = Questao.AdicionarQuestao(LoginVM.professor, DisciplinaACadastrar, ConteudoACadastrar, QuestaoACadastrar);
+
+                                Alternativa.AdicionarAlternativas(LoginVM.professor, DisciplinaACadastrar, ConteudoACadastrar, QuestaoACadastrar, ListaAlternativas);
+                            }
+                            else //Então, estamos na parte de pesquisa
+                            {
+                                retorno = Questao.AdicionarQuestao(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoACadastrar);
+
+                                Alternativa.AdicionarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoACadastrar, ListaAlternativas);
+                            }
+
+                            if (retorno == "Questão adicionada com sucesso!")
+                            {
+                                await App.Current.MainPage.Navigation.PushModalAsync(new ModalQuestaoCadastradaSucesso());
+
+                                if (DisciplinaSelecionada != null) //Só preciso atualizar a lista de questões se antes ele estava na parte de pesquisa
+                                {
+                                    ListaQuestoes = Questao.BuscarQuestoes(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado);
+                                }
+                            }
+                            else
+                            {
+                                await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                                QuestaoACadastrar = new Questao("", "", "", "", Char.MinValue);
+                            }
+
+                        }
+                    }
+                   
+                }
+
+            }
+
+
+            private async void AdicionarNovaQuestaoAction()
+            {
+                ResetarVariaveisQuestao();
+
+                ListaAlternativas.Clear();
+
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PushAsync(new AdicionarQuestao());
+
+                App.Current.MainPage.Navigation.PopModalAsync();            
+            }
+
+
+            private async void FecharModalQuestCadSucessoAction()
+            {
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopAsync();
+
+                await App.Current.MainPage.Navigation.PopModalAsync();
+
+                QuestaoACadastrar = new Questao("", "", "", "", Char.MinValue);
+
+                ListaAlternativas.Clear();
             }
 
 

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              x:Class="DescomplicandoTestes.View.AdicionarQuestao">
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-40,0,0,0">
@@ -79,7 +80,7 @@
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeQuest}"
                      />
 
-
+                    
                     <Picker 
                         Title="Selecione a dificuldade"  
                         SelectedItem="{Binding QuestaoACadastrar.Dificuldade, Mode=TwoWay}"
@@ -93,6 +94,7 @@
                             <x:String>Difícil</x:String>
                         </Picker.Items>
                     </Picker>
+                    
 
                     <Button 
                         x:Name="BotaoAnexar"
@@ -122,11 +124,11 @@
 
 
                     <Button 
-                        x:Name="BotaoAdicionar"
+                        x:Name="BotaoProximo"
                         Style="{StaticResource BotaoPequeno}"                        
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=400}"
                         Text="PRÓXIMO" BackgroundColor="{StaticResource CorQuestao}"                        
-                        Command="{Binding AdicionarConteudo}"
+                        Command="{Binding IrParaAdicionarAlternativas}"
                     />
 
                     

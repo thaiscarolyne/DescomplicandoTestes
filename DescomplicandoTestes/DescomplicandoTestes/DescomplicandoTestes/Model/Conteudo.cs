@@ -29,7 +29,13 @@ namespace DescomplicandoTestes.Model
             return (dep.BuscarConteudos(prof.CPF_Professor, disc.Nome_Disciplina));
         }
 
-
+        /// <summary>
+        /// Método estático para adicionar um conteúdo em uma disciplina
+        /// </summary>
+        /// <param name="prof">Professor logado</param>
+        /// <param name="disc">Disciplina</param>
+        /// <param name="cont">Conteúdo</param>
+        /// <returns></returns>
         public static string AdicionarConteudo(Professor prof, Disciplina disc, Conteudo cont)
         {
             return (dep.AdicionarConteudo(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo));

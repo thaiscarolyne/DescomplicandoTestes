@@ -335,5 +335,71 @@ namespace DescomplicandoTestes.Droid.Banco
             }
 
         }
+
+        public string AdicionarQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestao, string enunciado, string dificuldade, char resposta)
+        {
+            string query = "INSERT INTO QUESTAO(CPF_Professor, Nome_Disciplina, Nome_Conteudo, Nome_Questao, Enunciado, Dificuldade, Resposta) VALUES ('" + CPF + "', '" + nomedisciplina + "', '" + nomeconteudo + "', '" + nomequestao + "', '" + enunciado + "', '" + dificuldade + "', '" + resposta + "')";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Questão adicionada com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
+                {
+                    return ("Esse questão já está cadastrada nesse conteúdo e disciplina!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+        }
+
+        public void AdicionarAlternativas(string nomequestao, string CPF, string nomedisciplina, string nomeconteudo, List<Alternativa> alt)
+        {
+            List<string> queries = new List<string>();
+                        
+            foreach (var item in alt) //Vai criar uma query para cada alternativa
+            {
+                queries.Add("INSERT INTO ALTERNATIVA(Nome_Questao, CPF_Professor, Nome_Disciplina, Nome_Conteudo, Texto, Letra) VALUES('" + nomequestao + "', '" + CPF + "', '" + nomedisciplina + "', '" + nomeconteudo + "', '" + item.Texto + "', '" + item.Letra + "')");
+            }
+
+            
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+
+                foreach (var item in queries)
+                {
+                    MySqlCommand cmd = new MySqlCommand(item, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+                }      
+
+                conexaoMySQL.Close();
+            }                
+
+            
+        }
     }
 }
