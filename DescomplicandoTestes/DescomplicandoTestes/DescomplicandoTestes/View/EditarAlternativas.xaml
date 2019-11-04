@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.EditarAlternativas"
+             x:Name="EditarAlternativasPage"
+             >
+    
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-10,0,0,0">
+            <Label Text="EDITAR ALTERNATIVAS" Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" Margin="0, 0, 0, 0" >
+                <RelativeLayout VerticalOptions="FillAndExpand">
+
+                    <BoxView 
+                        x:Name="Box" 
+                        HeightRequest="500"                
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=50}"
+                    />
+
+                    <Label
+                        Text="Digite as opções e marque a que a for a resposta certa!"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=X,Constant=20}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=Y,Constant=20}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=Width, Constant=-50}"
+                        HorizontalTextAlignment="Center"
+                    />
+
+                    <ListView
+                        x:Name="ListaAlternativas" ItemsSource="{Binding ListaAlternativas, Mode=TwoWay}" HasUnevenRows="True"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=X,Constant=5}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=Y,Constant=70}"  
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=Width,Constant=-10}" 
+                        HeightRequest="330"
+                    >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Margin="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <input:CheckBox 
+                                                    Grid.Column="0" Text="{Binding Letra}" Type="Material" FontFamily="gill-sans-ultra-bold.ttf#Bold Gill Sans" TextColor="#939393" 
+                                                    CheckChangedCommand="{Binding Source={x:Reference EditarAlternativasPage}, Path=BindingContext.AlternativaMarcada}"
+                                                    CommandParameter="{Binding .}"
+                                                    IsChecked="{Binding EhResposta}"
+                                                />
+
+
+                                                <Editor Grid.Column="1" AutoSize="TextChanges" Text="{Binding Texto}" VerticalOptions="FillAndExpand" WidthRequest="250" Placeholder="Alternativa" FontSize="15" MaxLength="500"/>
+
+                                                <ImageButton 
+                                                    Grid.Column="2" Source="excluir.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40" 
+                                                    Command="{Binding Source={x:Reference EditarAlternativasPage}, Path=BindingContext.ExcluirAlternativa}"
+                                                    CommandParameter="{Binding .}"
+                                                />
+                                            </Grid>
+
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                    <ImageButton 
+                        BackgroundColor="Transparent" Source="adicionar.png" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" WidthRequest="50" HeightRequest="50"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=ListaAlternativas, Property=X,Constant=120}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=ListaAlternativas, Property=Y,Constant=350}"
+                        Command="{Binding AdicionarAlternativaListView}"
+                    />
+
+                    <Button 
+                        x:Name="BotaoAdicionar"
+                        Style="{StaticResource BotaoPequeno}"                        
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=495}"
+                        Text="EDITAR" BackgroundColor="{StaticResource CorQuestao}"                        
+                        Command="{Binding EditarQuestao}"
+                    />
+
+
+
+
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

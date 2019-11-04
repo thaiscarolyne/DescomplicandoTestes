@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DescomplicandoTestes.View.VisualizarDisciplina">
-    
+             x:Class="DescomplicandoTestes.View.VisualizarDisciplina"
+             x:Name="VisualizarDisciplinaPage"
+             >
+        
     <NavigationPage.TitleView>
         
             <Label x:Name="Cabecalho" Text="{Binding DisciplinaSelecionada.Nome_Disciplina}"  Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
@@ -72,6 +74,7 @@
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.8, Property=Width, ElementName=Box}"
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.11, Property=Width}"
+                            Text="{Binding ConteudoAPesquisar, Mode=TwoWay}"
                         />
 
                     <ImageButton 
@@ -103,10 +106,11 @@
                             ItemsSource="{Binding ListaConteudos}"                                   
                             SeparatorVisibility="None"
                             RowHeight="100"        
-                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaConteudos,Constant=10}"  
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"
-                                 
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=BoxListaConteudos, Property=Width}"
+                        
                      >
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -117,24 +121,32 @@
                                                 CornerRadius ="20, 20, 20, 20"
                                                 HeightRequest="80"  
                                                 BackgroundColor="{StaticResource CorConteudo}"
+                                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
                                             />
                                         <StackLayout 
                                             HorizontalOptions="FillAndExpand" 
                                             HeightRequest="70"
-                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                                            
-                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"                                            
+                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
                                             Padding="5,5,5,5"
                                         >
                                             <StackLayout HorizontalOptions="CenterAndExpand">
                                                 <Label 
                                                     Text="{Binding Nome_Conteudo}"
-                                                    LineBreakMode="NoWrap"                                               
+                                                    LineBreakMode="TailTruncation"                                               
                                                  />
                                             </StackLayout>
 
                                             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
-                                                <ImageButton Source="editar.png"/>
-                                                <ImageButton Source="excluir.png"/>
+                                                <ImageButton Source="editar.png"
+                                                             Command="{Binding Source={x:Reference VisualizarDisciplinaPage}, Path=BindingContext.IrParaEditarConteudo}"
+                                                             CommandParameter="{Binding .}"
+                                                             />
+                                                <ImageButton Source="excluir.png"
+                                                             Command="{Binding Source={x:Reference VisualizarDisciplinaPage}, Path=BindingContext.ExcluirConteudo}"
+                                                             CommandParameter="{Binding .}"                                                             
+                                                             />
                                             </StackLayout>
 
                                         </StackLayout>

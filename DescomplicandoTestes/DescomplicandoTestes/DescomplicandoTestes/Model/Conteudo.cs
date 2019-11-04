@@ -40,5 +40,30 @@ namespace DescomplicandoTestes.Model
         {
             return (dep.AdicionarConteudo(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo));
         }
+
+        /// <summary>
+        /// Método estático para excluir um conteúdo de uma disciplina
+        /// </summary>
+        /// <param name="prof">Professor logado</param>
+        /// <param name="disc">Disciplina</param>
+        /// <param name="cont">Conteúdo</param>
+        /// <returns></returns>
+        public static string ExcluirConteudo(Professor prof, Disciplina disc, Conteudo cont)
+        {
+            return (dep.ExcluirConteudo(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo));
+        }
+
+        /// <summary>
+        /// Método estático para editar um conteúdo de uma disciplina
+        /// </summary>
+        /// <param name="prof">Professor logado</param>
+        /// <param name="disc">Disciplina</param>
+        /// <param name="contAntigo">Conteúdo antigo</param>
+        /// <param name="contNovo">Conteúdo novo</param>
+        /// <returns></returns>
+        public static string EditarConteudo(Professor prof, Disciplina disc, Conteudo contAntigo, Conteudo contNovo)
+        {
+            return (dep.EditarConteudo(prof.CPF_Professor, disc.Nome_Disciplina, contAntigo.Nome_Conteudo, contNovo.Nome_Conteudo));
+        }
     }
 }

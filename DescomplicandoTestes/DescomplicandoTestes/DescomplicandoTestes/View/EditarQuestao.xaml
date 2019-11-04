@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DescomplicandoTestes.View.AdicionarQuestao">
+             x:Class="DescomplicandoTestes.View.EditarQuestao">
     <NavigationPage.TitleView>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-40,0,0,0">
-            <Label Text="ADICIONAR QUESTÃO" Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+            <Label Text="EDITAR QUESTÃO" Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -18,7 +18,7 @@
 
             <StackLayout VerticalOptions="FillAndExpand" Margin="0, 0, 0, 0" >
                 <RelativeLayout VerticalOptions="FillAndExpand">
-                    
+
                     <Label
                         x:Name="LabelDisciplina" Text="{Binding DisciplinaACadastrar.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
                         FontSize="Large"                        
@@ -50,7 +50,7 @@
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
                     />
-                   
+
 
                     <BoxView 
                         x:Name="Box"                       
@@ -63,26 +63,26 @@
                         Placeholder="Nome da questão"                         
                         HorizontalTextAlignment="Start"
                         Keyboard="Text"
-                        Text="{Binding QuestaoACadastrar.Nome_Questao, Mode=TwoWay}"
+                        Text="{Binding QuestaoAEditar.Nome_Questao, Mode=TwoWay}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box, Constant=30}"
-                    />                  
-                    
+                    />
+
 
                     <Editor
                         Placeholder="Enunciado"
                         HorizontalOptions="FillAndExpand"
                         Keyboard="Text"
-                        Text="{Binding QuestaoACadastrar.Enunciado, Mode=TwoWay}"
+                        Text="{Binding QuestaoAEditar.Enunciado, Mode=TwoWay}"
                         HeightRequest="150"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=EntryNomeQuest,Constant=60}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeQuest}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeQuest}"
                      />
 
-                    
+
                     <Picker 
                         Title="Selecione a dificuldade"  
-                        SelectedItem="{Binding QuestaoACadastrar.Dificuldade, Mode=TwoWay}"
+                        SelectedItem="{Binding QuestaoAEditar.Dificuldade, Mode=TwoWay}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=EntryNomeQuest, Constant=230}"             
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeQuest}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeQuest}"                     
@@ -93,7 +93,7 @@
                             <x:String>Difícil</x:String>
                         </Picker.Items>
                     </Picker>
-                    
+
 
                     <Button 
                         x:Name="BotaoAnexar"
@@ -127,11 +127,8 @@
                         Style="{StaticResource BotaoPequeno}"                        
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=400}"
                         Text="PRÓXIMO" BackgroundColor="{StaticResource CorQuestao}"                        
-                        Command="{Binding IrParaAdicionarAlternativas}"
+                        Command="{Binding IrParaEditarAlternativas}"
                     />
-
-                    
-
 
                 </RelativeLayout>
             </StackLayout>

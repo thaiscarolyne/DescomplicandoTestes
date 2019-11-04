@@ -28,7 +28,7 @@ namespace DescomplicandoTestes.Banco
         //Esse método irá cadastrar o professor no banco de dados
         string CadastrarProfessor(string CPF, string senha, string nome);
 
-        //Esse método irá cadastrar o professor no banco de dados
+        //Esse método irá excluir uma disciplina do banco de dados
         string ExcluirDisciplina(string CPF, string nomedisciplina);
 
         //Esse método irá adicionar um novo conteúdo vinculado à uma disciplina no banco de dados
@@ -37,7 +37,25 @@ namespace DescomplicandoTestes.Banco
         //Esse método irá adicionar uma nova questão vinculada à um conteúdo e disciplina
         string AdicionarQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestao, string enunciado, string dificuldade, char resposta);
 
-        //Esse método irá adicionar alternativas em uma questão 
+        //Esse método irá adicionar alternativas relacionadas à uma questão 
         void AdicionarAlternativas(string nomequestao, string CPF, string nomedisciplina, string nomeconteudo, List<Alternativa> alt);
+
+        //Esse método irá excluir um conteúdo do banco de dados
+        string ExcluirConteudo(string CPF, string nomedisciplina, string nomeconteudo);
+
+        //Esse método irá excluir uma questão do banco de dados
+        string ExcluirQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestao);
+
+        //Esse método irá atualizar as informações da disciplina
+        string EditarDisciplina(string CPF, string nomedisciplinaantiga, string nomedisciplinanova, string siglanova);
+
+        //Esse método irá atualizar as informações do conteúdo
+        string EditarConteudo(string CPF, string nomedisciplina, string nomeconteudoantigo, string nomeconteudonovo);
+
+        //Esse método irá atualizar as informações da questão
+        string EditarQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestaoantiga, string nomequestaonova, string enunciado, string dificuldade, char resposta);
+
+        //Esse método irá excluir as alternativas que existiam para essa questão, e chamar a função de adicionar alternativas para adicionar as novas
+        void EditarAlternativas(string CPF, string nomedisciplina, string nomeconteudo, string nomequestaoantiga, string nomequestaonova, List<Alternativa> alt);
     }
 }

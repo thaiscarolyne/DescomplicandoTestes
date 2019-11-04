@@ -37,6 +37,7 @@
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.8, Property=Width, ElementName=Box}"
                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.11, Property=Width}"
+                            Text="{Binding DisciplinaAPesquisar, Mode=TwoWay}"
                         />
 
                     <ImageButton 
@@ -69,9 +70,10 @@
                             ItemsSource="{Binding ListaDisciplinas}"                                   
                             SeparatorVisibility="None"
                             RowHeight="100"
-                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.001, Property=Width}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaDisciplinas,Constant=10}"  
-                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"                                 
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"    
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=BoxListaDisciplinas, Property=Width}"
                      >                        
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -81,25 +83,30 @@
                                                 x:Name="Box" 
                                                 CornerRadius ="20, 20, 20, 20"
                                                 HeightRequest="80"  
-                                                BackgroundColor="{StaticResource CorDisciplina}"                                             
+                                                BackgroundColor="{StaticResource CorDisciplina}"   
+                                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
                                         >                                      
                                         </BoxView>
                                         <StackLayout 
                                             HorizontalOptions="FillAndExpand" 
                                             HeightRequest="70"
-                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.8, Property=Width}"                                            
-                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"  
                                             Padding="5,5,5,5"
                                         >
                                             <StackLayout HorizontalOptions="CenterAndExpand">
                                                 <Label 
                                                     Text="{Binding Nome_Disciplina}"
-                                                    LineBreakMode="NoWrap"                                              
+                                                    LineBreakMode="TailTruncation"                                               
                                                 />
                                             </StackLayout>                                            
 
                                             <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
-                                                <ImageButton Source="editar.png"/>
+                                                <ImageButton Source="editar.png"
+                                                             Command="{Binding Source={x:Reference PesquisarDisciplinasPage}, Path=BindingContext.IrParaEditarDisciplina}"
+                                                             CommandParameter="{Binding .}"
+                                                             />
                                                 <ImageButton Source="excluir.png" 
                                                              Command="{Binding Source={x:Reference PesquisarDisciplinasPage}, Path=BindingContext.ExcluirDisciplina}"
                                                              CommandParameter="{Binding .}"

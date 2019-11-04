@@ -51,12 +51,12 @@ namespace DescomplicandoTestes.Droid.Banco
             string query = "SELECT * FROM PROFESSOR WHERE CPF_Professor = '"+CPF+"' && Senha = '"+Senha+"'";
             MySqlConnection conexaoMySQL = Conectar();
             if (conexaoMySQL != null)
-            {
+            {               
                 conexaoMySQL.Open();
                 MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
                 MySqlDataReader rdr = null;
                 rdr = cmd.ExecuteReader();
-                return (rdr.Read());                                
+                return (rdr.Read()); 
             }
             conexaoMySQL.Close();
             return (false);
@@ -397,9 +397,200 @@ namespace DescomplicandoTestes.Droid.Banco
                 }      
 
                 conexaoMySQL.Close();
-            }                
-
+            }    
             
+        }
+
+        public string ExcluirConteudo(string CPF, string nomedisciplina, string nomeconteudo)
+        {
+            string query = "DELETE FROM CONTEUDO WHERE Nome_Conteudo='" + nomeconteudo + "' && CPF_Professor='" + CPF + "' && Nome_Disciplina='" + nomedisciplina + "'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Conteúdo excluído com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+
+            }
+            catch (MySqlException e)
+            {
+                return ("Erro: " + e.Number);
+            }
+        }
+
+        public string ExcluirQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestao)
+        {
+            string query = "DELETE FROM QUESTAO WHERE Nome_Questao='" + nomequestao + "' && Nome_Conteudo ='" + nomeconteudo + "' && CPF_Professor='" + CPF + "' && Nome_Disciplina='" + nomedisciplina + "'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Questão excluída com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+
+            }
+            catch (MySqlException e)
+            {
+                return ("Erro: " + e.Number);
+            }
+        }
+
+        public string EditarDisciplina(string CPF, string nomedisciplinaantiga, string nomedisciplinanova, string siglanova)
+        {
+            string query = "UPDATE DISCIPLINA SET Nome_Disciplina='"+nomedisciplinanova+"', Sigla='"+siglanova+"' WHERE Nome_Disciplina='" + nomedisciplinaantiga + "' && CPF_Professor='"+CPF+"'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Disciplina editada com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
+                {
+                    return ("Essa disciplina já está cadastrada em sua base de dados!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+        }
+
+        public string EditarConteudo(string CPF, string nomedisciplina, string nomeconteudoantigo, string nomeconteudonovo)
+        {
+            string query = "UPDATE CONTEUDO SET Nome_Conteudo='" + nomeconteudonovo + "' WHERE Nome_Disciplina='" + nomedisciplina + "' && CPF_Professor='" + CPF + "' && Nome_Conteudo='" + nomeconteudoantigo + "'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Conteúdo editado com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
+                {
+                    return ("Esse conteúdo já está cadastrado em sua base de dados!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+        }
+
+        public string EditarQuestao(string CPF, string nomedisciplina, string nomeconteudo, string nomequestaoantiga, string nomequestaonova, string enunciado, string dificuldade, char resposta)
+        {
+            string query = "UPDATE QUESTAO SET Nome_Questao='" + nomequestaonova + "', Enunciado='"+ enunciado + "', Dificuldade='" + dificuldade + "', Resposta='" + resposta + "' WHERE Nome_Questao='" + nomequestaoantiga + "' && Nome_Disciplina='" + nomedisciplina + "' && CPF_Professor='" + CPF + "' && Nome_Conteudo='" + nomeconteudo + "'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Questão editada com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062 || e.Number == 1761) //Erro de duplicidade de chave primária
+                {
+                    return ("Uma questão com esse nome já está cadastrada em sua base de dados!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+        }
+
+        public void EditarAlternativas(string CPF, string nomedisciplina, string nomeconteudo, string nomequestaoantiga, string nomequestaonova, List<Alternativa> alt)
+        {
+            string query = "DELETE FROM ALTERNATIVA WHERE Nome_Questao='" + nomequestaonova + "' && CPF_Professor='" + CPF + "' && Nome_Disciplina='" + nomedisciplina + "' && Nome_Conteudo='" + nomeconteudo + "'";
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                cmd.ExecuteNonQuery();
+
+                conexaoMySQL.Close();
+
+                AdicionarAlternativas(nomequestaonova, CPF, nomedisciplina, nomeconteudo, alt);
+            }           
+
         }
     }
 }

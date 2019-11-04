@@ -55,5 +55,33 @@ namespace DescomplicandoTestes.Model
             return (dep.AdicionarQuestao(prof.CPF_Professor,disc.Nome_Disciplina, cont.Nome_Conteudo, quest.Nome_Questao, quest.Enunciado, quest.Dificuldade, quest.Resposta));
         }
 
+        /// <summary>
+        /// Método estático para excluir uma questão de um conteúdo
+        /// </summary>
+        /// <param name="prof">Professor logado no sistema</param>
+        /// <param name="disc">Disciplina</param>
+        /// <param name="cont">Conteúdo</param>
+        /// <param name="quest">Questão a ser excluída</param>
+        /// <returns></returns>
+        public static string ExcluirQuestao(Professor prof, Disciplina disc, Conteudo cont, Questao quest)
+        {
+            return(dep.ExcluirQuestao(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo, quest.Nome_Questao));
+        }
+
+
+        /// <summary>
+        /// Método estático para editar uma questão
+        /// </summary>
+        /// <param name="prof">Professor logado</param>
+        /// <param name="disc">Disciplina</param>
+        /// <param name="cont">Conteudo</param>
+        /// <param name="questnova">Novas informações da questão</param>
+        /// <param name="questantiga">Questão antiga</param>
+        /// <returns></returns>
+        public static string EditarQuestao(Professor prof, Disciplina disc, Conteudo cont, Questao questnova, Questao questantiga)
+        {
+            return (dep.EditarQuestao(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo, questantiga.Nome_Questao, questnova.Nome_Questao, questnova.Enunciado, questnova.Dificuldade, questnova.Resposta));
+        }
+
     }
 }

@@ -61,5 +61,17 @@ namespace DescomplicandoTestes.Model
             return (dep.ExcluirDisciplina(prof.CPF_Professor, disc.Nome_Disciplina));
         }
 
+        /// <summary>
+        /// Método para editar uma disciplina no banco de dados
+        /// </summary>
+        /// <param name="prof">Professor logado no sistema</param>
+        /// <param name="discAntiga">Disciplina antiga</param>
+        /// <param name="discNova">Disciplina atualizada</param>
+        /// <returns>Retorna a mensagem para o usuário, de confirmação ou erro</returns>
+        public static string EditarDisciplina(Professor prof, Disciplina discAntiga, Disciplina discNova)
+        {
+            return (dep.EditarDisciplina(prof.CPF_Professor, discAntiga.Nome_Disciplina, discNova.Nome_Disciplina, discNova.Sigla));
+        }
+
     }
 }

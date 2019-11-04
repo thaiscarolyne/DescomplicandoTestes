@@ -13,8 +13,8 @@ namespace DescomplicandoTestes.ViewModel
 {
     public class DisciplinasViewModel : INotifyPropertyChanged
     {
-        /*********************************Comandos*********************************/
-
+        #region *********************************Comandos*********************************
+        
         public Command PesquisarDisciplinas { get; set; } //Comando para selecionar as disciplinas do professor no banco de dados
 
         public Command CadastrarDisciplina { get; set; } //Comando para cadastrar disciplina no banco de dados
@@ -55,8 +55,27 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command FecharModalQuestCadSucesso { get; set; } //Comando para fechar o módulo de cadastro de questão
 
-        /**********************************Listas**********************************/
+        public Command ExcluirConteudo { get; set; } //Comando para excluir um conteúdo do banco de dados
 
+        public Command ExcluirQuestao { get; set; } //Comando para excluir uma questão do banco de dados
+
+        public Command IrParaEditarDisciplina { get; set; } //Comando para ir para a tela de edição da disciplina
+
+        public Command EditarDisciplina { get; set; } //Comando para editar as informações da disciplina no banco de dados
+
+        public Command IrParaEditarConteudo { get; set; } //Comando para ir para a tela de edição do conteúdo
+
+        public Command EditarConteudo { get; set; } //Comando para editar as informações de um conteúdo de uma disciplina
+
+        public Command IrParaEditarQuestao { get; set; } //Comando para ir para a tela de edição da questão
+
+        public Command IrParaEditarAlternativas { get; set; } //Comando para ir para a tela de edição das alternativas da questão
+
+        public Command EditarQuestao { get; set; } //Comando para editar as informações da questão e suas devidas alternativas
+
+        #endregion
+
+        #region **********************************Listas**********************************
 
         private List<Disciplina> _ListaDisciplinas;
         public List<Disciplina> ListaDisciplinas
@@ -101,16 +120,17 @@ namespace DescomplicandoTestes.ViewModel
                 OnPropertyChanged("ListaAlternativas");
             }
         }
-        
 
-        /*********************************Variáveis para exibição*********************************/
+        #endregion
+
+        #region *********************************Variáveis para exibição*********************************
 
         public LoginCadastrarViewModel LoginVM
         {
             get { return ViewModel.ViewModelLocator.LoginCadastrarVM; }
-        }       
+        }
 
-
+        List<Conteudo> ConteudosNaoFiltrados;
         private Disciplina _DisciplinaSelecionada = new Disciplina(null, null);
         public Disciplina DisciplinaSelecionada
         {
@@ -122,9 +142,14 @@ namespace DescomplicandoTestes.ViewModel
 
                 /****************Consulta ao BD****************/
                 ListaConteudos = Conteudo.BuscarConteudos(LoginVM.professor, DisciplinaSelecionada);
+
+                ConteudosNaoFiltrados = new List<Conteudo>(ListaConteudos);
+
+                ConteudoAPesquisar = "";
             }
         }
 
+        List<Questao> QuestoesNaoFiltradas;
         private Conteudo _ConteudoSelecionado = new Conteudo(null);
         public Conteudo ConteudoSelecionado
         {
@@ -136,6 +161,10 @@ namespace DescomplicandoTestes.ViewModel
 
                 /****************Consulta ao BD****************/
                 ListaQuestoes = Questao.BuscarQuestoes(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado);
+
+                QuestoesNaoFiltradas = new List<Questao>(ListaQuestoes);
+
+                QuestaoAPesquisar = "";
             }
         }
 
@@ -177,8 +206,9 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
+        #endregion
 
-        /*********************************Variáveis para cadastro*********************************/
+        #region *********************************Variáveis para cadastro*********************************
 
         private Disciplina _DisciplinaACadastrar = new Disciplina(null, null);
         public Disciplina DisciplinaACadastrar
@@ -215,9 +245,146 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
+        #endregion
+
+        #region *********************************Variáveis para pesquisa*********************************
+
+        private string _DisciplinaAPesquisar = "";
+        public string DisciplinaAPesquisar
+        {
+            get { return _DisciplinaAPesquisar; }
+            set
+            {
+                _DisciplinaAPesquisar = value;
+                OnPropertyChanged("DisciplinaAPesquisar");
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    ListaDisciplinas = null;
+                    ListaDisciplinas = DisciplinasNaoFiltradas;
+                }
+                else
+                {
+                    List<Disciplina> DisciplinasFiltradas = new List<Disciplina>();
+
+                    DisciplinasFiltradas = DisciplinasNaoFiltradas.Where(w => (w.Nome_Disciplina.ToLower()).Contains(_DisciplinaAPesquisar)).ToList();
+
+                    ListaDisciplinas = null;
+                    ListaDisciplinas = DisciplinasFiltradas;
+                }
+            }
+        }
 
 
-        /*********************************Construtor*********************************/
+        private string _ConteudoAPesquisar = "";
+        public string ConteudoAPesquisar
+        {
+            get { return _ConteudoAPesquisar; }
+            set
+            {
+                _ConteudoAPesquisar = value;
+                OnPropertyChanged("ConteudoAPesquisar");
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    ListaConteudos = null;
+                    ListaConteudos = ConteudosNaoFiltrados;
+                }
+                else
+                {
+                    List<Conteudo> ConteudosFiltrados = new List<Conteudo>();
+
+                    ConteudosFiltrados = ConteudosNaoFiltrados.Where(w => (w.Nome_Conteudo.ToLower()).Contains(_ConteudoAPesquisar)).ToList();
+
+                    ListaConteudos = null;
+                    ListaConteudos = ConteudosFiltrados;
+                }
+            }
+        }
+
+
+        private string _QuestaoAPesquisar = "";
+        public string QuestaoAPesquisar
+        {
+            get { return _QuestaoAPesquisar; }
+            set
+            {
+                _QuestaoAPesquisar = value;
+                OnPropertyChanged("QuestaoAPesquisar");
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    ListaQuestoes = null;
+                    ListaQuestoes = QuestoesNaoFiltradas;
+                }
+                else
+                {
+                    List<Questao> QuestoesFiltradas = new List<Questao>();
+
+                    QuestoesFiltradas = QuestoesNaoFiltradas.Where(w => (w.Nome_Questao.ToLower()).Contains(_QuestaoAPesquisar)).ToList();
+
+                    ListaQuestoes = null;
+                    ListaQuestoes = QuestoesFiltradas;
+                }
+            }
+        }
+
+        #endregion
+
+        #region *********************************Variáveis para edição*********************************
+
+        private Disciplina _DisciplinaAEditar = new Disciplina(null, null);
+        public Disciplina DisciplinaAEditar
+        {
+            get { return _DisciplinaAEditar; }
+            set
+            {
+                _DisciplinaAEditar = value;
+                OnPropertyChanged("DisciplinaAEditar");
+            }
+        }
+
+        private Conteudo _ConteudoAEditar = new Conteudo(null);
+        public Conteudo ConteudoAEditar
+        {
+            get { return _ConteudoAEditar; }
+            set
+            {
+                _ConteudoAEditar = value;
+                OnPropertyChanged("ConteudoAEditar");
+            }
+        }
+        
+        private Questao _QuestaoAEditar = new Questao("", "", "", "", Char.MinValue);
+        public Questao QuestaoAEditar
+        {
+            get { return _QuestaoAEditar; }
+            set
+            {
+                _QuestaoAEditar = value;
+                OnPropertyChanged("QuestaoAEditar");
+
+                /****************Consulta ao BD****************/
+                ListaAlternativas = null;
+                ListaAlternativas = Alternativa.BuscarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoAEditar);
+
+                foreach (var item in ListaAlternativas)
+                {
+                    if (item.Letra == QuestaoAEditar.Resposta)
+                    {
+                        item.Cor = Color.FromHex("#72FB9B");
+                    }
+                    else
+                    {
+                        item.Cor = Color.White;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region *********************************Construtor*********************************
 
         public DisciplinasViewModel()
         {
@@ -241,13 +408,22 @@ namespace DescomplicandoTestes.ViewModel
             AdicionarQuestao = new Command(AdicionarQuestaoAction);
             AdicionarNovaQuestao = new Command(AdicionarNovaQuestaoAction);
             FecharModalQuestCadSucesso = new Command(FecharModalQuestCadSucessoAction);
+            ExcluirConteudo = new Command(ExcluirConteudoAction);
+            ExcluirQuestao = new Command(ExcluirQuestaoAction);
+            IrParaEditarDisciplina = new Command(IrParaEditarDisciplinaAction);
+            EditarDisciplina = new Command(EditarDisciplinaAction);
+            IrParaEditarConteudo = new Command(IrParaEditarConteudoAction);
+            EditarConteudo = new Command(EditarConteudoAction);
+            IrParaEditarQuestao = new Command(IrParaEditarQuestaoAction);
+            IrParaEditarAlternativas = new Command(IrParaEditarAlternativasAction);
+            EditarQuestao = new Command(EditarQuestaoAction);
         }
 
+        #endregion
 
+        #region ******************************Métodos para resetar variáveis******************************
 
-        /***********************************************************MÉTODOS***********************************************************/
-
-            private void ResetarVariaveisDisciplina()
+        private void ResetarVariaveisDisciplina()
             {
                 /*DISCIPLINA*/            
 
@@ -282,12 +458,19 @@ namespace DescomplicandoTestes.ViewModel
                 QuestaoACadastrar.Imagem = "";
                 QuestaoACadastrar.Dificuldade = "";
                 QuestaoACadastrar.Enunciado = "";
+
+                QuestaoAEditar.Nome_Questao = "";
+                QuestaoAEditar.Resposta = Char.MinValue;
+                QuestaoAEditar.Imagem = "";
+                QuestaoAEditar.Dificuldade = "";
+                QuestaoAEditar.Enunciado = "";
             }
 
+        #endregion
 
-        /*****************************DISCIPLINAS*****************************/
+        #region *****************************Métodos Disciplinas*****************************
 
-            private void IrParaCadastroDisciplinaAction()
+        private void IrParaCadastroDisciplinaAction()
             {
                 ResetarVariaveisDisciplina();
 
@@ -297,6 +480,8 @@ namespace DescomplicandoTestes.ViewModel
 
                 App.Current.MainPage.Navigation.PushAsync(new CadastrarDisciplina());
             }
+
+            List<Disciplina> DisciplinasNaoFiltradas;
 
             private void PesquisarDisciplinasAction()
             {
@@ -308,6 +493,10 @@ namespace DescomplicandoTestes.ViewModel
 
                 /****************Consulta ao BD****************/
                 ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+
+                DisciplinasNaoFiltradas = new List<Disciplina>(ListaDisciplinas);
+
+                DisciplinaAPesquisar = "";
 
                 App.Current.MainPage.Navigation.PushAsync(new PesquisarDisciplinas());
             }
@@ -380,11 +569,53 @@ namespace DescomplicandoTestes.ViewModel
 
             }
 
+            Disciplina BkpDisc;
+            private async void IrParaEditarDisciplinaAction(object obj)
+            {
+                DisciplinaAEditar = new Disciplina((obj as Disciplina).Nome_Disciplina, (obj as Disciplina).Sigla);
 
-        /*****************************CONTEÚDOS*****************************/
+                BkpDisc = new Disciplina(DisciplinaAEditar.Nome_Disciplina, DisciplinaAEditar.Sigla);
+
+                await App.Current.MainPage.Navigation.PushAsync(new EditarDisciplina());
+
+            }
+
+            private async void EditarDisciplinaAction()
+            {
+                if (DisciplinaAEditar.Nome_Disciplina == null)
+                {
+                    await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome da disciplina!", "OK");
+                }
+                else
+                {                    
+                    string retorno = Disciplina.EditarDisciplina(LoginVM.professor, BkpDisc, DisciplinaAEditar);
+
+                    if (retorno == "Disciplina editada com sucesso!")
+                    {
+                        await App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
+                        ResetarVariaveisDisciplina();
+
+                        ListaDisciplinas.Clear();
+
+                        ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+
+                        await App.Current.MainPage.Navigation.PopAsync();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                    }
+                }
+            }
+
+        #endregion
+
+        #region *****************************Métodos Conteúdos*****************************
 
 
-            private async void AdicionarNovoConteudoAction()
+        private async void AdicionarNovoConteudoAction()
             {
                 ResetarVariaveisConteudo();
 
@@ -462,10 +693,78 @@ namespace DescomplicandoTestes.ViewModel
                 ConteudoACadastrar = new Conteudo(null);
             }
 
+            private async void ExcluirConteudoAction(object obj)
+            {
+                var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente excluir esse conteúdo?", "SIM", "NÃO");
 
-        /*****************************QUESTÕES*****************************/
 
-            private async void IrParaAdicionarQuestaoComModalAction()
+                if (confirma)
+                {
+                    Conteudo cont = obj as Conteudo;
+
+                    string retorno = Conteudo.ExcluirConteudo(LoginVM.professor, DisciplinaSelecionada, cont);
+
+                    if (retorno == "Conteúdo excluído com sucesso!")
+                    {
+                        App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
+
+                        /****************Consulta ao BD****************/
+                        ListaConteudos = Conteudo.BuscarConteudos(LoginVM.professor, DisciplinaSelecionada);
+                    }
+                    else
+                    {
+                        App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                    }
+                }
+            }
+
+            Conteudo BkpCont;
+            private async void IrParaEditarConteudoAction(object obj)
+            {
+                ConteudoAEditar = new Conteudo((obj as Conteudo).Nome_Conteudo);
+
+                BkpCont = new Conteudo(ConteudoAEditar.Nome_Conteudo);
+
+                await App.Current.MainPage.Navigation.PushAsync(new EditarConteudo());
+            }
+
+
+            private async void EditarConteudoAction()
+            {
+                if (ConteudoAEditar.Nome_Conteudo == null)
+                {
+                    await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome do conteúdo!", "OK");
+                }
+                else
+                {
+                    string retorno = Conteudo.EditarConteudo(LoginVM.professor, DisciplinaSelecionada, BkpCont, ConteudoAEditar);
+
+                    if (retorno == "Conteúdo editado com sucesso!")
+                    {
+                        await App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
+                        ResetarVariaveisConteudo();
+
+                        ListaConteudos.Clear();
+
+                        ListaConteudos = Conteudo.BuscarConteudos(LoginVM.professor, DisciplinaSelecionada);
+
+                        await App.Current.MainPage.Navigation.PopAsync();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                    }
+                }
+            }
+
+        #endregion
+
+        #region *****************************Métodos Questões*****************************
+
+        private async void IrParaAdicionarQuestaoComModalAction()
             {
                 ResetarVariaveisQuestao();
 
@@ -628,17 +927,26 @@ namespace DescomplicandoTestes.ViewModel
 
                             string retorno;
 
-                            if (DisciplinaSelecionada.Nome_Disciplina == null) //Então, estamos na parte de cadastro
+                            if (DisciplinaSelecionada.Nome_Disciplina == null && ConteudoSelecionado.Nome_Conteudo == null) //Então, as duas variáveis a serem utilizadas são de cadastro
                             {
                                 retorno = Questao.AdicionarQuestao(LoginVM.professor, DisciplinaACadastrar, ConteudoACadastrar, QuestaoACadastrar);
 
                                 Alternativa.AdicionarAlternativas(LoginVM.professor, DisciplinaACadastrar, ConteudoACadastrar, QuestaoACadastrar, ListaAlternativas);
                             }
-                            else //Então, estamos na parte de pesquisa
+                            else 
                             {
-                                retorno = Questao.AdicionarQuestao(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoACadastrar);
+                                if (ConteudoSelecionado.Nome_Conteudo == null) //Então, a variável da disciplina é a selecionada, e da do conteúdo é a que está sendo cadastrada
+                                {
+                                    retorno = Questao.AdicionarQuestao(LoginVM.professor, DisciplinaSelecionada, ConteudoACadastrar, QuestaoACadastrar);
 
-                                Alternativa.AdicionarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoACadastrar, ListaAlternativas);
+                                    Alternativa.AdicionarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoACadastrar, QuestaoACadastrar, ListaAlternativas);
+                                }
+                                else //Então, as duas variáveis são as selecionadas
+                                {
+                                    retorno = Questao.AdicionarQuestao(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoACadastrar);
+
+                                    Alternativa.AdicionarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoACadastrar, ListaAlternativas);
+                                }
                             }
 
                             if (retorno == "Questão adicionada com sucesso!")
@@ -695,7 +1003,151 @@ namespace DescomplicandoTestes.ViewModel
             }
 
 
-        /**************************Notificar modificações**************************/
+            private async void ExcluirQuestaoAction(object obj)
+            {
+                var confirma = await App.Current.MainPage.DisplayAlert("Confirmação", "Deseja realmente excluir essa questão?", "SIM", "NÃO");
+
+
+                if (confirma)
+                {
+                    Questao quest = obj as Questao;
+
+                    string retorno = Questao.ExcluirQuestao(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, quest);
+
+                    if (retorno == "Questão excluída com sucesso!")
+                    {
+                        App.Current.MainPage.DisplayAlert("SUCESSO", retorno, "OK");
+
+
+                        /****************Consulta ao BD****************/
+                        ListaQuestoes = Questao.BuscarQuestoes(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado);
+                    }
+                    else
+                    {
+                        App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+                    }
+                }
+            }
+
+            Questao BkpQuest;
+            private async void IrParaEditarQuestaoAction(object obj)
+            {
+                QuestaoAEditar = new Questao((obj as Questao).Nome_Questao, (obj as Questao).Dificuldade, (obj as Questao).Imagem, (obj as Questao).Enunciado, (obj as Questao).Resposta) ;
+
+                BkpQuest = new Questao(QuestaoAEditar.Nome_Questao, null, null, null, Char.MinValue);
+
+                await App.Current.MainPage.Navigation.PushAsync(new EditarQuestao());
+            }
+
+
+            private async void IrParaEditarAlternativasAction()
+            {
+                if (QuestaoAEditar.Nome_Questao == "" || QuestaoAEditar.Enunciado == "" || QuestaoAEditar.Dificuldade == "")
+                {
+                    await App.Current.MainPage.DisplayAlert("ERRO", "Por favor, preencha todos os campos!", "OK");
+                }
+                else
+                {
+                    List<Alternativa> ListaAuxiliar = new List<Alternativa>(ListaAlternativas);
+
+                    ListaAlternativas = null;
+
+                    ListaAlternativas = ListaAuxiliar;
+
+                    foreach (var item in ListaAlternativas)
+                    {
+                        if(QuestaoAEditar.Resposta == item.Letra)
+                        {
+                            item.EhResposta = true;
+                        }
+                        else
+                        {
+                            item.EhResposta = false;
+                        }
+                    }
+
+                    await App.Current.MainPage.Navigation.PushAsync(new EditarAlternativas());
+                    
+                }
+            }
+
+
+            private async void EditarQuestaoAction()
+            {
+                if (ListaAlternativas.Count < 2)
+                {
+                    await App.Current.MainPage.DisplayAlert("Aviso", "O número mínino de alternativas para uma questão são duas!", "OK");
+                }
+                else
+                {
+                    char resposta = Char.MinValue;
+
+                    bool existeAltVazia = false;
+
+                    foreach (var item in ListaAlternativas)
+                    {
+                        if (item.EhResposta == true)
+                        {
+                            resposta = item.Letra;
+                        }
+
+                        if (item.Texto == "")
+                        {
+                            existeAltVazia = true;
+                        }
+                    }
+
+
+                    if (existeAltVazia) //Quer dizer que alguma alternativa está com o texto vazio ainda
+                    {
+                        await App.Current.MainPage.DisplayAlert("Aviso", "Por favor, preencha o texto de todas as alternativas!", "OK");
+                    }
+                    else
+                    {
+                        if (resposta == Char.MinValue) //Quer dizer que não marcou nenhuma resposta
+                        {
+                            await App.Current.MainPage.DisplayAlert("Aviso", "Por favor, marque uma alternativa como resposta da questão!", "OK");
+                        }
+                        else
+                        {
+                            QuestaoAEditar.Resposta = resposta;
+
+                            string retorno;
+                            
+                            retorno = Questao.EditarQuestao(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, QuestaoAEditar, BkpQuest);                            
+                            
+                            if (retorno == "Questão editada com sucesso!")
+                            {
+                                Alternativa.EditarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, BkpQuest, QuestaoAEditar, ListaAlternativas);
+
+                                await App.Current.MainPage.DisplayAlert("SUCESSO", "Questão editada com sucesso!", "OK");
+
+                                App.Current.MainPage.Navigation.PopAsync();
+
+                                App.Current.MainPage.Navigation.PopAsync();                                
+
+                                if (DisciplinaSelecionada != null) //Só preciso atualizar a lista de questões se antes ele estava na parte de pesquisa
+                                {
+                                    ListaQuestoes = Questao.BuscarQuestoes(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado);
+
+                                    ResetarVariaveisQuestao();
+                                }
+                            }
+                            else
+                            {
+                                await App.Current.MainPage.DisplayAlert("ERRO", retorno, "OK");
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+        #endregion
+
+        #region **************************Método PropertyChanged**************************
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string NameProperty)
@@ -705,5 +1157,7 @@ namespace DescomplicandoTestes.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(NameProperty));
             }
         }
+
+        #endregion
     }
 }
