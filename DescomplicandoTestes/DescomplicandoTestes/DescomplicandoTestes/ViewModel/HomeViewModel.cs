@@ -14,6 +14,8 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command MudarPaginaDisciplinas { get; set; }
 
+        public Command MudarPaginaProvas { get; set; }
+
         LoginCadastrarViewModel LoginVM = ViewModel.ViewModelLocator.LoginCadastrarVM;
 
         public HomeViewModel()
@@ -23,6 +25,8 @@ namespace DescomplicandoTestes.ViewModel
             Teste = new Command(TesteAction);
 
             MudarPaginaDisciplinas = new Command(MudarPaginaDisciplinasAction);
+
+            MudarPaginaProvas = new Command(MudarPaginaProvasAction);
         }
 
         private async void LogoutAction()
@@ -47,6 +51,11 @@ namespace DescomplicandoTestes.ViewModel
         private void MudarPaginaDisciplinasAction()
         {
             App.Current.MainPage.Navigation.PushAsync(new Disciplinas());
+        }
+
+        private void MudarPaginaProvasAction()
+        {
+            App.Current.MainPage.Navigation.PushAsync(new Provas());
         }
     }
 }

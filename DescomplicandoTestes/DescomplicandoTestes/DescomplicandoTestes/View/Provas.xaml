@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.Provas">
+    <NavigationPage.TitleView>
+        <StackLayout Margin="-40, 0, 0, 0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Label Text="PROVAS"  Style="{StaticResource Cabecalho}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout Margin="0, -60, 0, 0 " x:Name="LayoutProvasBotoes" VerticalOptions="CenterAndExpand">
+
+                <RelativeLayout>
+                    <Button       
+                        Style="{StaticResource BotaoGrande}"
+                        x:Name="BotaoGerarProva" 
+                        BackgroundColor="{StaticResource CorProva}" 
+                        Command="{Binding IrParaGerarProva01}"
+                    />
+                    <Image
+                        Source="gerarProva.png"
+                        HeightRequest="65"
+                        Aspect="Fill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-62}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoGerarProva,Constant=2}"
+                        >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding IrParaGerarProva01}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                        x:Name="LabelGerarProva"
+                        Text="Gerar prova" TextColor="White"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.17, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoGerarProva,Constant=20}"
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding IrParaGerarProva01}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </RelativeLayout>
+
+                <RelativeLayout>
+
+                    <Button 
+                        Style="{StaticResource BotaoGrande}"
+                        x:Name="BotaoCorrigirGabaritos"           
+                        BackgroundColor="#B7F655"
+                    />
+                    <Image 
+                        Source="corrigirGabaritos.png"
+                        HeightRequest="65"
+                        Aspect="Fill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-62.3}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoCorrigirGabaritos,Constant=2}"
+                    />
+
+                    <Label 
+                        x:Name="LabelCorrigirGabaritos"
+                        Text="Corrigir gabaritos" TextColor="White"  
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.13, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoCorrigirGabaritos,Constant=21}"
+                    />
+                </RelativeLayout>
+
+                <RelativeLayout>
+
+                    <Button 
+                        Style="{StaticResource BotaoGrande}"
+                        x:Name="BotaoPesquisarProvas"           
+                        BackgroundColor="#3E928C" 
+                        Command="{Binding PesquisarDisciplinas}"
+                    />
+                    <Image 
+                        Source="pesquisarDisciplinas.png"
+                        HeightRequest="65"
+                        Aspect="Fill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-62.3}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoPesquisarProvas,Constant=2}"
+                    >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding PesquisarDisciplinas}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                        x:Name="LabelPesquisarProvas"
+                        Text="Pesquisar provas" TextColor="White"  
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.13, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoPesquisarProvas,Constant=21}"
+                    >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding PesquisarDisciplinas}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

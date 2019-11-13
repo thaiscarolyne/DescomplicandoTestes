@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.GerarProva03">
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-40,0,0,0">
+            <Label Text="GERAR PROVA" Style="{StaticResource Cabecalho}" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+
+        <StackLayout Style="{StaticResource Fundo}">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" Margin="0, 0, 0, 0" >
+                <RelativeLayout VerticalOptions="FillAndExpand">
+
+                    <BoxView 
+                        x:Name="Box"                       
+                        HeightRequest="100"                
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=120}"
+                        CornerRadius="50,50,50,50"
+                    />
+
+                    <Label 
+                        x:Name="PrimeiraLabel"
+                        Text="Prova gerada com sucesso!"
+                        HorizontalTextAlignment="Center"
+                        FontSize="20"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box, Constant=25}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=Box, Constant=20}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.7, Property=Width}"
+                        HeightRequest="70"
+                    />
+
+                    <Button       
+                        Style="{StaticResource BotaoGrande}"
+                        x:Name="BotaoBaixarProva" 
+                        BackgroundColor="{StaticResource CorProva}" 
+                        Command="{Binding GerarProva}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=PrimeiraLabel,Constant=200}"
+                    />
+                    <Image
+                        Source="Baixar.png"
+                        HeightRequest="65"
+                        Aspect="Fill"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-62}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoBaixarProva,Constant=2}"
+                        >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding GerarProva}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                        x:Name="LabelGerarProva"
+                        Text="BAIXAR PROVA" TextColor="White"
+                        FontSize="20"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.17, Property=Width}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoBaixarProva,Constant=23}"
+                        >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding GerarProva}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
+                
+
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

@@ -12,7 +12,7 @@
             <Color x:Key="CorQuestao">#9038c9</Color>
             <Color x:Key="CorAdicionar">#4AE47D</Color>
             <Color x:Key="CorVerAnexo">#0DE9B0</Color>
-            
+            <Color x:Key="CorProva">#3CB371</Color>
 
 
             <!-- LABEL -->

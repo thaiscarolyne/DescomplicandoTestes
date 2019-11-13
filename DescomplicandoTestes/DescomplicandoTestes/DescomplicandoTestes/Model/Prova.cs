@@ -9,5 +9,11 @@ namespace DescomplicandoTestes.Model
         public string Nome_Prova { get; set; }
 
         public int Valor { get; set; }
+
+        public Prova(string nomeprova, int valor)
+        {
+            Nome_Prova = nomeprova;
+            Valor = valor;
+        }
     }
 }

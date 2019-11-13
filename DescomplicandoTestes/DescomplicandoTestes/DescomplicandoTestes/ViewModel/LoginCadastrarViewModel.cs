@@ -22,6 +22,11 @@ namespace DescomplicandoTestes.ViewModel
 
         /*****************************Variáveis para consulta e cadastro*****************************/
 
+        public DisciplinasViewModel DisciplinasVM
+        {
+            get { return ViewModel.ViewModelLocator.DisciplinasVM; }
+        }
+
         private Professor _professor = new Professor();
         public Professor professor
         {
@@ -52,6 +57,8 @@ namespace DescomplicandoTestes.ViewModel
         {
             if (professor.VerificarProfessorCadastrado(professor))
             {
+                DisciplinasVM.ListaDisciplinas = Disciplina.BuscarDisciplinas(professor);
+
                 App.Current.MainPage = new NavigationPage(new Home()) { BarBackgroundColor = Color.HotPink };
             }
             else

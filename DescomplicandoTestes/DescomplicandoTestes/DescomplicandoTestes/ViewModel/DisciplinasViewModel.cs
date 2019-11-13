@@ -8,6 +8,13 @@ using DescomplicandoTestes.Model;
 using System.Globalization;
 using DescomplicandoTestes.ViewModel;
 using System.Linq;
+using System.IO;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Drawing;
+using DescomplicandoTestes.PDF;
+using Syncfusion.Pdf.Grid;
+using System.Reflection;
 
 namespace DescomplicandoTestes.ViewModel
 {
@@ -73,11 +80,19 @@ namespace DescomplicandoTestes.ViewModel
 
         public Command EditarQuestao { get; set; } //Comando para editar as informações da questão e suas devidas alternativas
 
+        public Command IrParaGerarProva01 { get; set; } //Comando para ir para a primeira tela de gerar prova
+
+        public Command IrParaGerarProva02 { get; set; } //Comando para ir para a segunda tela de gerar prova
+
+        public Command IrParaGerarProva03 { get; set; } //Comando para ir para a terceira tela de gerar prova
+
+        public Command GerarProva { get; set; } //Comando para gerar a prova
+
         #endregion
 
         #region **********************************Listas**********************************
 
-        private List<Disciplina> _ListaDisciplinas;
+        private List<Disciplina> _ListaDisciplinas = new List<Disciplina>();
         public List<Disciplina> ListaDisciplinas
         {
             get { return _ListaDisciplinas; }
@@ -88,7 +103,7 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-        private List<Conteudo> _ListaConteudos;
+        private List<Conteudo> _ListaConteudos = new List<Conteudo>();
         public List<Conteudo> ListaConteudos
         {
             get { return _ListaConteudos; }
@@ -99,7 +114,7 @@ namespace DescomplicandoTestes.ViewModel
             }
         }
 
-        private List<Questao> _ListaQuestoes;
+        private List<Questao> _ListaQuestoes = new List<Questao>();
         public List<Questao> ListaQuestoes
         {
             get { return _ListaQuestoes; }
@@ -120,6 +135,40 @@ namespace DescomplicandoTestes.ViewModel
                 OnPropertyChanged("ListaAlternativas");
             }
         }
+
+        private List<int> _ListaQtdFaceis = new List<int>();
+        public List<int> ListaQtdFaceis
+        {
+            get { return _ListaQtdFaceis; }
+            set
+            {
+                _ListaQtdFaceis = value;
+                OnPropertyChanged("ListaQtdFaceis");
+            }
+        }
+
+        private List<int> _ListaQtdMedias = new List<int>();
+        public List<int> ListaQtdMedias
+        {           
+            get { return _ListaQtdMedias; }
+            set
+            {
+                _ListaQtdMedias = value;
+                OnPropertyChanged("ListaQtdMedias");
+            }
+        }        
+
+        private List<int> _ListaQtdDificeis = new List<int>();
+        public List<int> ListaQtdDificeis
+        {
+            get { return _ListaQtdDificeis; }
+            set
+            {
+                _ListaQtdDificeis = value;
+                OnPropertyChanged("ListaQtdDificeis");
+            }
+        }
+        
 
         #endregion
 
@@ -185,11 +234,11 @@ namespace DescomplicandoTestes.ViewModel
                 {
                     if (item.Letra == QuestaoSelecionada.Resposta)
                     {
-                        item.Cor = Color.FromHex("#72FB9B");
+                        item.Cor = Xamarin.Forms.Color.FromHex("#72FB9B");
                     }
                     else
                     {
-                        item.Cor = Color.White;
+                        item.Cor = Xamarin.Forms.Color.White;
                     }
                 }
             }
@@ -203,6 +252,39 @@ namespace DescomplicandoTestes.ViewModel
             {
                 _AlternativaSelecionada = value;
                 OnPropertyChanged("AlternativaSelecionada");
+            }
+        }
+
+        private int _QtdFaceis = 0;
+        public int QtdFaceis
+        {
+            get { return _QtdFaceis; }
+            set
+            {
+                _QtdFaceis = Convert.ToInt32(value);
+                OnPropertyChanged("QtdFaceis");
+            }
+        }
+
+        private int _QtdMedias = 0;
+        public int QtdMedias
+        {
+            get { return _QtdMedias; }
+            set
+            {
+                _QtdMedias = Convert.ToInt32(value);
+                OnPropertyChanged("QtdMedias");
+            }
+        }
+
+        private int _QtdDificeis = 0;
+        public int QtdDificeis
+        {
+            get { return _QtdDificeis; }
+            set
+            {
+                _QtdDificeis = Convert.ToInt32(value);
+                OnPropertyChanged("QtdDificeis");
             }
         }
 
@@ -242,6 +324,19 @@ namespace DescomplicandoTestes.ViewModel
             {
                 _QuestaoACadastrar = value;
                 OnPropertyChanged("QuestaoACadastrar");
+            }
+        }
+
+
+        private Prova _ProvaACadastrar = new Prova("", 0);
+        public Prova ProvaACadastrar
+        {
+            get { return _ProvaACadastrar; }
+            set
+            {
+                _ProvaACadastrar.Nome_Prova = value.Nome_Prova;
+                _ProvaACadastrar.Valor = Convert.ToInt32(value.Valor);
+                OnPropertyChanged("ProvaACadastrar");
             }
         }
 
@@ -372,11 +467,11 @@ namespace DescomplicandoTestes.ViewModel
                 {
                     if (item.Letra == QuestaoAEditar.Resposta)
                     {
-                        item.Cor = Color.FromHex("#72FB9B");
+                        item.Cor = Xamarin.Forms.Color.FromHex("#72FB9B");
                     }
                     else
                     {
-                        item.Cor = Color.White;
+                        item.Cor = Xamarin.Forms.Color.White;
                     }
                 }
             }
@@ -417,6 +512,10 @@ namespace DescomplicandoTestes.ViewModel
             IrParaEditarQuestao = new Command(IrParaEditarQuestaoAction);
             IrParaEditarAlternativas = new Command(IrParaEditarAlternativasAction);
             EditarQuestao = new Command(EditarQuestaoAction);
+            IrParaGerarProva01 = new Command(IrParaGerarProva01Action);
+            IrParaGerarProva02 = new Command(IrParaGerarProva02Action);
+            IrParaGerarProva03 = new Command(IrParaGerarProva03Action);
+            GerarProva = new Command(GerarProvaAction);
         }
 
         #endregion
@@ -425,10 +524,12 @@ namespace DescomplicandoTestes.ViewModel
 
         private void ResetarVariaveisDisciplina()
             {
-                /*DISCIPLINA*/            
-
+                /*DISCIPLINA*/
+                /*
                 DisciplinaSelecionada.Nome_Disciplina = null;
                 DisciplinaSelecionada.Sigla = null;
+                */
+                DisciplinaSelecionada = new Disciplina(null, null);
 
                 DisciplinaACadastrar.Nome_Disciplina = null;
                 DisciplinaACadastrar.Sigla = null;   
@@ -491,9 +592,6 @@ namespace DescomplicandoTestes.ViewModel
 
                 ResetarVariaveisQuestao();
 
-                /****************Consulta ao BD****************/
-                ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
-
                 DisciplinasNaoFiltradas = new List<Disciplina>(ListaDisciplinas);
 
                 DisciplinaAPesquisar = "";
@@ -503,6 +601,8 @@ namespace DescomplicandoTestes.ViewModel
 
             private async void CadastrarDisciplinaAction()
             {
+                ListaDisciplinas = new List<Disciplina>();
+
                 if (DisciplinaACadastrar.Nome_Disciplina == null)
                 {
                     await App.Current.MainPage.DisplayAlert("ERRO", "Por favor preencha o nome da disciplina!", "OK");
@@ -513,6 +613,8 @@ namespace DescomplicandoTestes.ViewModel
 
                     if (retorno == "Cadastro realizado com sucesso!")
                     {
+                        ListaDisciplinas = Disciplina.BuscarDisciplinas(LoginVM.professor);
+
                         await App.Current.MainPage.Navigation.PushModalAsync(new ModalDisciplinaCadastradaSucesso());
                     }
                     else
@@ -1144,6 +1246,265 @@ namespace DescomplicandoTestes.ViewModel
 
                 }
             }
+
+        #endregion
+        
+        #region *****************************Métodos Provas*****************************
+
+        private void IrParaGerarProva01Action()
+        {
+            ProvaACadastrar.Nome_Prova = "";
+            ProvaACadastrar.Valor = 0;
+
+            DisciplinaSelecionada = new Disciplina(null, null);
+
+            ConteudoSelecionado = new Conteudo(null);
+
+            App.Current.MainPage.Navigation.PushAsync(new GerarProva01());
+        }
+
+        public void FiltrarConteudosAction(Disciplina disc)
+        {
+            ListaConteudos.Clear();
+
+            DisciplinaSelecionada = disc;
+        }
+
+        public void ConteudoProvaSelecionado(Conteudo cont)
+        {
+            ListaQuestoes.Clear();
+
+            ConteudoSelecionado = cont;
+
+            ListaQuestoes = Questao.BuscarQuestoes(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado);
+
+            int facil = 0, medio = 0, dificil = 0;
+
+            foreach (var item in ListaQuestoes)
+            {
+                if (item.Dificuldade == "Fácil")
+                {
+                    facil++;
+                }
+                else
+                {
+                    if(item.Dificuldade == "Médio")
+                    {
+                        medio++;
+                    }
+                    else
+                    {
+                        dificil++;
+                    }
+                }
+            }
+
+            ListaQtdFaceis.Clear();
+            ListaQtdMedias.Clear();
+            ListaQtdDificeis.Clear();
+
+            int contador = 0;
+            while(contador <= facil)
+            {
+                ListaQtdFaceis.Add(contador);
+                contador++;
+            }
+
+            contador = 0;
+            while (contador <= medio)
+            {
+                ListaQtdMedias.Add(contador);
+                contador++;
+            }
+
+            contador = 0;
+            while (contador <= dificil)
+            {
+                ListaQtdDificeis.Add(contador);
+                contador++;
+            }
+
+
+        }
+
+        private async void IrParaGerarProva02Action()
+        {
+            if (ProvaACadastrar.Nome_Prova == "" || ProvaACadastrar.Valor == 0 || DisciplinaSelecionada.Nome_Disciplina == null || ConteudoSelecionado.Nome_Conteudo == null)
+            {
+                await App.Current.MainPage.DisplayAlert("ERRO", "Por favor, preencha todos os campos!", "OK");
+            }
+            else
+            {
+                App.Current.MainPage.Navigation.PushAsync(new GerarProva02());
+            }            
+        }
+
+        public void QtdFaceisSelecionada(int Qtd)
+        {
+            QtdFaceis = Qtd;
+        }
+
+        public void QtdMediasSelecionada(int Qtd)
+        {
+            QtdMedias = Qtd;
+        }
+
+        public void QtdDificeisSelecionada(int Qtd)
+        {
+            QtdDificeis = Qtd;
+        }
+
+        private void IrParaGerarProva03Action()
+        {
+            if(QtdFaceis == 0 && QtdMedias == 0 && QtdDificeis == 0)
+            {
+                App.Current.MainPage.DisplayAlert("ERRO", "Não é possível gerar a prova sem questões!", "OK");
+            }
+            else
+            {
+                List<Questao> QuestoesFaceis = new List<Questao>();
+                List<Questao> QuestoesMedias = new List<Questao>();
+                List<Questao> QuestoesDificeis = new List<Questao>();
+
+                int cont = 0;
+                
+                int contfaceis = QtdFaceis;
+                int contmedias = QtdMedias;
+                int contdificeis = QtdDificeis;
+
+                foreach (var item in ListaQuestoes)
+                {
+                    if (item.Dificuldade == "Fácil")
+                    {
+                        QuestoesFaceis.Add(item);
+                    }
+                    if (item.Dificuldade == "Médio")
+                    {
+                        QuestoesMedias.Add(item);
+                    }
+                    if (item.Dificuldade == "Difícil")
+                    {
+                        QuestoesDificeis.Add(item);
+                    }
+
+                }
+
+                var rnd = new Random();
+
+                ListaQuestoes.Clear();
+
+                while (contfaceis > 0)
+                {
+                    int pos = rnd.Next(0, QuestoesFaceis.Count());
+                    ListaQuestoes.Add(QuestoesFaceis[pos]);
+                    QuestoesFaceis.RemoveAt(pos);
+                    contfaceis--;
+                }
+
+                while (contmedias > 0)
+                {
+                    int pos = rnd.Next(0, QuestoesMedias.Count());
+                    ListaQuestoes.Add(QuestoesMedias[pos]);
+                    QuestoesMedias.RemoveAt(pos);
+                    contmedias--;
+                }
+
+                while (contdificeis > 0)
+                {
+                    int pos = rnd.Next(0, QuestoesDificeis.Count());
+                    ListaQuestoes.Add(QuestoesDificeis[pos]);
+                    QuestoesDificeis.RemoveAt(pos);
+                    contdificeis--;
+                }
+
+                App.Current.MainPage.Navigation.PushAsync(new GerarProva03());
+            }           
+        }
+
+        private void GerarProvaAction()
+        {
+            PdfDocument document = new PdfDocument();
+
+            PdfPage page = document.Pages.Add();
+
+            PdfGrid pdfGrid = new PdfGrid();
+
+            PdfGraphics graphics = page.Graphics;
+            //graphics.DrawString(ListaQuestoes[0].Enunciado, font, PdfBrushes.Black, new RectangleF(0,0, page.GetClientSize().Width, page.GetClientSize().Height));
+
+
+            PdfFont font = new PdfStandardFont(PdfFontFamily.TimesRoman, 15);
+
+            PdfFont font2 = new PdfStandardFont(PdfFontFamily.TimesRoman, 18, PdfFontStyle.Bold);
+
+            PdfGridLayoutResult gridResult = pdfGrid.Draw(page, new PointF(0, 0));
+
+            PdfTextElement textElement = new PdfTextElement("Disciplina: " + DisciplinaSelecionada.Nome_Disciplina + "\n\nConteúdo: " + ConteudoSelecionado.Nome_Conteudo + "\n\nValor: " + ProvaACadastrar.Valor + " pontos" , font2, PdfBrushes.Black);
+
+
+            //graphics.DrawRectangle(PdfPens.LightPink, PdfBrushes.LightPink, new RectangleF(0, 0, page.GetClientSize().Width, 50));
+
+            PdfLayoutResult result = textElement.Draw( gridResult.Page, new RectangleF(0, 20, page.GetClientSize().Width, page.GetClientSize().Height));
+
+            textElement.StringFormat = new PdfStringFormat(PdfTextAlignment.Justify);
+
+            int cont = 1;
+            List<Alternativa> alternativas = new List<Alternativa>();
+            foreach (var item in ListaQuestoes)
+            {
+                alternativas.Clear();
+
+                alternativas = Alternativa.BuscarAlternativas(LoginVM.professor, DisciplinaSelecionada, ConteudoSelecionado, item);
+
+                textElement = new PdfTextElement(cont + ") " + item.Enunciado , font, PdfBrushes.Black);
+
+                if (result.Bounds.Bottom + 150 > page.Size.Height)
+                {
+                    page = document.Pages.Add();
+
+                    gridResult = pdfGrid.Draw(page, new PointF(0, 0));
+
+                    result = textElement.Draw(gridResult.Page, new RectangleF(0, 30, page.GetClientSize().Width, page.GetClientSize().Height));
+
+                }
+                else
+                {
+                    result = textElement.Draw(gridResult.Page, new RectangleF(0, result.Bounds.Bottom + 30, page.GetClientSize().Width, page.GetClientSize().Height));
+                }
+
+
+                foreach (var itemalt in alternativas)
+                {
+                    textElement = new PdfTextElement(itemalt.Letra + ") " + itemalt.Texto, font, PdfBrushes.Black);
+
+                    if (result.Bounds.Bottom + 150 > page.Size.Height)
+                    {
+                        page = document.Pages.Add();
+
+                        gridResult = pdfGrid.Draw(page, new PointF(0, 0));
+
+                        result = textElement.Draw(gridResult.Page, new RectangleF(0, 10, page.GetClientSize().Width, page.GetClientSize().Height));
+                    }
+                    else
+                    {
+                        result = textElement.Draw(gridResult.Page, new RectangleF(0, result.Bounds.Bottom + 10, page.GetClientSize().Width, page.GetClientSize().Height));
+                    }
+                }
+
+                cont++;
+            }
+
+            MemoryStream stream = new MemoryStream();
+            document.Save(stream);
+
+            document.Close(true);
+
+            Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView("Prova_"+ ProvaACadastrar.Nome_Prova +".pdf", "application/pdf", stream);
+
+            App.Current.MainPage.DisplayAlert("SUCESSO", "Prova salva com sucesso em:\nInternalStorage/DescomplicandoTestes", "OK");
+
+            ListaQuestoes.Clear();
+        }
 
         #endregion
 

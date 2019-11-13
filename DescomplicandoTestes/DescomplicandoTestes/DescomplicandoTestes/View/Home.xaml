@@ -110,20 +110,33 @@
                     <Button 
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoProvas"                 
-                        BackgroundColor="#3CB371" 
+                        BackgroundColor="{StaticResource CorProva}" 
+                        Command="{Binding MudarPaginaProvas}"
                     />
                     <Image 
                         Source="provas.png"
                         HeightRequest="65"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width, Constant=-67}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoProvas,Constant=2.5}"
-                    />
+                    >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding MudarPaginaProvas}"
+                                />
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Label 
                         x:Name="LabelProvas"
                         Text="PROVAS" TextColor="White"  
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.15, Property=Width}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BotaoProvas,Constant=16}"
-                    />
+                    >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                 Command="{Binding MudarPaginaProvas}"
+                                />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </RelativeLayout>
 
             </StackLayout>
