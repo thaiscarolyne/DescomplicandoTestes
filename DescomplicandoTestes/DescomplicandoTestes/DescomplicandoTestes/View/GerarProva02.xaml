@@ -56,12 +56,12 @@
 
                     <ImageButton
                         Source="setaPraBaixoVerde.png"
+                        Clicked="FocarPikFacil"
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=PrimeiraLabel}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.945, Property=Y, ElementName=PikFacil}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.67, Property=Width}"
                         BackgroundColor="Transparent"                              
                     />
-                    <!-- Clicked="FocarPikDisciplina" -->
 
 
                     <Label 
@@ -85,6 +85,7 @@
 
                     <ImageButton
                         Source="setaPraBaixoVerde.png"
+                        Clicked="FocarPikMedio"
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=PrimeiraLabel}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.955, Property=Y, ElementName=PikMedio}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.67, Property=Width}"
@@ -113,6 +114,7 @@
 
                     <ImageButton
                         Source="setaPraBaixoVerde.png"
+                        Clicked="FocarPikDificil"
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=PrimeiraLabel}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.962, Property=Y, ElementName=PikDificil}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.67, Property=Width}"

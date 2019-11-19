@@ -57,7 +57,14 @@ namespace DescomplicandoTestes.ViewModel
         {
             if (professor.VerificarProfessorCadastrado(professor))
             {
+                DisciplinasVM.ListaDisciplinas.Clear();
                 DisciplinasVM.ListaDisciplinas = Disciplina.BuscarDisciplinas(professor);
+
+                DisciplinasVM.ListaProvas.Clear();
+                DisciplinasVM.ListaProvas = Prova.BuscarProvas(professor);
+
+                DisciplinasVM.DisciplinasNaoFiltradas.Clear();
+                DisciplinasVM.DisciplinasNaoFiltradas = new List<Disciplina>(DisciplinasVM.ListaDisciplinas);
 
                 App.Current.MainPage = new NavigationPage(new Home()) { BarBackgroundColor = Color.HotPink };
             }

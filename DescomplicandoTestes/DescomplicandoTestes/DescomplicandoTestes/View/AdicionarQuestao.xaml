@@ -25,6 +25,7 @@
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=40}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
                     />
 
                     <Label
@@ -33,12 +34,13 @@
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelDisciplina}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
                     />
 
                     <Label
                         x:Name="LabelConteudo" Text="{Binding ConteudoACadastrar.Nome_Conteudo}" TextColor="{StaticResource CorConteudo}"
                         FontSize="Large"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=100}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Y, Constant=110}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
                     />
@@ -55,7 +57,7 @@
                     <BoxView 
                         x:Name="Box"                       
                         HeightRequest="410"                
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelConteudo,Constant=70}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelConteudo,Constant=60}"
                     />
 
                     <Entry 

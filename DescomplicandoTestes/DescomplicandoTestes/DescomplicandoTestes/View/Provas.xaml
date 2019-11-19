@@ -81,7 +81,7 @@
                         Style="{StaticResource BotaoGrande}"
                         x:Name="BotaoPesquisarProvas"           
                         BackgroundColor="#3E928C" 
-                        Command="{Binding PesquisarDisciplinas}"
+                        Command="{Binding PesquisarProvas}"
                     />
                     <Image 
                         Source="pesquisarDisciplinas.png"
@@ -92,7 +92,7 @@
                     >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding PesquisarDisciplinas}"
+                                Command="{Binding PesquisarProvas}"
                                 />
                         </Image.GestureRecognizers>
                     </Image>
@@ -104,7 +104,7 @@
                     >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer
-                                 Command="{Binding PesquisarDisciplinas}"
+                                 Command="{Binding PesquisarProvas}"
                                 />
                         </Label.GestureRecognizers>
                     </Label>

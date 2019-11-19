@@ -592,5 +592,194 @@ namespace DescomplicandoTestes.Droid.Banco
             }           
 
         }
+
+        public string CadastrarProva(string nomeprova, string CPF, string nomedisciplina, string nomeconteudo, string nometurma, int valor)
+        {
+            
+            string query = "INSERT INTO PROVA(Nome_Prova, CPF_Professor, Nome_Disciplina, Nome_Conteudo, Nome_Turma, Valor) VALUES('" + nomeprova + "', '" + CPF + "', '" + nomedisciplina + "', '" + nomeconteudo + "', '" + nometurma + "', " + valor + ")";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Cadastro realizado com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                if (e.Number == 1062) //Erro de duplicidade de chave primária
+                {
+                    return ("Uma prova com esse nome já está cadastrada em sua base de dados!");
+                }
+                else
+                {
+                    return ("Erro: " + e.Number);
+                }
+            }
+
+
+        }
+
+        public List<Prova> BuscarProvas(string CPF)
+        {
+            string nome = "";
+            int valor;
+            string nome_disciplina = "";
+            string nome_conteudo = "";
+
+            List<Prova> lista = new List<Prova>();
+
+            string query = "SELECT * FROM PROVA WHERE CPF_Professor = '" + CPF + "'";
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                MySqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    nome = rdr["Nome_Prova"].ToString();
+                    valor = Convert.ToInt32((rdr["Valor"].ToString()));
+                    nome_disciplina = rdr["Nome_Disciplina"].ToString();
+                    nome_conteudo = rdr["Nome_Conteudo"].ToString();
+
+                    lista.Add(new Prova(nome,valor,nome_disciplina, nome_conteudo));
+                }
+
+                conexaoMySQL.Close();
+            }
+
+            return (lista);
+        }
+
+        public string AdicionarQuestoesProva(string nomeprova, string CPF, string nomedisciplina, string nomeconteudo, List<Questao> listaquestoes)
+        {
+            List<string> queries = new List<string>();
+
+            foreach (var item in listaquestoes) //Vai criar uma query para cada questao
+            {
+                queries.Add("INSERT INTO QUEST_PROV(Nome_Questao, Nome_Prova, CPF_Professor, Nome_Disciplina, Nome_Conteudo) VALUES('" + item.Nome_Questao + "', '" + nomeprova + "', '" + CPF + "', '" + nomedisciplina + "', '" + nomeconteudo + "')");
+            }
+
+
+            MySqlConnection conexaoMySQL = Conectar();
+            if (conexaoMySQL != null)
+            {
+                conexaoMySQL.Open();
+
+                foreach (var item in queries)
+                {
+                    MySqlCommand cmd = new MySqlCommand(item, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conexaoMySQL.Close();
+
+                return ("Questoes vinculadas à prova com sucesso!");                
+            }
+
+            return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+        }
+
+        public string ExcluirProva(string CPF, string nomeprova, string disciplina, string conteudo)
+        {
+            string query = "DELETE FROM PROVA WHERE Nome_Prova='" + nomeprova + "' && Nome_Conteudo ='" + conteudo + "' && CPF_Professor='" + CPF + "' && Nome_Disciplina='" + disciplina + "'";
+
+            try
+            {
+                MySqlConnection conexaoMySQL = Conectar();
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+
+                    cmd.ExecuteNonQuery();
+
+                    conexaoMySQL.Close();
+
+                    return ("Prova excluída com sucesso!");
+                }
+                else
+                {
+                    return ("Não foi possível se conectar ao banco de dados! Tente novamente mais tarde!");
+                }
+
+
+            }
+            catch (MySqlException e)
+            {
+                return ("Erro: " + e.Number);
+            }
+        }
+
+        public List<Questao> BuscarQuestoesProva(string CPF, string nomeprova, string disciplina, string conteudo)
+        {           
+
+            if (nomeprova != "")
+            {
+                List<Questao> lista = new List<Questao>();
+
+                string nome = "";
+                string dificuldade = "";
+                string imagem = "";
+                string enunciado = "";
+                char resposta;
+
+                string query = "SELECT Q.Nome_Questao, Q.Dificuldade, Q.Imagem, Q.Enunciado, Q.Resposta FROM QUEST_PROV QP " +
+                                "INNER JOIN QUESTAO Q ON (QP.Nome_Questao = Q.Nome_Questao AND QP.Nome_Disciplina = Q.Nome_Disciplina " +
+                                "AND QP.Nome_Conteudo = Q.Nome_Conteudo AND QP.CPF_Professor = Q.CPF_Professor) WHERE (QP.CPF_Professor = '"+CPF+"' " +
+                                "&& QP.Nome_Disciplina = '"+disciplina+"' && QP.Nome_Conteudo = '"+conteudo+"' && QP.Nome_Prova = '"+nomeprova+"')";
+
+                MySqlConnection conexaoMySQL = Conectar();
+
+                if (conexaoMySQL != null)
+                {
+                    conexaoMySQL.Open();
+
+                    MySqlCommand cmd = new MySqlCommand(query, conexaoMySQL);
+                    MySqlDataReader rdr = null;
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        nome = rdr["Nome_Questao"].ToString();
+                        dificuldade = rdr["Dificuldade"].ToString();
+                        imagem = rdr["Imagem"].ToString();
+                        enunciado = rdr["Enunciado"].ToString();
+                        resposta = ((rdr["Resposta"].ToString()).ToCharArray())[0];
+
+                        lista.Add(new Questao(nome, dificuldade, imagem, enunciado, resposta));
+                    }
+
+                    conexaoMySQL.Close();
+                }
+
+                return (lista);
+            }
+            else
+            {
+                return (null);
+            }
+
+            
+
+            
+        }
     }
 }
+ 

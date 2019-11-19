@@ -48,12 +48,12 @@
                         x:Name="PikDisciplina"
                         Title="Disciplina"  
                         ItemsSource="{Binding ListaDisciplinas}"                        
-                        ItemDisplayBinding="{Binding Nome_Disciplina}" 
+                        ItemDisplayBinding="{Binding Nome_Disciplina}"
                         SelectedIndex="0"                        
                         SelectedIndexChanged="FiltrarConteudos"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=EntryNomeProv, Constant=120}"             
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=X, ElementName=EntryNomeProv}"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeProv,Constant=-12}"                     
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Width, ElementName=EntryNomeProv,Constant=-15}"                     
                      />
 
                     <ImageButton
@@ -61,7 +61,7 @@
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=EntryNomeProv}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=PikDisciplina}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.75, Property=Width}"
-                        BackgroundColor="Transparent"
+                        BackgroundColor="White"
                         Clicked="FocarPikDisciplina"        
                     />
 
@@ -82,7 +82,7 @@
                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Height, ElementName=EntryNomeProv}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=PikConteudo}"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.75, Property=Width}"
-                        BackgroundColor="Transparent"
+                        BackgroundColor="White"
                         Clicked="FocarPikConteudo"        
                     />
 

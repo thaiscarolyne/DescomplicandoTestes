@@ -54,5 +54,20 @@ namespace DescomplicandoTestes.View
                 ViewModel.ViewModelLocator.DisciplinasVM.QtdDificeisSelecionada(qtdDificeis);
             }
         }
+
+        private void FocarPikFacil(object sender, ClickedEventArgs args)
+        {
+            PikFacil.Focus();
+        }
+
+        private void FocarPikMedio(object sender, ClickedEventArgs args)
+        {
+            PikMedio.Focus();
+        }
+
+        private void FocarPikDificil(object sender, ClickedEventArgs args)
+        {
+            PikDificil.Focus();
+        }
     }
 }

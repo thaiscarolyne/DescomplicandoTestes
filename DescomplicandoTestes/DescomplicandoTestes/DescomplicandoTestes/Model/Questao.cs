@@ -42,6 +42,12 @@ namespace DescomplicandoTestes.Model
             return (dep.BuscarQuestoes(prof.CPF_Professor, disc.Nome_Disciplina, cont.Nome_Conteudo));
         }
 
+
+        public static List<Questao> BuscarQuestoesProva(Professor prof, Prova prova)
+        {
+            return (dep.BuscarQuestoesProva(prof.CPF_Professor, prova.Nome_Prova, prova.Nome_Disciplina, prova.Nome_Conteudo));
+        }
+
         /// <summary>
         /// Método estático para adicionar uma questão de um conteúdo, disciplina e professor
         /// </summary>

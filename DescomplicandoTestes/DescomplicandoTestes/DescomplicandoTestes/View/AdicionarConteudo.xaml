@@ -22,24 +22,26 @@
                     <Label
                         x:Name="LabelDisciplina" Text="{Binding DisciplinaACadastrar.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
                         FontSize="Large"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-100}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-150}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
                     />
 
                     <Label
                         x:Name="LabelDisciplina1" Text="{Binding DisciplinaSelecionada.Nome_Disciplina}" TextColor="{StaticResource CorDisciplina}"
                         FontSize="Large"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-100}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Height, Constant=-150}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1, Property=Width}"
                         HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
                     />
                     
 
                     <BoxView 
                         x:Name="Box"                       
                         HeightRequest="90"                
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelDisciplina,Constant=60}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=LabelDisciplina,Constant=110}"
                     />
 
                     <Entry 

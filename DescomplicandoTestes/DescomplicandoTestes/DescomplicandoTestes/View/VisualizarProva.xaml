@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.VisualizarProva">
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Label Text="VISUALIZAR PROVA"  Style="{StaticResource Cabecalho}" FontSize="19" HorizontalOptions="Start" Margin="20,0,0,0"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource Fundo}" Spacing="20">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Start" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="50">
+                <ImageButton 
+                    Source="estatisticas.png"
+                    HeightRequest="70"
+                    BackgroundColor="Transparent"
+                />
+                <ImageButton 
+                    Source="download.png"
+                    HeightRequest="70"
+                    BackgroundColor="Transparent"
+                    Command="{Binding GerarProva}"
+                />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Start">              
+                
+                <RelativeLayout >
+                   
+                    <BoxView 
+                           x:Name="Box" 
+                           CornerRadius ="20, 20, 20, 20"
+                           HeightRequest="70"  
+                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                        />
+
+                    <StackLayout Orientation="Horizontal" Spacing="10"
+                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.1, Property=Width}"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box,Constant=10, Property=Y}"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=Box, Property=Width,Constant=-20}"
+                     > 
+
+                        <StackLayout Spacing="10" WidthRequest="150">
+                           
+                            <Label
+                                Text="DISCIPLINA:"
+                                />
+
+                            <Label
+                                Text="CONTEÚDO:"
+                                />
+
+                        </StackLayout >
+
+                        <StackLayout Spacing="10">
+                            <Label
+                                Text="{Binding ProvaSelecionada.Nome_Disciplina}"
+                                LineBreakMode="TailTruncation"
+                                />
+
+                            <Label
+                                Text="{Binding ProvaSelecionada.Nome_Conteudo}"
+                                />
+
+                        </StackLayout>
+                        
+                    </StackLayout>
+
+                </RelativeLayout>
+            </StackLayout>
+
+
+            <StackLayout VerticalOptions="FillAndExpand">
+                <RelativeLayout>
+
+                    <BoxView 
+                        x:Name="BoxListaQuestoes"
+                        CornerRadius ="20, 20, 20, 20"  
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
+                    />
+
+                    <Label
+                        Text="QUESTÕES"
+                        Margin="0,10,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                        />
+
+                    <ListView 
+                            x:Name="ListViewQuestoes"
+                            ItemTapped="VisualizarQuestao"
+                            SelectedItem="{Binding QuestaoSelecionada, Mode=TwoWay}"                            
+                            ItemsSource="{Binding ListaQuestoes}"                              
+                            SeparatorVisibility="None"
+                            RowHeight="70"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaQuestoes,Constant=30}"  
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"    
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=BoxListaQuestoes, Property=Width}"
+                     >
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                        <BoxView 
+                                                x:Name="Box" 
+                                                CornerRadius ="20, 20, 20, 20"
+                                                HeightRequest="40"  
+                                                BackgroundColor="{StaticResource CorProva}"   
+                                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                                        >
+                                        </BoxView>
+                                        <StackLayout 
+                                            HorizontalOptions="FillAndExpand" 
+                                            HeightRequest="20"
+                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"  
+                                            Padding="5,5,5,5"
+                                        >
+                                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                                <Label 
+                                                    Text="{Binding Nome_Questao}"
+                                                    LineBreakMode="TailTruncation" 
+                                                    HorizontalTextAlignment="Center"
+                                                    TextColor="White"
+                                                    FontSize="20"
+                                                />
+
+                                            </StackLayout>
+
+                                        </StackLayout>
+
+                                    </RelativeLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

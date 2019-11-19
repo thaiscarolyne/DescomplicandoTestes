@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DescomplicandoTestes.View.PesquisarProvas"
+             x:Name="PesquisarProvasPage"
+             >
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Label Text="PESQUISAR PROVAS"  Style="{StaticResource Cabecalho}" FontSize="19" HorizontalOptions="Start" Margin="20,0,0,0"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource Fundo}" Spacing="20">
+
+            <StackLayout VerticalOptions="Start">
+                <Image Source="Cabecalho.png" Aspect="Fill" />
+            </StackLayout>
+
+            <StackLayout VerticalOptions="Start">
+
+                <RelativeLayout >
+                    <BoxView 
+                           x:Name="Box" 
+                           CornerRadius ="20, 20, 20, 20"
+                           HeightRequest="60"  
+                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                        />
+
+                    <Entry
+                            Placeholder="Pesquisar prova..."
+                            FontSize="17"
+                            HorizontalTextAlignment="Start"
+                            Margin="-10,-12,0,0"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=20}"
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=0.8, Property=Width, ElementName=Box}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.11, Property=Width}"
+                            Text="{Binding ProvaAPesquisar, Mode=TwoWay}"
+                        />
+
+                    <ImageButton 
+                            Source="pesquisar.png"
+                            HeightRequest="65"
+                            BackgroundColor="Transparent"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=Box,Constant=-4}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.85, Property=Width}"
+                        />
+
+                </RelativeLayout>
+            </StackLayout>
+
+
+            <StackLayout VerticalOptions="FillAndExpand">
+                <RelativeLayout>
+
+                    <BoxView 
+                        x:Name="BoxListaProvas"
+                        CornerRadius ="20, 20, 20, 20"  
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=1.2, Property=Height}"
+                    />
+
+                    <!--
+                            
+                    -->
+                    <ListView 
+                            x:Name="ListViewProvas"
+                            ItemTapped="VisualizarProva"
+                            SelectedItem="{Binding ProvaSelecionada, Mode=TwoWay}" 
+                            ItemsSource="{Binding ListaProvas}"                                   
+                            SeparatorVisibility="None"
+                            RowHeight="110"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, Property=Y, ElementName=BoxListaProvas,Constant=10}"  
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.95, Property=Height}"    
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, Factor=1, ElementName=BoxListaProvas, Property=Width}"
+                     >
+                        
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                        <BoxView 
+                                                x:Name="Box" 
+                                                CornerRadius ="20, 20, 20, 20"
+                                                HeightRequest="95"  
+                                                BackgroundColor="{StaticResource CorProva}"   
+                                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"
+                                        >
+                                        </BoxView>
+                                        <StackLayout 
+                                            HorizontalOptions="FillAndExpand" 
+                                            HeightRequest="70"
+                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.05, Property=Width}"
+                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0.9, Property=Width}"  
+                                            Padding="5,5,5,5"
+                                        >
+                                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                                <Label 
+                                                    Text="{Binding Nome_Prova}"
+                                                    LineBreakMode="TailTruncation" 
+                                                    HorizontalTextAlignment="Center"
+                                                />
+
+                                                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                                                    <Label 
+                                                        x:Name="valorprova"
+                                                        Text="{Binding Valor}"
+                                                        HorizontalTextAlignment="Center"
+                                                        LineBreakMode="TailTruncation"                                               
+                                                    />
+                                                    <Label 
+                                                        Text="pontos"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="TailTruncation"                                               
+                                                    />
+                                                </StackLayout>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+                                               
+                                                <ImageButton Source="excluir.png"
+                                                              Scale="1.2"
+                                                             Command="{Binding Source={x:Reference PesquisarProvasPage}, Path=BindingContext.ExcluirProva}"
+                                                             CommandParameter="{Binding .}"
+                                                             >
+                                                </ImageButton>
+                                            </StackLayout>
+
+                                        </StackLayout>
+
+                                    </RelativeLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RelativeLayout>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

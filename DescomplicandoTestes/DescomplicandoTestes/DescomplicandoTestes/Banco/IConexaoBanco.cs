@@ -57,5 +57,20 @@ namespace DescomplicandoTestes.Banco
 
         //Esse método irá excluir as alternativas que existiam para essa questão, e chamar a função de adicionar alternativas para adicionar as novas
         void EditarAlternativas(string CPF, string nomedisciplina, string nomeconteudo, string nomequestaoantiga, string nomequestaonova, List<Alternativa> alt);
+
+        //Esse método irá cadastrar a prova no banco de dados
+        string CadastrarProva(string nomeprova, string CPF, string nomedisciplina, string nomeconteudo, string nometurma, int valor);
+
+        //Esse método irá buscar as provas do professor no banco de dados
+        List<Prova> BuscarProvas(string CPF);
+
+        //Esse método irá adicionar as questões relacionadas à prova na tabela QUEST_PROV
+        string AdicionarQuestoesProva(string nomeprova, string CPF, string nomedisciplina, string nomeconteudo, List<Questao> listaquestoes);
+
+        //Esse método irá excluir uma prova do banco de dados
+        string ExcluirProva(string CPF, string nomeprova, string disciplina, string conteudo);
+
+        //Esse método irá buscar questões de uma determinada prova
+        List<Questao> BuscarQuestoesProva(string CPF, string nomeprova, string disciplina, string conteudo);
     }
 }
